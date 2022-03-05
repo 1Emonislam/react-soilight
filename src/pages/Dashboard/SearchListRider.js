@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs'
 import React, { useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
+import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
 function SearchListRider({ title, setPage, data, limit, count, rider, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
   const [value, setValue] = React.useState('one');
@@ -62,7 +63,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {data && dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
+        {!data? <Loading /> : dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>

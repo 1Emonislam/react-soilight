@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import React, { useState } from 'react';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
+import Loading from './Sheard/Loading';
 import './Sheard/SearchList.css';
 function SearchListSeller({ title, data, setPage, limit, count, seller, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
   const [value, setValue] = React.useState('one');
@@ -16,8 +17,8 @@ function SearchListSeller({ title, data, setPage, limit, count, seller, handleSi
     objects: [...data]
   })
   React.useEffect(() => {
-    setDataState({  activeObject:dataState?.activeObject, objects: [...data] })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setDataState({ activeObject: dataState?.activeObject, objects: [...data] })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
   function toggleActive(index) {
     setDataState({ ...dataState, activeObject: dataState.objects[index] })
@@ -62,7 +63,7 @@ function SearchListSeller({ title, data, setPage, limit, count, seller, handleSi
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {data && dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
+        {!data? <Loading /> : dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>

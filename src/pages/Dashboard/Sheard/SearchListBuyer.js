@@ -1,6 +1,7 @@
 import { Grid, Pagination } from '@mui/material'
 import React, { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
+import Loading from './Loading'
 import './SearchList.css'
 function SearchListBuyer({ title, data, setPage, limit, count, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
   const [dataState, setDataState] = useState({
@@ -42,7 +43,7 @@ function SearchListBuyer({ title, data, setPage, limit, count, handleSingleUser,
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {data && dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
+        {!data? <Loading /> :dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>

@@ -3,10 +3,11 @@ import Rating from '@mui/material/Rating';
 import React from 'react';
 import { Alert } from '@mui/material';
 import './SearchProfileView.css';
+import Loading from './Loading';
 function SearchProfileView({ data = {}, handleApproved, handleRejected, error, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
     return (
         <div>
-            {data && <div className="profile-view-section" style={{ marginTop: '70px' }}>
+            {!data? <Loading /> :<div className="profile-view-section" style={{ marginTop: '70px' }}>
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
