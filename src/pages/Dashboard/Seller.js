@@ -98,7 +98,7 @@ function Seller() {
                 }
             })
     }, [page, searchText, user?.token]);
-    const handleSingleUser = (id, index) => {
+    const handleSingleUser = (id) => {
         // console.log(id)
         // console.log(index)
         fetch(`https://soilight.herokuapp.com/users/${id}`, {

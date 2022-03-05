@@ -41,7 +41,7 @@ function Buyer() {
             })
     }, [page, searchText, user?.token]);
     const [chkValue, setChkValue] = useState(false);
-    const handleSingleUser = (e, id) => {
+    const handleSingleUser = (id) => {
         setChkValue(!chkValue)
         fetch(`https://soilight.herokuapp.com/users/${id}`, {
             method: 'GET',

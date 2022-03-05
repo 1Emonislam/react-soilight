@@ -3,7 +3,6 @@ import Rating from '@mui/material/Rating';
 import React from 'react';
 import { Alert } from '@mui/material';
 import './SearchProfileView.css';
-import Loading from './Loading';
 function SearchProfileView({ data = {}, handleApproved, handleRejected, error, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
     return (
         <div>
