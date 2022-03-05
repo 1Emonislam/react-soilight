@@ -1,16 +1,14 @@
 import { Grid, Pagination } from '@mui/material';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import React from 'react';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
 import './Sheard/SearchList.css';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-
 function SearchListSeller({ title, data, setPage, limit, count, seller, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
   const userData = [...data];
   const [value, setValue] = React.useState('one');
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -25,10 +23,15 @@ function SearchListSeller({ title, data, setPage, limit, count, seller, handleSi
               value={value}
               onChange={handleChange}
               aria-label="wrapped label tabs example"
+              TabIndicatorProps={{
+                style: {
+                  display: "none"
+                }
+              }}
             >
-              <Tab className="btn-search" style={{ marginLeft: '10px', minHeight: '42px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', height: '0px' }} value="one" label="New Request" onClick={(e) => handleNewRequest(e, 'latest')}>
+              <Tab className="btn-search" style={{ marginLeft: '10px', minHeight: '42px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="New Request" onClick={(e) => handleNewRequest(e, 'latest')}>
               </Tab>
-              {handleApproveRequest && <Tab value="two" label="Approved Request" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', minHeight: '42px', borderRadius: '40px', height: '0px' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
+              {handleApproveRequest && <Tab value="two" label="Approved Request" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', minHeight: '42px', borderRadius: '40px' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
               </Tab>}
             </Tabs>
           </Box>
@@ -43,7 +46,7 @@ function SearchListSeller({ title, data, setPage, limit, count, seller, handleSi
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {userData && userData?.map(user => (<button onClick={() => handleSingleUser(user?._id)} className="user-list" key={user?._id}>
+        {userData && userData?.map((user, index) => (<button selected className="MenuItem user-list" onClick={(e) => handleSingleUser(user?._id, index)}value={index} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>

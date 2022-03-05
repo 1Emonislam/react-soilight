@@ -30,7 +30,7 @@ function Seller() {
         let search = searchText || '';
         // setLatest()
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists/new?search=${search}page=${page}&&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists/new?search=${search}&&page=${page}&&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -98,8 +98,9 @@ function Seller() {
                 }
             })
     }, [page, searchText, user?.token]);
-    const handleSingleUser = (id) => {
+    const handleSingleUser = (id, index) => {
         // console.log(id)
+        console.log(index)
         fetch(`https://soilight.herokuapp.com/users/${id}`, {
             method: 'GET',
             headers: {

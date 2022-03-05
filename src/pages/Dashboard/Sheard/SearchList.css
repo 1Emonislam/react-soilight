@@ -44,7 +44,16 @@
     padding-left: 34px;
   }
 }
+
+.MenuItem.Mui-selected {
+  border-left: 8px solid #3858cd;
+  outline: transparent;
+}
 .user-list:focus {
+  border-left: 8px solid #3858cd;
+  outline: transparent;
+}
+.user-list-focus {
   border-left: 8px solid #3858cd;
   outline: transparent;
 }

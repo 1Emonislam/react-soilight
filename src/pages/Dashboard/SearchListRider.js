@@ -1,13 +1,12 @@
-import React from 'react'
-import './Sheard/SearchList.css'
-import { BsSearch } from 'react-icons/bs'
-import { AiOutlineClockCircle } from 'react-icons/ai'
 import { Grid, Pagination } from '@mui/material'
-import './Sheard/SearchList.css';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-function SearchListRider({ title, setPage, data,limit, count, rider, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
+import Box from '@mui/material/Box'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import React from 'react'
+import { AiOutlineClockCircle } from 'react-icons/ai'
+import { BsSearch } from 'react-icons/bs'
+import './Sheard/SearchList.css'
+function SearchListRider({ title, setPage, data, limit, count, rider, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
   const userData = [...data]
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
@@ -23,10 +22,15 @@ function SearchListRider({ title, setPage, data,limit, count, rider, handleSingl
               value={value}
               onChange={handleChange}
               aria-label="wrapped label tabs example"
+              TabIndicatorProps={{
+                style: {
+                  display: "none"
+                }
+              }}
             >
-              <Tab className="btn-search" style={{ marginLeft: '10px', minHeight: '42px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', height: '0px' }} value="one" label="New Request" onClick={(e) => handleNewRequest(e, 'latest')}>
+              <Tab className="btn-search" style={{ marginLeft: '10px', minHeight: '42px!important', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="New Request" onClick={(e) => handleNewRequest(e, 'latest')}>
               </Tab>
-              {handleApproveRequest && <Tab value="two" label="Approved Request" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', minHeight: '42px', borderRadius: '40px', height: '0px' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
+              {handleApproveRequest && <Tab value="two" label="Approved Request" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px',  minHeight: '42px!important' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
               </Tab>}
             </Tabs>
           </Box>
