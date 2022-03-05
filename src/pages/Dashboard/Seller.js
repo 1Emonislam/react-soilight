@@ -8,8 +8,6 @@ import SearchProfileView from './Sheard/SearchProfileView'
 function Seller() {
     const navigate = useNavigate();
     const userLogin = useSelector(state => state.userLogin);
-    const [chkValue, setChkValue] = useState(0);
-    const [chkValue2, setChkValue2] = useState(false);
     const { user } = userLogin;
     const [page, setPage] = useState(1);
     const limit = 50;
