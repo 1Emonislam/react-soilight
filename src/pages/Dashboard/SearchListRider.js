@@ -63,7 +63,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {!data? <Loading /> : dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
+        {!data? <Loading /> : dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleUser(user?._id, toggleActive(index))} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>

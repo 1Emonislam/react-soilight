@@ -93,9 +93,7 @@ function Rider() {
                 }
             })
     }, [page, searchText, user?.token]);
-    const handleSingleUser = (e,id) => {
-        // console.log(id)
-        // console.log(id)
+    const handleSingleUser = (id) => {
         fetch(`https://soilight.herokuapp.com/users/${id}`, {
             method: 'GET',
             headers: {
