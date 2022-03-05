@@ -73,11 +73,12 @@
 /* dashboard body*/
 @media (min-width: 768px) {
   .dashboard-body {
-    background-color: white;
+    background-color: #fff;
     border-radius: 30px;
+    height: 100%;
     position: relative;
     width: 100%;
-    height: 100%;
+    padding-bottom: 40px;
   }
   .warper-outbox {
     background: #22222e;
