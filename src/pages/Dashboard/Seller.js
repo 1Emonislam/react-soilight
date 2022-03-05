@@ -100,7 +100,7 @@ function Seller() {
     }, [page, searchText, user?.token]);
     const handleSingleUser = (id, index) => {
         // console.log(id)
-        console.log(index)
+        // console.log(index)
         fetch(`https://soilight.herokuapp.com/users/${id}`, {
             method: 'GET',
             headers: {

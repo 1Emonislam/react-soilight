@@ -7,7 +7,7 @@ import Loading from './Loading';
 function SearchProfileView({ data = {}, handleApproved, handleRejected, error, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
     return (
         <div>
-            {!data? <Loading /> :<div className="profile-view-section" style={{ marginTop: '70px' }}>
+            {data && <div className="profile-view-section" style={{ marginTop: '70px' }}>
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -81,7 +81,7 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, s
                                 </div> */}
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <div className="item-view" style={{borderLeft:'0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
                                     {data?.status === 'approved' ? <Button variant="contained" onClick={() => handleRejected(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Rejected </Button> : <Button variant="contained" onClick={() => handleApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>}
                                 </div>
                             </Grid>
