@@ -1,0 +1,137 @@
+.search-title {
+  padding-top: 30px;
+  margin-left: 10px;
+  font-weight: 600;
+  color: #222;
+  margin-top: -3px;
+  font-size: 25px;
+}
+.search-container-box {
+  background-color: #f7f7fa;
+  padding-bottom: 5px;
+}
+.searchInput-relative {
+  position: relative;
+}
+.searchInput {
+  width: 70%;
+  border-radius: 20px;
+  border: none;
+  padding: 15px;
+  background: #ececec;
+  position: relative;
+  padding-left: 34px;
+  display: block;
+  margin: 0 auto;
+}
+.searchInput-icon {
+  top: 13px;
+  left: 42px;
+  color: #191918;
+  position: absolute;
+}
+.searchInput:focus {
+  outline: none;
+}
+@media (max-width: 768px) {
+  .searchInput {
+    width: 70%;
+    border-radius: 20px;
+    border: none;
+    padding: 15px;
+    background: #ececec;
+    position: relative;
+    padding-left: 34px;
+  }
+}
+.user-list:focus {
+  border-left: 8px solid #3858cd;
+  outline: transparent;
+}
+.user-list {
+  border-left: 8px solid transparent;
+  width: 100%;
+  margin: 10px 0;
+  padding: 6px 15px;
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border: 8px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.user-list h5 {
+  margin: 0px;
+  padding: 0px;
+}
+.user-list h5 strong {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 17px;
+  color: #222;
+  display: block;
+}
+.user-list b {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 17px;
+  color: #222;
+}
+.user-list h5 {
+  margin: 0px;
+  padding: 3px 0;
+  color: #444;
+}
+.user-list small {
+  margin: 0px;
+  padding: 0px;
+  font-size: 13px;
+  color: #444;
+}
+.profile-info {
+  padding-left: 10px;
+}
+@media (max-width: 300px) {
+  .user-list h5 strong {
+    font-size: 12px !important;
+  }
+  .user-list small {
+    margin: 0px;
+    padding: 0px;
+    font-size: 10px;
+  }
+}
+
+.btn-search {
+  background: white;
+  border: oldlace;
+  border-radius: 32px;
+  color: #222222;
+  cursor: pointer;
+}
+.search-container-box .css-1aquho2-MuiTabs-indicator {
+  height: 0px !important;
+}
+.search-container-box .Mui-selected {
+  background-color: #3858cd !important;
+  color: white !important;
+  text-transform: capitalize !important;
+  border-radius: 32px;
+  color: #222222;
+  cursor: pointer;
+}
+.btn-search:hover {
+  background-color: #3858cd;
+  color: white;
+  border-radius: 32px;
+}
+.btn-search:focus {
+  background-color: #3858cd;
+  color: white;
+}
+.search-container-box {
+  background-color: #f7f7fa;
+  padding-bottom: 5px;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
