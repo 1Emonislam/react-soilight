@@ -26,7 +26,7 @@ function Seller() {
             navigate('/login')
         }
     }, [navigate, user?.message])
-    const handleNewRequest = async (e,latest) => {
+    const handleNewRequest = async (e, latest) => {
         let search = searchText || '';
         // setLatest()
         try {
@@ -54,8 +54,9 @@ function Seller() {
 
     }
     const handleApproveRequest = async (e) => {
+        let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists/approved?page=${page}&&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists/approved?search=${search}&&page=${page}&&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -183,7 +184,7 @@ function Seller() {
             <DashboardHeader title="Seller" />
             <Grid container spacing={1}>
                 <Grid item xs={12} md={6} lg={4}>
-                    <SearchListSeller handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText}setPage={setPage}limit={limit} title="" seller="Seller:" searchTitle="Seller" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListSeller>
+                    <SearchListSeller handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} setPage={setPage} limit={limit} title="" seller="Seller:" searchTitle="Seller" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListSeller>
                 </Grid>
                 <Grid item xs={12} md={6} lg={8}>
                     <SearchProfileView totalRate={totalRate} error={error} success={success} handleRejected={handleRejected} handleApproved={handleApproved} seller="seller" avgRating={avgRating} data={singleUser} title="Seller Info" />

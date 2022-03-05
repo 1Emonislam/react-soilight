@@ -6,24 +6,26 @@ import SearchListRider from './SearchListRider'
 import DashboardHeader from './Sheard/DashboardHeader'
 import SearchProfileView from './Sheard/SearchProfileView'
 function Rider() {
+    const [searchText, setSearchText] = useState("")
+    const [singleUser, setSingleUser] = useState("");
+    const [sellerList, setSellerList] = useState([])
+    const [count, setCount] = useState("")
+    const [avgRating, setAvgRating] = useState("")
+    const [totalRate, setTotalRate] = useState("");
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [open, setOpen] = useState(false)
+    const [page, setPage] = useState(1);
+    const limit = 50;
     const navigate = useNavigate();
     const userLogin = useSelector(state => state.userLogin);
     const { user } = userLogin;
-    const [chkValue, setChkValue] = useState(false);
     useEffect(() => {
         if (!user?.message) {
             navigate('/login')
         }
     }, [navigate, user?.message])
     const handleNewRequest = async (e) => {
-        setChkValue(!chkValue)
-        if (chkValue === true) {
-            e.target.style.background = '#3858cd';
-            e.target.style.color = 'white';
-        } else {
-            e.target.style.background = 'white';
-            e.target.style.color = '#222';
-        }
         try {
             await fetch(`https://soilight.herokuapp.com/dashboard/users/rider/lists/new`, {
                 method: 'GET',
@@ -48,15 +50,6 @@ function Rider() {
 
     }
     const handleApproveRequest = async (e) => {
-        setChkValue(!chkValue)
-        // console.log(chkValue)
-        if (chkValue === true) {
-            e.target.style.background = '#3858cd';
-            e.target.style.color = 'white';
-        } else {
-            e.target.style.background = 'white';
-            e.target.style.color = '#222';
-        }
         try {
             await fetch(`https://soilight.herokuapp.com/dashboard/users/rider/lists/approved`, {
                 method: 'GET',
@@ -79,17 +72,7 @@ function Rider() {
         catch {
         }
     }
-    const [searchText, setSearchText] = useState("")
-    const [singleUser, setSingleUser] = useState("");
-    const [sellerList, setSellerList] = useState([])
-    const [count, setCount] = useState("")
-    const [avgRating, setAvgRating] = useState("")
-    const [totalRate, setTotalRate] = useState("");
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-    const [open, setOpen] = useState(false)
-    const [page, setPage] = useState(1);
-    const limit = 50;
+    
     useEffect(() => {
         // console.log(page)
         // https://soilight.herokuapp.com/dashboard/users/rider/lists?search=${search}page=${page}&&limit=${limit}
