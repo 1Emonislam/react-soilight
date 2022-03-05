@@ -1,9 +1,28 @@
 import { Grid, Pagination } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import './SearchList.css'
 function SearchListBuyer({ title, data, setPage, limit, count, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
-  const userData = [...data]
+  const [dataState, setDataState] = useState({
+    activeObject: null,
+    objects: [...data]
+  })
+  React.useEffect(() => {
+    setDataState({  activeObject:dataState?.activeObject, objects: [...data] })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+  // console.log(data)
+  // console.log(dataState.objects,data)
+  function toggleActive(index) {
+    setDataState({ ...dataState, activeObject: dataState.objects[index] })
+  }
+  function toggleActiveStyle(index) {
+    if (dataState.objects[index] === dataState.activeObject) {
+      return 'user-list active'
+    } else {
+      return 'user-list inactive'
+    }
+  }
   return (
     <div className='search-container-box'>
       <h4 className='search-title' style={{ paddingLeft: '30px' }}>{title}</h4>
@@ -23,7 +42,7 @@ function SearchListBuyer({ title, data, setPage, limit, count, handleSingleUser,
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {userData && userData?.map(user => (<button onClick={(e) => handleSingleUser(e, user?._id)} className="user-list" key={user?._id}>
+        {data && dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>

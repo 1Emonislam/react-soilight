@@ -53,8 +53,12 @@
   border-left: 8px solid #3858cd;
   outline: transparent;
 }
-.user-list-focus {
-  border-left: 8px solid #3858cd;
+.active {
+  border-left: 8px solid #3858cd !important;
+  outline: transparent;
+}
+.inactive {
+  border-left: 8px solid transparent;
   outline: transparent;
 }
 .user-list {

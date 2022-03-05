@@ -2,16 +2,33 @@ import { Grid, Pagination } from '@mui/material'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import './Sheard/SearchList.css'
 function SearchListRider({ title, setPage, data, limit, count, rider, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
-  const userData = [...data]
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [dataState, setDataState] = useState({
+    activeObject: null,
+    objects:[...data]
+  })
+  React.useEffect(() => {
+    setDataState({  activeObject:dataState?.activeObject, objects: [...data] })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+  function toggleActive(index) {
+    setDataState({ ...dataState, activeObject: dataState.objects[index] })
+  }
+  function toggleActiveStyle(index) {
+    if (dataState.objects[index] === dataState.activeObject) {
+      return 'user-list active'
+    } else {
+      return 'user-list inactive'
+    }
+  }
   return (
     <div className='search-container-box'>
       <h4 className='search-title' style={{ paddingLeft: '30px' }}>{title}</h4>
@@ -45,7 +62,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {userData && userData?.map(user => (<button onClick={(e) => handleSingleUser(e, user?._id)} className="user-list" key={user?._id}>
+        {data && dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={(e) => handleSingleUser(user?._id, index, toggleActive(index))} key={user?._id}>
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>
