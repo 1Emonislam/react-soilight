@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { AiFillDashboard } from 'react-icons/ai'
 import { BiStoreAlt } from 'react-icons/bi'
 import { FaCaravan, FaUserAstronaut } from 'react-icons/fa'
+import { MdPointOfSale} from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import './DashboardHome.css'
@@ -32,6 +33,7 @@ function DashboardHome() {
                                     </Typography>
                                 </div>
                                 <NavLink to="/dashboard/dashboard" className={(state) => state?.isActive ? 'selected' : ''}><AiFillDashboard /><span>Dashboard</span></NavLink>
+                                <NavLink to="/dashboard/order" className={(state) => state?.isActive ? 'selected' : ''}><MdPointOfSale /><span>Order</span></NavLink>
                                 <NavLink to="/dashboard/buyer" className={(state) => state?.isActive ? 'selected' : ''}><FaUserAstronaut /><span>Buyer</span></NavLink>
                                 <NavLink to="/dashboard/seller" className={(state) => state?.isActive ? 'selected' : ''}><BiStoreAlt /> <span>Seller</span></NavLink>
                                 <NavLink to="/dashboard/rider" className={(state) => state?.isActive ? 'selected' : ''}><FaCaravan /> <span>Rider</span></NavLink>

@@ -113,7 +113,9 @@
     font-size: 10px;
   }
 }
-
+.btn-search {
+  min-height: 42px !important;
+}
 .btn-search {
   background: white;
   border: oldlace;

@@ -7,6 +7,7 @@ import EditProfile from "./pages/Authentication/EditProfile";
 import Login from "./pages/Authentication/Login";
 import Buyer from "./pages/Dashboard/Buyer";
 import DashBoard from "./pages/Dashboard/DashBoard";
+import Order from "./pages/Dashboard/Order";
 import Profile from "./pages/Dashboard/Profile";
 import Rider from "./pages/Dashboard/Rider";
 import Seller from "./pages/Dashboard/Seller";
@@ -32,6 +33,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardHome>
           </DashboardHome>}>
             <Route path="dashboard" element={<AdminProtect><DashBoard /> </AdminProtect>} />
+            <Route path="order" element={<Order/>} />
             <Route path="buyer" element={<Buyer />} />
             <Route path="seller" element={<Seller />} />
             <Route path="rider" element={<Rider />} />

@@ -1,13 +1,14 @@
-import { Button, Grid } from '@mui/material';
+import { Alert, Button, Grid } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import React from 'react';
-import { Alert } from '@mui/material';
 import './SearchProfileView.css';
-function SearchProfileView({ data = {}, handleApproved, handleRejected, error, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
+
+function SearchProfileView({ data = {}, handleApproved, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
+    // console.log(order)
     return (
         <div>
             {data && <div className="profile-view-section" style={{ marginTop: '70px' }}>
-                <Grid container spacing={2} alignItems="center" justifyContent="center">
+                {!order && <Grid container spacing={2} alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <div className="profile-view" style={{ padding: '0px 10px' }}>
@@ -18,7 +19,7 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, s
                             </div>
                         </div>
                     </Grid>
-                </Grid>
+                </Grid>}
                 <Grid container spacing={2} alignItems="center" justifyContent="center" className="all-center">
                     <Grid item xs={12}>
                         <div>
@@ -26,34 +27,60 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, s
                         </div>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {buyer && <><Grid item xs={12} md={6}>
                         <div className="item-view">
                             <p style={{ margin: "0px", color: '#444444' }}> Name</p>
                             <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.name || 'N/A'}</p>
                         </div>
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <div className="item-view">
-                            <p style={{ margin: "0px", color: '#444444' }}>Phone Number</p>
-                            <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.phone || 'N/A'}</p>
-                        </div>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <div className="item-view">
-                            <p style={{ margin: "0px", color: '#444444' }}>Address</p>
-                            <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.address || 'N/A'}
-                            </p>
-                        </div>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <div className="item-view">
-                            <p style={{ margin: "0px", color: '#444444' }}>Email</p>
-                            <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.email || 'N/A'} </p>
-                        </div>
-                    </Grid>
+                        <Grid item xs={12} md={6}>
+                            <div className="item-view">
+                                <p style={{ margin: "0px", color: '#444444' }}>Phone Number</p>
+                                <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.phone || 'N/A'}</p>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <div className="item-view">
+                                <p style={{ margin: "0px", color: '#444444' }}>Address</p>
+                                <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.address || 'N/A'}
+                                </p>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <div className="item-view">
+                                <p style={{ margin: "0px", color: '#444444' }}>Email</p>
+                                <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.email || 'N/A'} </p>
+                            </div>
+                        </Grid>
+                    </>}
                     {
                         rider &&
                         <>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}> Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.name || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Phone Number</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.phone || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Address</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.address || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Email</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.email || 'N/A'} </p>
+                                </div>
+                            </Grid>
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Valid ID Number</p>
@@ -86,8 +113,33 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, s
                             </Grid>
                         </>
                     }
-                    {
-                        seller && <>
+                    <>
+                        {seller && <>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}> Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.name || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Phone Number</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.phone || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Address</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.address || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Email</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.email || 'N/A'} </p>
+                                </div>
+                            </Grid>
                             <Grid item xs={12}>
                                 <div>
                                     <p style={{ marginBottom: "0", marginTop: '60px' }}><strong style={{ fontWeight: '500', fontSize: '20px' }}>Shop Info</strong></p>
@@ -152,7 +204,6 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, s
                             </Grid>}
                             {rider && <Grid item xs={12} md={6} >
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
-
                                 </div>
                             </Grid>
                             }
@@ -180,7 +231,151 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, s
                                 </div>
                             </Grid>
                         </>
-                    }
+                        }
+                        {order && <>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}> Order Time</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{new Date(data?.createdAt)?.toLocaleString('en-us', { weekday: 'long', month: 'long', year: 'numeric', day: 'numeric', time: 'numeric', hour: 'numeric', minute: 'numeric' }) || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Order Number</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?._id || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Buyer Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.name || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Buyer Address</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.address || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Rider Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Rider Address</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Transaction ID:</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.transaction_id || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Tax Ref:</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.tx_ref || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Order Status:</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.status || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <span style={{ margin: "0px", color: '#444444' }}>Total: </span>
+                                    <span style={{ color: 'black', fontWeight: '500' }}> ${data?.products?.reduce((perv, curr) => (perv + Number(curr?.price)), 0)}</span>
+                                </div>
+                            </Grid>
+                            <>
+                                {data?.products?.map((pd, index) => (<Grid key={index} container spacing={0} alignItems="center" style={{ paddingTop: '40px' }}>
+                                    <Grid item xs={3} md={2}>
+                                        <div>
+                                            <span>
+                                                <img style={{ width: '100px', height: '100px', borderRadius: "10px", marginRight: '6px' }} src={pd?.productId?.img} alt={pd?.productId?.name} />
+                                            </span>
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={9} md={10} style={{ marginBottom: '5px' }}>
+                                        <Grid container spacing={0} alignItems="center" justifyContent="space-between" style={{ borderBottom: '1px solid #ddd', paddingBottom: "5px" }}>
+                                            <Grid item xs={6} md={6}>
+                                                <div>
+                                                    <div>
+                                                        <span>
+                                                            {pd?.productId?.name}
+                                                            <br />
+                                                            <span style={{ fontSize: '14px', color: 'gray', marginRight: '5px' }}>
+                                                                seller:
+                                                            </span>
+                                                            <span style={{ fontSize: '14px' }}>
+                                                                {pd?.productOwner?.name}
+                                                            </span>
+                                                        </span>
+                                                        <br />
+                                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                            <Rating name="read-only" style={{ fontSize: '14px', marginRight: '4px' }} value={pd?.productId?.rating} readOnly />
+                                                            <span style={{ fontSize: "15px" }}>{pd?.productId?.rating} </span>
+                                                            <span style={{ fontSize: '10px', color: 'gray', marginLeft: '2px' }}> ({pd?.productId?.numReviews})</span>
+                                                        </div>
+                                                        <div>
+                                                            <span style={{ fontSize: '12px', color: 'gray', marginRight: '4px' }}>Shop Addr:</span>
+                                                            <span style={{ fontSize: '10px' }} key={index}>{pd?.productOwner?.sellerShop?.address}</span>
+                                                        </div>
+                                                    </div>
+                                                </div></Grid>
+                                            <Grid item xs={4} md={3}>
+                                                <div>
+                                                    <span style={{ fontSize: '10px' }}><span style={{ color: 'gray' }}> Quantity: </span> {pd?.quantity}</span>
+                                                </div>
+                                                <div>
+                                                    <span style={{ fontSize: '10px' }}> <span style={{ color: 'gray' }}>Pack Type:</span> {pd?.productId?.pack_type}</span>
+                                                </div>
+                                                <div>
+                                                    <span style={{ fontSize: '10px' }}> <span style={{ color: 'gray' }}>Serving Size:</span> {pd?.productId?.serving_size}</span>
+                                                </div>
+                                            </Grid>
+                                            <Grid item xs={2} md={3}>
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <span style={{ color: 'gray', fontSize: '12px' }}>
+                                                        Price:
+                                                    </span>
+                                                    <br />
+                                                    <span style={{ fontSize: '16px', color: '#FF0000' }}>
+                                                        {pd?.price}
+                                                    </span>
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>))
+                                }
+                                <Grid container spacing={0}>
+                                    <Grid item xs={12} style={{ textAlign: 'right', paddingRight: "40px",paddingTop:'10px' }}>
+                                        <span style={{ color: 'black', fontWeight: '500' }}> Total: ${data?.products?.reduce((perv, curr) => (perv + Number(curr?.price)), 0)}</span>
+                                    </Grid>
+                                </Grid>
+                            </>
+                            {<Grid item xs={12} md={6} style={{}}>
+                            </Grid>}
+                            <Grid item xs={12} md={6} style={{ marginBottom: '50px', marginTop: '20px', marginLeft: '85px' }}>
+                                <div className="item-view" style={{ padding: '0px 10px', borderLeft: '0px' }}>
+                                    {data?.status === 'complete' ? <Button variant="contained" onClick={() => handleRejected(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button> : <Button variant="contained" onClick={() => handleApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}> Order Complete </Button>}
+                                </div>
+                            </Grid>
+                        </>}
+                    </>
                 </Grid >
             </div >}
         </div >
