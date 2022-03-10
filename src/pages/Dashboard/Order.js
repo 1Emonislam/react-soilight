@@ -17,6 +17,7 @@ function Order() {
     const limit = 50;
     const navigate = useNavigate();
     const userLogin = useSelector(state => state.userLogin);
+    const [isOpen, setIsOpen] = useState(false)
     const { user } = userLogin;
     useEffect(() => {
         if (!user?.message) {
@@ -26,7 +27,7 @@ function Order() {
     const handlePendingRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
+            await fetch(`http://localhost:5000/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -51,7 +52,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
+            await fetch(`http://localhost:5000/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -72,10 +73,10 @@ function Order() {
         catch {
         }
     }
-    
+
     useEffect(() => {
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
+        fetch(`http://localhost:5000/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -93,7 +94,7 @@ function Order() {
     }, [page, searchText, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
-        fetch(`https://soilight.herokuapp.com/products/orders/singleOrder/${id}`, {
+        fetch(`http://localhost:5000/products/orders/singleOrder/${id}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -106,9 +107,9 @@ function Order() {
                 setSingleUser(data?.data)
             })
     }
-    const handleApproved = (id) => {
-        // console.log(id)
-        fetch(`https://soilight.herokuapp.com/users/approved/${id}`, {
+    const orderCompelete = (id) => {
+        setIsOpen(true)
+        fetch(`http://localhost:5000/products/orders/complete/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -118,11 +119,13 @@ function Order() {
             .then(res => res.json())
             .then(data => {
                 if (data?.error) {
+                    setIsOpen(false)
                     setOpen(true)
                     setSuccess("")
                     setError(data?.error)
                 }
                 if (data?.data) {
+                    setIsOpen(false)
                     setOpen(true)
                     setError("")
                     setSuccess(data?.message)
@@ -131,8 +134,9 @@ function Order() {
 
             })
     }
-    const handleRejected = (id) => {
-        fetch(`https://soilight.herokuapp.com/users/rejected/${id}`, {
+    const orderCancel = (id) => {
+        setIsOpen(true)
+        fetch(`http://localhost:5000/products/orders/pending/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -142,11 +146,13 @@ function Order() {
             .then(res => res.json())
             .then(data => {
                 if (data?.error) {
+                    setIsOpen(false)
                     setSuccess("")
                     setError(data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {
+                    setIsOpen(false)
                     setError("")
                     setSuccess(data?.message)
                     setSingleUser(data?.data)
@@ -166,10 +172,10 @@ function Order() {
             <DashboardHeader title="Order" />
             <Grid container spacing={1}>
                 <Grid item xs={12} md={4} lg={4}>
-                    <SearchListOrder handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title=""setPage={setPage}limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
+                    <SearchListOrder handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
-                    <SearchProfileView error={error} success={success} handleApproved={handleApproved} handleRejected={handleRejected} order="Order" data={singleUser} title="Order Info" />
+                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderCompelete={orderCompelete} orderCancel={orderCancel} order="Order" data={singleUser} title="Order Info" />
                 </Grid>
             </Grid>
         </div>

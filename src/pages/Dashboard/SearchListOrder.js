@@ -7,7 +7,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
-function SearchListOrder({ title, setPage, data, limit, count, order, handleSingleClick, setSearchText, searchTitle, handleApproveRequest, handlePendingRequest }) {
+function SearchListOrder({ title, setPage, data, limit, count, order,handleSingleClick, setSearchText, searchTitle, handleApproveRequest, handlePendingRequest }) {
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -68,7 +68,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleSing
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>
-                <img style={{ width: '50px', height: '50px', borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.pic} alt={user?.name} />
+                <img className="img-box-list-item"style={{ borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.user?.pic} alt={user?.user?.name} />
               </>
             </Grid>
             <Grid item xs={8}>

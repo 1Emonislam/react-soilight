@@ -66,7 +66,7 @@ function DashboardGraph({ data = 0 }) {
                 <strong style={{ color: 'white' }}> Total Order</strong>
               </Typography>
               <div className="count">
-                <span sx={{ fontWeight: '500' }}>{data?.riderCount}</span>
+                <span sx={{ fontWeight: '500' }}>{data?.orderCount}</span>
               </div>
               <div className="card-item-rider-icon">
               <AiFillDashboard />

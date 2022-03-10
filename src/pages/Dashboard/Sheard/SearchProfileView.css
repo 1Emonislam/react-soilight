@@ -21,3 +21,8 @@
     padding-left: 30px !important;
   }
 }
+@media (max-width: 1200px) {
+  .profile-view-section {
+    background-color: white;
+  }
+}

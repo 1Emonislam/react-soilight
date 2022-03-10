@@ -67,7 +67,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
           <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>
-                <img style={{ width: '50px', height: '50px', borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.pic} alt={user?.name} />
+                <img className="img-box-list-item"style={{ borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.pic} alt={user?.name} />
               </>
             </Grid>
             <Grid item xs={8}>

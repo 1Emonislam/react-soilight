@@ -14,6 +14,12 @@ function DashboardTableLastWeek({ date = 0, dateTitle = 0, lastWeek = 0 }) {
             <>
                 <Grid container spacing={2} style={{ marginTop: '10px' }} justifyContent="center">
                     <Grid item xs={8} className="list">
+                        <span>Total Order</span>
+                    </Grid>
+                    <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
+                        <span > {lastWeek?.lastWeekOrderCount}</span>
+                    </Grid>
+                    <Grid item xs={8} className="list">
                         <span>Total Buyer</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
@@ -30,6 +36,18 @@ function DashboardTableLastWeek({ date = 0, dateTitle = 0, lastWeek = 0 }) {
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
                         <span > { lastWeek?.lastWeekSellerCount}</span>
+                    </Grid>
+                    <Grid item xs={8} className="list">
+                        <span> Complete Order</span>
+                    </Grid>
+                    <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
+                        <span> {lastWeek?.lastWeekOrderApprove}</span>
+                    </Grid>
+                    <Grid item xs={8} className="list">
+                        <span> Pending Order</span>
+                    </Grid>
+                    <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
+                        <span> {lastWeek?.lastWeekOrderRejected}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span> Approved Seller</span>
