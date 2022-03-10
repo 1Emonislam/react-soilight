@@ -63,14 +63,14 @@
 }
 .user-list {
   border-left: 8px solid transparent;
-  width: 100%;
-  margin: 10px 0;
-  padding: 6px 15px;
+  width: 90%;
+  margin: 18px auto;
   background: #ffffff;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px rgb(0 0 0 / 20%);
   border: 8px solid transparent;
   border-radius: 8px;
   cursor: pointer;
+  display: block;
 }
 .user-list h5 {
   margin: 0px;

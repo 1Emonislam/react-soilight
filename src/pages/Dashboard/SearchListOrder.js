@@ -39,7 +39,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleSing
             <Tabs
               value={value}
               onChange={handleChange}
-              aria-label="wrapped label tabs example"
+              aria-label="wrapped label tabs example"  centered
               style={{ minHeight: '42px!important', justifyContent: 'space-around' }}
               TabIndicatorProps={{
                 style: {
@@ -71,7 +71,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleSing
                 <img style={{ width: '50px', height: '50px', borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.pic} alt={user?.name} />
               </>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={8}>
               <Grid container spacing={0}alignItems="center">
                 <Grid item xs={11}>
                   <>

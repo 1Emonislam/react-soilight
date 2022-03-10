@@ -308,7 +308,7 @@ function SearchProfileView({ data = {}, handleApproved, handleRejected, error, o
                                             </span>
                                         </div>
                                     </Grid>
-                                    <Grid item xs={9} md={10} style={{ marginBottom: '5px' }}>
+                                    <Grid item xs={8} md={10} style={{ marginBottom: '5px' }}>
                                         <Grid container spacing={0} alignItems="center" justifyContent="space-between" style={{ borderBottom: '1px solid #ddd', paddingBottom: "5px" }}>
                                             <Grid item xs={6} md={6}>
                                                 <div>

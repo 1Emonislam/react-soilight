@@ -5,12 +5,7 @@
 .dashboard-section a.selected {
   color: #f5ab24;
 }
-@media (min-width: 768px) {
-  .dashboard-admin {
-    border-radius: 50px 0px 0px 45px;
-    padding-bottom: 100px !important;
-  }
-}
+
 .profile-box {
   padding-top: 50px;
   padding-bottom: 60px;
@@ -65,7 +60,7 @@
     color: #ffffff;
     text-decoration: none;
     position: fixed;
-    width: 270px;
+    width: 260px;
     left: 0;
     top: 0;
   }
@@ -73,12 +68,10 @@
 /* dashboard body*/
 @media (min-width: 768px) {
   .dashboard-body {
-    background-color: #fff;
     border-radius: 30px;
     height: 100%;
     position: relative;
     width: 100%;
-    padding-bottom: 40px;
   }
   .warper-outbox {
     background: #22222e;

@@ -29,7 +29,11 @@
 .auth-container .row {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-bottom: 20px;
+  width: 392px !important;
+  margin: 0 auto;
+  margin-top: 8px;
 }
 
 .auth-container .row label {
@@ -113,9 +117,6 @@
   .change-password-sections input {
     width: 400px !important;
     background-color: #f5f5f5 !important;
-  }
-  .auth-container .row {
-    width: 426px !important;
   }
   .auth-container form {
     background: #f9faff;

@@ -39,7 +39,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
             <Tabs
               value={value}
               onChange={handleChange}
-              aria-label="wrapped label tabs example"
+              aria-label="wrapped label tabs example"  centered
               TabIndicatorProps={{
                 style: {
                   display: "none"
@@ -70,7 +70,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
                 <img style={{ width: '50px', height: '50px', borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.pic} alt={user?.name} />
               </>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={8}>
               <>
                 <h5><span>Rider:</span>
                   <b style={{ fontSize: '14px', marginRight: '3px' }}>{user?.name}</b></h5>

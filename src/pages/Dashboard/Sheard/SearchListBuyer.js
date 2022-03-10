@@ -50,7 +50,7 @@ function SearchListBuyer({ title, data, setPage, limit, count, handleSingleUser,
                 <img style={{ width: '50px', height: '50px', borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.pic} alt={user?.name} />
               </>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={8}>
               <>
                 <h5><strong>{user?.name}</strong></h5>
                 <small>{user?.email}</small>

@@ -1,10 +1,10 @@
-import React from 'react'
 import { Grid } from '@mui/material'
-import logo from '../../../images/logo/soillightLogo.png'
-import { HiMenuAlt3 } from 'react-icons/hi'
+import React from 'react'
 import { AiOutlineSetting } from 'react-icons/ai'
+import { HiMenuAlt3 } from 'react-icons/hi'
+import logo from '../../../images/logo/soillightLogo.png'
 import './Dashboard.css'
-import DashboardSetting from './DashboardSetting';
+import DashboardSetting from './DashboardSetting'
 function DashboardHeader({ title }) {
     return (
         <div className='dashboard-header-color'>
@@ -14,7 +14,7 @@ function DashboardHeader({ title }) {
                         <img src={logo} style={{ width: '144px' }} alt="Soilight logo" />
                     </div>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={8}>
                     <div className="hi-menu">
                         <HiMenuAlt3 size={30} color="#F5AB24" />
                         <strong className='dash-title'>{title}</strong>

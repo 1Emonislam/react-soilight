@@ -19,8 +19,8 @@ function DashboardHome() {
     return (
         <>
             <div className="dashboard-section">
-                <Grid container spacing={2} justifyContent="center" alignItems="center">
-                    <Grid item xs={12} md={2.3}>
+                <Grid container spacing={0} justifyContent="center" alignItems="center">
+                    <Grid item xs={12} md={2}>
                         <>
                             <div className="dashboard-admin">
                                 <div className="profile-box">
@@ -41,9 +41,9 @@ function DashboardHome() {
                             </div>
                         </>
                     </Grid>
-                    <Grid item xs={12} sm={9.3}>
+                    <Grid item xs={12} md={9.3}style={{background:'white'}}>
                         <div className="dashboard-body">
-                            <Outlet />
+                            <Outlet/>
                         </div>
                     </Grid>
                 </Grid>

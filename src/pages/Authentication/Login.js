@@ -43,7 +43,6 @@ function Login() {
                         {user && <SuccessMessage style={{ backgroundColor: 'red' }}>
                             {user.message}
                         </SuccessMessage>}
-                        {loading && <Loading className="my-2" />}
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="row">
                                 <label htmlFor="email">Email</label>
@@ -67,7 +66,7 @@ function Login() {
                                     }
                                 </div>
                             </div>
-                            <button className="auth-btn" type="submit">Login</button>
+                         { loading?<Loading/>:<button className="auth-btn" type="submit">Login</button>}
                         </form>
                     </Grid>
                 </Grid>
