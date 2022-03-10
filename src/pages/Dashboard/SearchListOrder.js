@@ -49,7 +49,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order,handleSingl
             >
               <Tab className="btn-search" id="btn-search" style={{ marginLeft: '10px', minHeight: '42px!important', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="pending" onClick={(e) => handlePendingRequest(e)}>
               </Tab>
-              {handleApproveRequest && <Tab value="two" label="Approved Request" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', minHeight: '42px!important' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
+              {handleApproveRequest && <Tab value="two" label="Compelete" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', minHeight: '42px!important' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
               </Tab>}
             </Tabs>
           </Box>
