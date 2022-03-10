@@ -9,7 +9,7 @@ export const login = (subData, reset, navigate) => async (dispatch) => {
                 "Content-type": "application/json"
             }
         }
-        const { data } = await axios.post('http://localhost:5000/users/login', subData, config);
+        const { data } = await axios.post('https://soilight.herokuapp.com/users/login', subData, config);
         window.localStorage.setItem('user', JSON.stringify(data))
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
         if (data?.message) {

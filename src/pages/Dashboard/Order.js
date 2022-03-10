@@ -27,7 +27,7 @@ function Order() {
     const handlePendingRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`http://localhost:5000/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -52,7 +52,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`http://localhost:5000/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -76,7 +76,7 @@ function Order() {
 
     useEffect(() => {
         let search = searchText || '';
-        fetch(`http://localhost:5000/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -94,7 +94,7 @@ function Order() {
     }, [page, searchText, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
-        fetch(`http://localhost:5000/products/orders/singleOrder/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/singleOrder/${id}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -109,7 +109,7 @@ function Order() {
     }
     const orderCompelete = (id) => {
         setIsOpen(true)
-        fetch(`http://localhost:5000/products/orders/complete/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/complete/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -136,7 +136,7 @@ function Order() {
     }
     const orderCancel = (id) => {
         setIsOpen(true)
-        fetch(`http://localhost:5000/products/orders/pending/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/pending/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
