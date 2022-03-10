@@ -170,11 +170,11 @@ function Rider() {
     return (
         <div>
             <DashboardHeader title="Rider" />
-            <Grid container spacing={1}>
-                <Grid item xs={12} md={6} lg={4}>
+            <Grid container spacing={0}>
+                <Grid item xs={12} md={4} lg={4}>
                     <SearchListRider handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} title=""setPage={setPage}limit={limit} rider="Rider:" searchTitle="Rider" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListRider>
                 </Grid>
-                <Grid item xs={12} md={6} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView totalRate={totalRate} error={error} success={success} handleApproved={handleApproved} handleRejected={handleRejected} avgRating={avgRating} rider="Rider" data={singleUser} title="Rider Info" />
                 </Grid>
             </Grid>

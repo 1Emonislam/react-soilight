@@ -44,7 +44,7 @@ function DashBoard() {
       {/*dashboard header*/}
       <DashboardHeader title="Dashboard" />
       <DashboardGraph data={countData} />
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={12} md={6}>
           <DashboardTableToday today={todayData} date={todayDate} dateTitle="Today" />
         </Grid>

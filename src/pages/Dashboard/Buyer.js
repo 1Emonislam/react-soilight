@@ -63,10 +63,10 @@ function Buyer() {
         <div>
             <DashboardHeader title="Buyer" />
             <Grid container spacing={1}>
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid item xs={12} md={4} lg={4}>
                     <SearchListBuyer handleSingleUser={handleSingleUser} count={count} data={buyerList} setSearchText={setSearchText}setPage={setPage}limit={limit} title="Buyer List" searchTitle="Buyer"></SearchListBuyer>
                 </Grid>
-                <Grid item xs={12} md={6} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView totalRate={totalRate} buyer="buyer" avgRating={avgRating} data={singleUser} title="Buyer Info" />
                 </Grid>
             </Grid>

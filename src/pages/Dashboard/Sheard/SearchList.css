@@ -26,7 +26,7 @@
 }
 .searchInput-icon {
   top: 13px;
-  left: 42px;
+  left: 13%;
   color: #191918;
   position: absolute;
 }
@@ -143,10 +143,12 @@
   background-color: #3858cd;
   color: white;
 }
-.search-container-box {
-  background-color: #f7f7fa;
-  padding-bottom: 5px;
-  height: 100%;
-  overflow-y: scroll;
-  scrollbar-width: thin;
+@media (min-width: 768px) {
+  .search-container-box {
+    background-color: #f7f7fa;
+    padding-bottom: 5px;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+  }
 }

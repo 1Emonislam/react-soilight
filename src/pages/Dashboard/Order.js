@@ -26,7 +26,7 @@ function Order() {
     const handlePendingRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`http://localhost:5000/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -51,7 +51,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`http://localhost:5000/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -75,7 +75,7 @@ function Order() {
     
     useEffect(() => {
         let search = searchText || '';
-        fetch(`http://localhost:5000/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=1&&limit=10`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -93,7 +93,7 @@ function Order() {
     }, [page, searchText, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
-        fetch(`http://localhost:5000/products/orders/singleOrder/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/singleOrder/${id}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -165,10 +165,10 @@ function Order() {
         <div>
             <DashboardHeader title="Order" />
             <Grid container spacing={1}>
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid item xs={12} md={4} lg={4}>
                     <SearchListOrder handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title=""setPage={setPage}limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
                 </Grid>
-                <Grid item xs={12} md={6} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView error={error} success={success} handleApproved={handleApproved} handleRejected={handleRejected} order="Order" data={singleUser} title="Order Info" />
                 </Grid>
             </Grid>

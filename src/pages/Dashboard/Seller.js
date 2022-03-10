@@ -184,10 +184,10 @@ function Seller() {
         <div>
             <DashboardHeader title="Seller" />
             <Grid container spacing={1}>
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid item xs={12} md={4} lg={4}>
                     <SearchListSeller handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} setPage={setPage} limit={limit} title="" seller="Seller:" searchTitle="Seller" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListSeller>
                 </Grid>
-                <Grid item xs={12} md={6} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView totalRate={totalRate} error={error} success={success} handleRejected={handleRejected} handleApproved={handleApproved} seller="seller" avgRating={avgRating} data={singleUser} title="Seller Info" />
                 </Grid>
             </Grid>

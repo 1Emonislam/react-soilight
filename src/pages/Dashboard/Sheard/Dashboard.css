@@ -114,6 +114,14 @@
     #3c5bcc 110.24%
   );
 }
+.card-item-order {
+  position: relative;
+  background: linear-gradient(
+    117.12deg,
+    rgba(10, 167, 31, 0.8) -15.8%,
+    #3352c4 110.24%
+  );
+}
 .card-item-rider-icon {
   position: absolute;
   right: 10px;
