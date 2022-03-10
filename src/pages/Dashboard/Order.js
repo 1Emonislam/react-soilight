@@ -52,7 +52,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}status=compelete&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
