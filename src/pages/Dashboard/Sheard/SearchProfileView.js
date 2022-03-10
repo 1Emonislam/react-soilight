@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 import React from 'react';
 import './SearchProfileView.css';
 
-function SearchProfileView({ data = {}, handleApproved,orderCancel,orderCompelete,isOpen,setIsOpen,  handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
+function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete,isOpen,setIsOpen,  handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
     // console.log(order)
     return (
         <div style={{ height: '100vh' }}>
@@ -371,7 +371,7 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderCompelet
                             </Grid>}
                             <Grid item xs={12} md={6} style={{ marginBottom: '50px', marginTop: '20px', marginLeft: '85px' }}>
                                 <div className="item-view" style={{ padding: '0px 10px', borderLeft: '0px' }}>
-                                    {data?.status === 'complete' ? <Button disabled={isOpen}variant="contained" onClick={() => orderCancel(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button> : <Button variant="contained"disabled={isOpen} onClick={() => orderCompelete(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}> Order Complete </Button>}
+                                    {data?.status === 'complete' ? <Button disabled={isOpen}variant="contained" onClick={() => orderCancel(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button> : <Button variant="contained"disabled={isOpen} onClick={() => orderComplete(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}> Order Complete </Button>}
                                 </div>
                                 {/* {console.log(isOpen)} */}
                                 {success&&  <Alert severity="success" timeout={5000} md={6}>{success}</Alert>}

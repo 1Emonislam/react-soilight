@@ -107,7 +107,7 @@ function Order() {
                 setSingleUser(data?.data)
             })
     }
-    const orderCompelete = (id) => {
+    const orderComplete = (id) => {
         setIsOpen(true)
         fetch(`https://soilight.herokuapp.com/products/orders/complete/${id}`, {
             method: 'PUT',
@@ -175,7 +175,7 @@ function Order() {
                     <SearchListOrder handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
-                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderCompelete={orderCompelete} orderCancel={orderCancel} order="Order" data={singleUser} title="Order Info" />
+                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderComplete={orderComplete} orderCancel={orderCancel} order="Order" data={singleUser} title="Order Info" />
                 </Grid>
             </Grid>
         </div>
