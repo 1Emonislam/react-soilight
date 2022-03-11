@@ -94,7 +94,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleCanc
                     }
                   </span>
                 </Grid>
-                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{new Date(user?.createdAt)?.gethourss()} hours ago </small>
+                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{new Date(user?.createdAt)?.getHours()}  hours ago </small>
               </Grid>
             </Grid>
           </Grid>
