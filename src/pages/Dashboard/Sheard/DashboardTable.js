@@ -3,10 +3,10 @@ import React from 'react'
 import './DashboardTable.css'
 function DashboardTableToday({ date = 0, dateTitle = 0, today=0}) {
     return (
-        <div className='table-data-container'>
+        <div className='table-data-container'style={{paddingBottom:'60px'}}>
             <div>
                 <div className="sub-title">
-                    <span> {dateTitle}</span>
+                    <span style={{fontSize:'20px',fontWeight:'500'}}> {dateTitle}</span>
                     <br />
                     <small>{date}</small>
                 </div>
@@ -41,13 +41,19 @@ function DashboardTableToday({ date = 0, dateTitle = 0, today=0}) {
                         <span> Complete Order</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
-                        <span> {today?.todayOrderApprove}</span>
+                        <span> {today?.todayOrderComplete}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span>Pending Order</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
-                        <span>{today?.todayOrderRejected}</span>
+                        <span>{today?.todayOrderPending}</span>
+                    </Grid>
+                    <Grid item xs={8} className="list">
+                        <span>Cancel Order</span>
+                    </Grid>
+                    <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
+                        <span>{today?.todayOrderCancel}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span> Approved Seller</span>

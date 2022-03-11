@@ -33,6 +33,9 @@
 .searchInput:focus {
   outline: none;
 }
+.dashboard-section ul {
+  padding-left: 16px !important;
+}
 @media (min-width: 1077px) {
   img.img-box-list-item {
     width: 50px;

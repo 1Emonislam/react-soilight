@@ -3,10 +3,10 @@ import React from 'react'
 import './DashboardTable.css'
 function DashboardTableLastWeek({ date = 0, dateTitle = 0, lastWeek = 0 }) {
     return (
-        <div className='table-data-container'>
+        <div className='table-data-container'style={{paddingBottom:'60px'}}>
             <div>
                 <div className="sub-title">
-                    <span> {dateTitle}</span>
+                    <span style={{fontSize:'20px',fontWeight:'500'}}> {dateTitle}</span>
                     <br />
                     <small>{date}</small>
                 </div>
@@ -41,13 +41,19 @@ function DashboardTableLastWeek({ date = 0, dateTitle = 0, lastWeek = 0 }) {
                         <span> Complete Order</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
-                        <span> {lastWeek?.lastWeekOrderApprove}</span>
+                        <span> {lastWeek?.lastWeekOrderComplete}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span> Pending Order</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
-                        <span> {lastWeek?.lastWeekOrderRejected}</span>
+                        <span> {lastWeek?.lastWeekOrderPending}</span>
+                    </Grid>
+                    <Grid item xs={8} className="list">
+                        <span> Cancel Order</span>
+                    </Grid>
+                    <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
+                        <span> {lastWeek?.lastWeekOrderCancel}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span> Approved Seller</span>

@@ -340,20 +340,20 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                                                     <span style={{ fontSize: '10px' }}><span style={{ color: 'gray' }}> Quantity: </span> {pd?.quantity}</span>
                                                 </div>
                                                 <div>
-                                                    <span style={{ fontSize: '10px' }}> <span style={{ color: 'gray' }}>Pack Type:</span> {pd?.productId?.pack_type}</span>
+                                                    <span style={{ fontSize: '10px' }}> <span style={{ color: 'gray' }}>Type:</span> {pd?.productId?.pack_type}</span>
                                                 </div>
                                                 <div>
-                                                    <span style={{ fontSize: '10px' }}> <span style={{ color: 'gray' }}>Serving Size:</span> {pd?.productId?.serving_size}</span>
+                                                    <span style={{ fontSize: '10px' }}> <span style={{ color: 'gray' }}>Size:</span> {pd?.productId?.serving_size}</span>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={2} md={2}>
                                                 <div style={{ textAlign: 'right' }}>
                                                     <span style={{ color: 'gray', fontSize: '14px' }}>
-                                                        Price:
+                                                        Price
                                                     </span>
                                                     <br />
                                                     <span style={{ fontSize: '18px', color: '#FF0000' }}>
-                                                        {pd?.price}
+                                                        ${pd?.price}
                                                     </span>
                                                 </div>
                                             </Grid>

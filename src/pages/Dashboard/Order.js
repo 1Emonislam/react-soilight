@@ -52,7 +52,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}status=complete&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=complete&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -72,6 +72,27 @@ function Order() {
         }
         catch {
         }
+    }
+    const handleCancelRequest = () => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+
+        let search = searchText || '';
+        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=cancel&&page=1&&limit=10`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': `Bearer ${user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data?.data) {
+                    setOrderList(data?.data)
+                    setCount(data?.count)
+                }
+            })
+
     }
 
     useEffect(() => {
@@ -125,6 +146,7 @@ function Order() {
                     setError(data?.error)
                 }
                 if (data?.data) {
+                    // console.log(data)
                     setIsOpen(false)
                     setOpen(true)
                     setError("")
@@ -134,9 +156,10 @@ function Order() {
 
             })
     }
+
     const orderCancel = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/pending/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/cancel/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -172,7 +195,7 @@ function Order() {
             <DashboardHeader title="Order" />
             <Grid container spacing={1}>
                 <Grid item xs={12} md={4} lg={4}>
-                    <SearchListOrder handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
+                    <SearchListOrder handleCancelRequest={handleCancelRequest} handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderComplete={orderComplete} orderCancel={orderCancel} order="Order" data={singleUser} title="Order Info" />
