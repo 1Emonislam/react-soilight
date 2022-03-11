@@ -236,7 +236,7 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                             <Grid item xs={12} md={6}>
                                 <div className="item-view">
                                     <p style={{ margin: "0px", color: '#444444' }}> Order Time</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{new Date(data?.createdAt)?.toLocaleString('en-us', { weekday: 'long', month: 'long', year: 'numeric', day: 'numeric', time: 'numeric', hour: 'numeric', minute: 'numeric' }) || 'N/A'}</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{new Date(data?.createdAt)?.toLocaleString('en-us', { weekday: 'long', month: 'long', year: 'numeric', day: 'numeric', time: 'numeric', hours: 'numeric', minute: 'numeric' }) || 'N/A'}</p>
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
