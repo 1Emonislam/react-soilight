@@ -14,13 +14,13 @@ function DashboardHeader({ title }) {
                         <img src={logo} style={{ width: '144px' }} alt="Soilight logo" />
                     </div>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={9}>
                     <div className="hi-menu">
                         <HiMenuAlt3 size={30} color="#F5AB24" />
                         <strong className='dash-title'>{title}</strong>
                     </div>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={1}style={{textAlign:'right'}}>
                     <DashboardSetting>
                         <div className="dash-setting">
                             <AiOutlineSetting color="#222222" />
