@@ -67,8 +67,8 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleCanc
         <div style={{ paddingLeft: '30px' }}>
           <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
         </div>
-        {!data ? <Loading /> : dataState?.objects?.map((user, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(user?._id, toggleActive(index))} key={user?._id}>
-          {user?.user?.name && <Grid container spacing={0} alignItems="center" textAlign="left">
+        {!data ? <Loading /> : dataState?.objects?.map((user, index) => (user?.user?.name && <button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(user?._id, toggleActive(index))} key={user?._id}>
+         <Grid container spacing={0} alignItems="center" textAlign="left">
             <Grid item xs={3}>
               <>
                 <img className="img-box-list-item" style={{ borderRadius: '50px', border: '2px solid #F5AB24' }} src={user?.user?.pic} alt={user?.user?.name} />
@@ -97,7 +97,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleCanc
                 <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{new Date(user?.createdAt)?.getHours()} hour ago </small>
               </Grid>
             </Grid>
-          </Grid>}
+          </Grid>
         </button>))}
         <Pagination
           count={Math.ceil(count / limit)}
