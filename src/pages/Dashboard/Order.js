@@ -52,7 +52,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=complete&&page=1&&limit=10`, {
+            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=completed&&page=1&&limit=10`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -77,7 +77,7 @@ function Order() {
         // eslint-disable-next-line react-hooks/rules-of-hooks
 
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=cancel&&page=1&&limit=10`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=cancelled&&page=1&&limit=10`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -130,7 +130,7 @@ function Order() {
     }
     const orderComplete = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/complete/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/completed/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -159,7 +159,7 @@ function Order() {
 
     const orderCancel = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/cancel/${id}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/cancelled/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
