@@ -16,6 +16,7 @@ function Product() {
     const [page, setPage] = useState(1);
     const limit = 50;
     const navigate = useNavigate();
+    const [status, setStatus] = useState("")
     const userLogin = useSelector(state => state.userLogin);
     const [isOpen, setIsOpen] = useState(false)
     const { user } = userLogin;
@@ -26,6 +27,7 @@ function Product() {
     }, [navigate, user?.message])
     const handlePendingRequest = async (e) => {
         let search = searchText || '';
+        setStatus('pending')
         try {
             await fetch(`http://localhost:5000/products/all?search=${search}&status=pending&page=${page}&limit=${limit}`, {
                 method: 'GET',
@@ -51,6 +53,7 @@ function Product() {
     }
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
+        setStatus('approved')
         try {
             await fetch(`http://localhost:5000/products/all?search=${search}&status=approved&page=${page}&limit=${limit}`, {
                 method: 'GET',
@@ -75,7 +78,7 @@ function Product() {
     }
     const handleCancelledRequest = () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-
+        setStatus('cancelled')
         let search = searchText || '';
         fetch(`http://localhost:5000/products/all?search=${search}&status=cancelled&page=${page}&limit=${limit}`, {
             method: 'GET',
@@ -97,7 +100,8 @@ function Product() {
 
     useEffect(() => {
         let search = searchText || '';
-        fetch(`http://localhost:5000/products/all?search=${search}&status=pending&page=${page}&limit=${limit}`, {
+        let statusText = status || '';
+        fetch(`http://localhost:5000/products/all?search=${search}&status=${statusText || 'pending'}&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -112,7 +116,7 @@ function Product() {
                     setCount(data?.count)
                 }
             })
-    }, [page, searchText, user?.token]);
+    }, [page, searchText, status, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
         fetch(`http://localhost:5000/products/singleProduct/${id}`, {
