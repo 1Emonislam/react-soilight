@@ -3,16 +3,16 @@ import Rating from '@mui/material/Rating';
 import React from 'react';
 import './SearchProfileView.css';
 
-function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete,isOpen,setIsOpen,  handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
-    // console.log(order)
+function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComplete, productApproved, productCancelled, isOpen, product, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
+    //console.log(order)
     return (
         <div style={{ height: '100vh' }}>
-            {data && <div className="profile-view-section" style={{ marginTop: '70px',}}>
+            {data && <div className="profile-view-section" style={{ marginTop: '70px', }}>
                 {!order && <Grid container spacing={0} alignItems="center" justifyContent="center">
                     <Grid item xs={12}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <div className="profile-view" style={{ padding: '0px 10px' }}>
-                                <img style={{ width: '100px', height: '100px', borderRadius: '100px', border: '6px solid #F5AB24' }} src={data?.pic} alt={data?.name} />
+                                <img style={{ width: '100px', height: '100px', borderRadius: '100px', border: '6px solid #F5AB24' }} src={data?.pic || data?.img} alt={data?.name} />
                                 {buyer && <div className="rating" style={{ display: 'flex', alignItems: 'center' }}>
                                     <Rating name="read-only" value={avgRating} readOnly /><p style={{ color: "#7B7979" }}>{avgRating}({totalRate})</p>
                                 </div>}
@@ -26,6 +26,67 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                             <p style={{ marginBottom: "0", marginTop: '60px' }}><strong style={{ fontWeight: '500', fontSize: '20px' }}>{title}</strong></p>
                         </div>
                     </Grid>
+                    {product &&
+                        <>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}> Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.name || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Price</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.price || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Category</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.category || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Sub Category</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.subCategory || 'N/A'} </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Pack Type</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.pack_type|| 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Serving Size</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.serving_size || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Product Status</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.status}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                            <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Seller Shop</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.sellerShop?.name}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
+                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Product Cancelled </Button> : <Button variant="contained" onClick={() =>productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Product Approved </Button>}
+                                </div>
+                            </Grid>
+                        </>
+                    }
 
                     {buyer && <><Grid item xs={12} md={6}>
                         <div className="item-view">
@@ -102,13 +163,10 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                {/* <div className="item-view" style={{ padding: '0px 10px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => handleRejected(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Rejected </Button> : <Button variant="contained" onClick={() => handleApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>}
-                                </div> */}
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => handleRejected(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Rejected </Button> : <Button variant="contained" onClick={() => handleApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>}
+                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Cancelled </Button> : <Button variant="contained" onClick={() => productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>}
                                 </div>
                             </Grid>
                         </>
@@ -300,16 +358,16 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                                 </div>
                             </Grid>
                             <>
-                                {data?.products?.map((pd, index) => (<Grid key={index} container spacing={0} alignItems="center"justifyContent="center" style={{ paddingTop: '40px' }}>
-                                    <Grid item xs={3} md={2}lg={2}>
+                                {data?.products?.map((pd, index) => (<Grid key={index} container spacing={0} alignItems="center" justifyContent="center" style={{ paddingTop: '40px' }}>
+                                    <Grid item xs={3} md={2} lg={2}>
                                         <div>
                                             <span>
                                                 <img style={{ width: '100px', height: '100px', borderRadius: "10px", marginRight: '6px' }} src={pd?.productId?.img} alt={pd?.productId?.name} />
                                             </span>
                                         </div>
                                     </Grid>
-                                    <Grid item xs={10} md={10}lg={10} style={{ marginBottom: '5px' }}>
-                                        <Grid container spacing={0} alignItems="center" justifyContent="center" style={{ borderBottom: '1px solid #ddd', paddingBottom: "5px",width:'90%' }}>
+                                    <Grid item xs={10} md={10} lg={10} style={{ marginBottom: '5px' }}>
+                                        <Grid container spacing={0} alignItems="center" justifyContent="center" style={{ borderBottom: '1px solid #ddd', paddingBottom: "5px", width: '90%' }}>
                                             <Grid item xs={6} md={6}>
                                                 <div>
                                                     <div>
@@ -326,7 +384,7 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                                                         <br />
                                                         <div style={{ display: 'flex', alignItems: 'center' }}>
                                                             <Rating name="read-only" style={{ fontSize: '14px', marginRight: '4px' }} value={pd?.productId?.rating || 0} readOnly />
-                                                            <span style={{ fontSize: "15px" }}>{pd?.productId?.rating|| 0} </span>
+                                                            <span style={{ fontSize: "15px" }}>{pd?.productId?.rating || 0} </span>
                                                             <span style={{ fontSize: '10px', color: 'gray', marginLeft: '2px' }}> ({pd?.productId?.numReviews})</span>
                                                         </div>
                                                         <div>
@@ -371,11 +429,11 @@ function SearchProfileView({ data = {}, handleApproved,orderCancel,orderComplete
                             </Grid>}
                             <Grid item xs={12} md={6} style={{ marginBottom: '50px', marginTop: '20px', marginLeft: '85px' }}>
                                 <div className="item-view" style={{ padding: '0px 10px', borderLeft: '0px' }}>
-                                    {data?.status === 'complete' ? <Button disabled={isOpen}variant="contained" onClick={() => orderCancel(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button> : <Button variant="contained"disabled={isOpen} onClick={() => orderComplete(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}> Order Complete </Button>}
+                                    {data?.status === 'complete' ? <Button disabled={isOpen} variant="contained" onClick={() => orderCancel(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button> : <Button variant="contained" disabled={isOpen} onClick={() => orderComplete(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}> Order Complete </Button>}
                                 </div>
                                 {/* {console.log(isOpen)} */}
-                                {success&&  <Alert severity="success" timeout={5000} md={6}>{success}</Alert>}
-                                {error&&  <Alert severity="error" timeout={5000} md={6}>{error}</Alert>}
+                                {success && <Alert severity="success" timeout={5000} md={6}>{success}</Alert>}
+                                {error && <Alert severity="error" timeout={5000} md={6}>{error}</Alert>}
                             </Grid>
                         </>}
                     </>

@@ -8,9 +8,11 @@ import Login from "./pages/Authentication/Login";
 import Buyer from "./pages/Dashboard/Buyer";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Order from "./pages/Dashboard/Order";
+import Product from "./pages/Dashboard/Product";
 import Profile from "./pages/Dashboard/Profile";
 import Rider from "./pages/Dashboard/Rider";
 import Seller from "./pages/Dashboard/Seller";
+import WithdrawTransaction from "./pages/Dashboard/WithdrawTransaction";
 import DashboardHome from "./pages/DashBoardHome/DashboardHome";
 function App() {
   const userLogin = useSelector(state => state.userLogin);
@@ -33,13 +35,15 @@ function App() {
           <Route path="/dashboard" element={<DashboardHome>
           </DashboardHome>}>
             <Route path="dashboard" element={<AdminProtect><DashBoard /> </AdminProtect>} />
-            <Route path="order" element={<Order/>} />
+            <Route path="order" element={<Order />} />
+            <Route path="product" element={<Product />} />
+            <Route path="withdraw/transaction" element={<WithdrawTransaction/>} />
             <Route path="buyer" element={<Buyer />} />
             <Route path="seller" element={<Seller />} />
             <Route path="rider" element={<Rider />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="edit-profile" element={<EditProfile/>} />
-            <Route path="change-password" element={<ChangePassword/>} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="change-password" element={<ChangePassword />} />
           </Route>
           <Route path="*" element={<h2>Not Founds 404!</h2>}></Route>
         </Routes>

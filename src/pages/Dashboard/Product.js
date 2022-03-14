@@ -2,13 +2,13 @@ import { Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import SearchListOrder from './SearchListOrder'
+import SearchListProduct from './SearchListProduct'
 import DashboardHeader from './Sheard/DashboardHeader'
 import SearchProfileView from './Sheard/SearchProfileView'
-function Order() {
+function Product() {
     const [searchText, setSearchText] = useState("")
-    const [singleUser, setSingleUser] = useState("");
-    const [orderList, setOrderList] = useState([])
+    const [singleProduct, setSingleProduct] = useState("");
+    const [productList, setProductList] = useState([])
     const [count, setCount] = useState("")
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -27,7 +27,7 @@ function Order() {
     const handlePendingRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=${page}&limit=${limit}`, {
+            await fetch(`http://localhost:5000/products/all?search=${search}&status=pending&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -39,7 +39,7 @@ function Order() {
                     // console.log(data)
                     if (data?.data) {
                         // console.log(data)
-                        setOrderList(data?.data)
+                        setProductList(data?.data)
                         setCount(data?.count)
                     }
                 })
@@ -52,7 +52,7 @@ function Order() {
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=completed&&page=${page}&limit=${limit}`, {
+            await fetch(`http://localhost:5000/products/all?search=${search}&status=approved&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -64,7 +64,7 @@ function Order() {
                     // console.log(data)
                     if (data?.data) {
                         // console.log(data)
-                        setOrderList(data?.data)
+                        setProductList(data?.data)
                         setCount(data?.count)
                     }
                 })
@@ -73,11 +73,11 @@ function Order() {
         catch {
         }
     }
-    const handleCancelRequest = () => {
+    const handleCancelledRequest = () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
 
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=cancelled&&page=${page}&limit=${limit}`, {
+        fetch(`http://localhost:5000/products/all?search=${search}&status=cancelled&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -86,9 +86,9 @@ function Order() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (data?.data) {
-                    setOrderList(data?.data)
+                    setProductList(data?.data)
                     setCount(data?.count)
                 }
             })
@@ -97,7 +97,7 @@ function Order() {
 
     useEffect(() => {
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=${page}&limit=${limit}`, {
+        fetch(`http://localhost:5000/products/all?search=${search}&status=pending&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -108,14 +108,14 @@ function Order() {
             .then(data => {
                 // console.log(data)
                 if (data?.data) {
-                    setOrderList(data?.data)
+                    setProductList(data?.data)
                     setCount(data?.count)
                 }
             })
     }, [page, searchText, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
-        fetch(`https://soilight.herokuapp.com/products/orders/singleOrder/${id}`, {
+        fetch(`http://localhost:5000/products/singleProduct/${id}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -125,25 +125,28 @@ function Order() {
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
-                setSingleUser(data?.data)
+                setSingleProduct(data?.data)
             })
     }
-    const orderComplete = (id) => {
+    const productApproved = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/completed/${id}`, {
+        // console.log(id)
+        fetch(`http://localhost:5000/products/status/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${user?.token}`
             },
+            body: JSON.stringify({ status: 'approved' })
         })
             .then(res => res.json())
             .then(data => {
+                // console.log(data)
                 if (data?.error) {
                     setIsOpen(false)
                     setOpen(true)
                     setSuccess("")
-                    setError(data?.error)
+                    setError(data?.error.status || data?.error?.admin)
                 }
                 if (data?.data) {
                     // console.log(data)
@@ -151,20 +154,21 @@ function Order() {
                     setOpen(true)
                     setError("")
                     setSuccess(data?.message)
-                    setSingleUser(data?.data)
+                    setSingleProduct(data?.data)
                 }
 
             })
     }
 
-    const orderCancel = (id) => {
+    const productCancelled = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/cancelled/${id}`, {
+        fetch(`http://localhost:5000/products/status/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${user?.token}`
             },
+            body: JSON.stringify({ status: 'cancelled' })
         })
             .then(res => res.json())
             .then(data => {
@@ -178,7 +182,7 @@ function Order() {
                     setIsOpen(false)
                     setError("")
                     setSuccess(data?.message)
-                    setSingleUser(data?.data)
+                    setSingleProduct(data?.data)
                     setOpen(true)
                 }
             })
@@ -192,17 +196,17 @@ function Order() {
         }, [open]);
     return (
         <div>
-            <DashboardHeader title="Order" />
+            <DashboardHeader title="Product" />
             <Grid container spacing={1}>
                 <Grid item xs={12} md={4} lg={4}>
-                    <SearchListOrder handleCancelRequest={handleCancelRequest} handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
+                    <SearchListProduct handleCancelledRequest={handleCancelledRequest} handleSingleClick={handleSingleClick} count={count} data={productList} setSearchText={setSearchText} title="Products" setPage={setPage} limit={limit} product="Products" searchTitle="Products" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListProduct>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
-                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderComplete={orderComplete} orderCancel={orderCancel} order="Order" data={singleUser} title="Order Info" />
+                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} productApproved={productApproved} productCancelled={productCancelled} product="Product" data={singleProduct} title="Prdouct Info" />
                 </Grid>
             </Grid>
         </div>
     )
 }
 
-export default Order
+export default Product

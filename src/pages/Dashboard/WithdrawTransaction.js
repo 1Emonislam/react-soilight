@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import SearchListOrder from './SearchListOrder'
 import DashboardHeader from './Sheard/DashboardHeader'
 import SearchProfileView from './Sheard/SearchProfileView'
-function Order() {
+function WithdrawTransaction() {
     const [searchText, setSearchText] = useState("")
     const [singleUser, setSingleUser] = useState("");
     const [orderList, setOrderList] = useState([])
@@ -205,4 +205,4 @@ function Order() {
     )
 }
 
-export default Order
+export default WithdrawTransaction

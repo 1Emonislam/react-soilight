@@ -2,8 +2,9 @@ import { Grid, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { AiFillDashboard } from 'react-icons/ai'
 import { BiStoreAlt } from 'react-icons/bi'
-import { FaCaravan, FaUserAstronaut } from 'react-icons/fa'
-import { MdPointOfSale} from 'react-icons/md'
+import { FaCaravan, FaUserAstronaut,FaHistory } from 'react-icons/fa'
+import { MdPointOfSale } from 'react-icons/md'
+import { GrProductHunt } from 'react-icons/gr'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import './DashboardHome.css'
@@ -33,17 +34,19 @@ function DashboardHome() {
                                     </Typography>
                                 </div>
                                 <NavLink to="/dashboard/dashboard" className={(state) => state?.isActive ? 'selected' : ''}><AiFillDashboard /><span>Dashboard</span></NavLink>
+                                <NavLink to="/dashboard/product" className={(state) => state?.isActive ? 'selected' : ''}><GrProductHunt/><span>Product</span></NavLink>
                                 <NavLink to="/dashboard/order" className={(state) => state?.isActive ? 'selected' : ''}><MdPointOfSale /><span>Order</span></NavLink>
                                 <NavLink to="/dashboard/buyer" className={(state) => state?.isActive ? 'selected' : ''}><FaUserAstronaut /><span>Buyer</span></NavLink>
                                 <NavLink to="/dashboard/seller" className={(state) => state?.isActive ? 'selected' : ''}><BiStoreAlt /> <span>Seller</span></NavLink>
                                 <NavLink to="/dashboard/rider" className={(state) => state?.isActive ? 'selected' : ''}><FaCaravan /> <span>Rider</span></NavLink>
+                                <NavLink to="/dashboard/withdraw/transaction" className={(state) => state?.isActive ? 'selected' : ''}><FaHistory /><span>History</span></NavLink>
                                 <NavLink to="/dashboard/profile" className={(state) => state?.isActive ? 'selected' : ''}><FaUserAstronaut /><span>Profile</span> </NavLink>
                             </div>
                         </>
                     </Grid>
-                    <Grid item xs={12} md={9.3} style={{background:'white'}}>
+                    <Grid item xs={12} md={9.3} style={{ background: 'white' }}>
                         <div className="dashboard-body">
-                            <Outlet/>
+                            <Outlet />
                         </div>
                     </Grid>
                 </Grid>
