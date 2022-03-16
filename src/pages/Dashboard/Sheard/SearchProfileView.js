@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 import React from 'react';
 import './SearchProfileView.css';
 
-function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComplete, productApproved, productCancelled, isOpen, product, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, avgRating = 0, title }) {
+function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withdrawApproved, orderCancel, orderComplete, productApproved, productCancelled, isOpen, product, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, withdraw, avgRating = 0, title }) {
     //console.log(order)
     return (
         <div style={{ height: '100vh' }}>
@@ -12,7 +12,7 @@ function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComple
                     <Grid item xs={12}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <div className="profile-view" style={{ padding: '0px 10px' }}>
-                                <img style={{ width: '100px', height: '100px', borderRadius: '100px', border: '6px solid #F5AB24' }} src={data?.pic || data?.img} alt={data?.name} />
+                                <img style={{ width: '100px', height: '100px', borderRadius: '100px', border: '6px solid #F5AB24' }} src={data?.pic || data?.img || data?.user?.pic} alt={data?.name || data?.user?.name} />
                                 {buyer && <div className="rating" style={{ display: 'flex', alignItems: 'center' }}>
                                     <Rating name="read-only" value={avgRating} readOnly /><p style={{ color: "#7B7979" }}>{avgRating}({totalRate})</p>
                                 </div>}
@@ -37,7 +37,7 @@ function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComple
                             <Grid item xs={12} md={6}>
                                 <div className="item-view">
                                     <p style={{ margin: "0px", color: '#444444' }}>Price</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.price || 'N/A'}</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>${data?.price || 'N/A'}</p>
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
@@ -56,7 +56,7 @@ function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComple
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Pack Type</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.pack_type|| 'N/A'}</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.pack_type || 'N/A'}</p>
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
@@ -74,7 +74,7 @@ function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComple
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                            <div className="item-view" style={{ padding: '0px 10px' }}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Seller Shop</p>
                                     <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.sellerShop?.name}
                                     </p>
@@ -82,7 +82,98 @@ function SearchProfileView({ data = {}, handleApproved, orderCancel, orderComple
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Product Cancelled </Button> : <Button variant="contained" onClick={() =>productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Product Approved </Button>}
+                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Product Cancelled </Button> : <Button variant="contained" onClick={() => productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Product Approved </Button>}
+                                </div>
+                            </Grid>
+                        </>
+                    }
+                    {withdraw &&
+                        <>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Transaction</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.transaction_id || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Date / Time</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{new Date(data?.createdAt)?.toLocaleString('en-us', { weekday: 'long', month: 'long', year: 'numeric', day: 'numeric', time: 'numeric', hour: 'numeric', minute: 'numeric' })}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.name || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Amount</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>${data?.amount || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Bank Acc Name</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.bank_pay?.bank_acc_name || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Bank Acc Num</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.bank_pay?.bank_acc_num || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Routing Num </p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.bank_pay?.routing_num || 'N/A'} </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Bank Location</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.bank_pay?.bank_location || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Seller Shop</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.sellerShop?.name || 'N/A'}</p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view">
+                                    <p style={{ margin: "0px", color: '#444444' }}>Shop status </p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.sellerShop?.status || 'N/A'} </p>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Withdraw Status</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.status}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Bank Status</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.bank_pay?.status || 'N/A'}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid container spacing={0}>
+                                <Grid item xs={9} style={{ textAlign: 'right', paddingRight: "40px", paddingTop: '20px' }}>
+                                    <span style={{ color: 'black', fontWeight: '500' }}>Amount: ${data?.amount}</span>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
+                                    {data?.status === 'approved' ? <Button variant="contained" disabled={isOpen} onClick={() => withdrawCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Withdraw Cancelled </Button> : <Button variant="contained" disabled={isOpen} onClick={() => withdrawApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Withdaraw Approved </Button>}
                                 </div>
                             </Grid>
                         </>

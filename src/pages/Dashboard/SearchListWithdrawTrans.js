@@ -3,11 +3,10 @@ import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import React, { useState } from 'react'
-import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
-function SearchListProduct({ title, setPage, data, limit, count, handleSingleClick, handlePendingRequest, handleApproveRequest, setSearchText, searchTitle, handleCancelledRequest }) {
+function SearchListWithdrawTrans({ title, setPage, data, limit, count, handleSingleClick, handlePendingRequest, handleApproveRequest, setSearchText, searchTitle, handleCancelledRequest }) {
     const [value, setValue] = React.useState('one');
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -66,27 +65,37 @@ function SearchListProduct({ title, setPage, data, limit, count, handleSingleCli
                 <div style={{ paddingLeft: '30px' }}>
                     <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
                 </div>
-                {!data ? <Loading /> : dataState?.objects?.map((product, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(product?._id, toggleActive(index))} key={product?._id}>
+                {!data ? <Loading /> : dataState?.objects?.map((withdraw, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(withdraw?._id, toggleActive(index))} key={withdraw?._id}>
                     <Grid container spacing={0} alignItems="center" textAlign="left">
                         <Grid item xs={3}>
                             <>
-                                <img className="img-box-list-item" style={{ borderRadius: '50px', border: '2px solid #F5AB24' }} src={product?.img} alt={product?.name} />
+                                <img className="img-box-list-item" style={{ borderRadius: '50px', width: "43px", height: '43px', border: '2px solid #F5AB24' }} src={withdraw?.user?.pic} alt={withdraw?.user?.name} />
                             </>
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item xs={6}>
                             <>
+                                {/* {console.log(withdraw)} */}
                                 <h5><span> </span>
-                                    <b style={{ fontSize: '14px', marginRight: '3px' }}>{product?.name}</b></h5>
-                                <h5>shop: <span style={{ color: '#646262' }}> {product?.user?.sellerShop?.name || 'N/A'}</span></h5>
-                                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{new Date(product?.createdAt)?.getHours()}  hours ago </small>
+                                    <b style={{ fontSize: '14px', marginRight: '3px' }}>{withdraw?.user?.name}</b></h5>
+                                <h5 style={{ fontSize: '10px' }}>Bank: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.bank_pay?.bank_acc_num || 'N/A'}</span></h5>
+                                {/* {console.log(withdraw)} */}
+                                <h5 style={{ fontSize: '12px' }}>Trans: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.transaction_id || 'N/A'}</span></h5>
+                                {/* {console.log(withdraw)} */}
+                                <h5 style={{ fontSize: '12px' }}>shop: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.user?.sellerShop?.name || 'N/A'}</span></h5>
+                                {/* {console.log(withdraw)} */}
                             </>
                         </Grid>
-                        <Grid item xs={1}>
-                            <span style={{ color: "#FF0000", fontSize: '13px', fontWeight: "bold", textAlign: "right", paddingRight: '3px' }}>
-                                ${
-                                    product?.price
-                                }
-                            </span>
+                        <Grid item xs={3} textAlign="right">
+                            <div>
+                                <small style={{ display: 'flex', fontSize: "10px", alignItems: 'center',marginBottom:'5px'  }}>{new Date(withdraw?.createdAt)?.toLocaleTimeString()} {new Date(withdraw?.createdAt)?.toLocaleDateString()}</small>
+                            </div>
+                            <div>
+                                <span style={{ color: "#FF0000", fontSize: '16px', fontWeight: "bold", textAlign: "right", paddingRight: '3px' }}>
+                                    ${
+                                        withdraw?.amount
+                                    }
+                                </span>
+                            </div>
                         </Grid>
                     </Grid>
                 </button>))}
@@ -101,4 +110,4 @@ function SearchListProduct({ title, setPage, data, limit, count, handleSingleCli
     )
 }
 
-export default SearchListProduct
+export default SearchListWithdrawTrans

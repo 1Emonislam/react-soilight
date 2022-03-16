@@ -2,13 +2,13 @@ import { Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import SearchListOrder from './SearchListOrder'
+import SearchListWithdrawTrans from './SearchListWithdrawTrans'
 import DashboardHeader from './Sheard/DashboardHeader'
 import SearchProfileView from './Sheard/SearchProfileView'
 function WithdrawTransaction() {
     const [searchText, setSearchText] = useState("")
-    const [singleUser, setSingleUser] = useState("");
-    const [orderList, setOrderList] = useState([])
+    const [singleWithdrawTrans, setSingleWithdrawTrans] = useState("");
+    const [withdrawTransList, setWithdrawTransList] = useState([])
     const [count, setCount] = useState("")
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -16,6 +16,7 @@ function WithdrawTransaction() {
     const [page, setPage] = useState(1);
     const limit = 50;
     const navigate = useNavigate();
+    const [status, setStatus] = useState("")
     const userLogin = useSelector(state => state.userLogin);
     const [isOpen, setIsOpen] = useState(false)
     const { user } = userLogin;
@@ -26,8 +27,9 @@ function WithdrawTransaction() {
     }, [navigate, user?.message])
     const handlePendingRequest = async (e) => {
         let search = searchText || '';
+        setStatus('pending')
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=${page}&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=pending&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -39,7 +41,7 @@ function WithdrawTransaction() {
                     // console.log(data)
                     if (data?.data) {
                         // console.log(data)
-                        setOrderList(data?.data)
+                        setWithdrawTransList(data?.data)
                         setCount(data?.count)
                     }
                 })
@@ -51,8 +53,9 @@ function WithdrawTransaction() {
     }
     const handleApproveRequest = async (e) => {
         let search = searchText || '';
+        setStatus('approved')
         try {
-            await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=completed&&page=${page}&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=approved&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -64,7 +67,7 @@ function WithdrawTransaction() {
                     // console.log(data)
                     if (data?.data) {
                         // console.log(data)
-                        setOrderList(data?.data)
+                        setWithdrawTransList(data?.data)
                         setCount(data?.count)
                     }
                 })
@@ -73,11 +76,11 @@ function WithdrawTransaction() {
         catch {
         }
     }
-    const handleCancelRequest = () => {
+    const handleCancelledRequest = () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-
+        setStatus('cancelled')
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=cancelled&&page=${page}&limit=${limit}`, {
+        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=cancelled&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -86,9 +89,9 @@ function WithdrawTransaction() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (data?.data) {
-                    setOrderList(data?.data)
+                    setWithdrawTransList(data?.data)
                     setCount(data?.count)
                 }
             })
@@ -97,7 +100,8 @@ function WithdrawTransaction() {
 
     useEffect(() => {
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=${page}&limit=${limit}`, {
+        let statusText = status || '';
+        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=${statusText || 'pending'}&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -108,14 +112,14 @@ function WithdrawTransaction() {
             .then(data => {
                 // console.log(data)
                 if (data?.data) {
-                    setOrderList(data?.data)
+                    setWithdrawTransList(data?.data)
                     setCount(data?.count)
                 }
             })
-    }, [page, searchText, user?.token]);
+    }, [page, searchText, status, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
-        fetch(`https://soilight.herokuapp.com/products/orders/singleOrder/${id}`, {
+        fetch(`https://soilight.herokuapp.com/balance/withdraw/${id}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -125,25 +129,28 @@ function WithdrawTransaction() {
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
-                setSingleUser(data?.data)
+                setSingleWithdrawTrans(data?.data)
             })
     }
-    const orderComplete = (id) => {
+    const withdrawApproved = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/completed/${id}`, {
+        // console.log(id)
+        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${user?.token}`
             },
+            body: JSON.stringify({ status: 'approved' })
         })
             .then(res => res.json())
             .then(data => {
+                // console.log(data)
                 if (data?.error) {
                     setIsOpen(false)
                     setOpen(true)
                     setSuccess("")
-                    setError(data?.error)
+                    setError(data?.error.status || data?.error?.admin)
                 }
                 if (data?.data) {
                     // console.log(data)
@@ -151,20 +158,21 @@ function WithdrawTransaction() {
                     setOpen(true)
                     setError("")
                     setSuccess(data?.message)
-                    setSingleUser(data?.data)
+                    setSingleWithdrawTrans(data?.data)
                 }
 
             })
     }
 
-    const orderCancel = (id) => {
+    const withdrawCancelled = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/products/orders/cancelled/${id}`, {
+        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${user?.token}`
             },
+            body: JSON.stringify({ status: 'cancelled' })
         })
             .then(res => res.json())
             .then(data => {
@@ -178,7 +186,7 @@ function WithdrawTransaction() {
                     setIsOpen(false)
                     setError("")
                     setSuccess(data?.message)
-                    setSingleUser(data?.data)
+                    setSingleWithdrawTrans(data?.data)
                     setOpen(true)
                 }
             })
@@ -192,13 +200,13 @@ function WithdrawTransaction() {
         }, [open]);
     return (
         <div>
-            <DashboardHeader title="Order" />
+            <DashboardHeader title="Transaction History" />
             <Grid container spacing={1}>
                 <Grid item xs={12} md={4} lg={4}>
-                    <SearchListOrder handleCancelRequest={handleCancelRequest} handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListOrder>
+                    <SearchListWithdrawTrans handleCancelledRequest={handleCancelledRequest} handleSingleClick={handleSingleClick} count={count} data={withdrawTransList} setSearchText={setSearchText} title="Transaction History" setPage={setPage} limit={limit} product="Transaction History" searchTitle="Transaction History" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListWithdrawTrans>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
-                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderComplete={orderComplete} orderCancel={orderCancel} order="Order" data={singleUser} title="Order Info" />
+                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} withdrawApproved={withdrawApproved} withdrawCancelled={withdrawCancelled} withdraw="Transaction History" data={singleWithdrawTrans} title="Transaction Info" />
                 </Grid>
             </Grid>
         </div>
