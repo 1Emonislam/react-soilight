@@ -26,10 +26,10 @@ function Rider() {
             navigate('/login')
         }
     }, [navigate, user?.message])
-    const handleNewRequest = async (e) => {
+    const handlePendingRequest = async (e) => {
         const search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status/latest?search=${search}&role=rider&page=${page}&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}status=pending&role=rider&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -174,7 +174,7 @@ function Rider() {
             <DashboardHeader title="Rider" />
             <Grid container spacing={0}>
                 <Grid item xs={12} md={4} lg={4}>
-                    <SearchListRider handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} rider="Rider:" searchTitle="Rider" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListRider>
+                    <SearchListRider handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} rider="Rider:" searchTitle="Rider" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListRider>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView totalRate={totalRate} error={error} success={success} handleApproved={handleApproved} handleRejected={handleRejected} avgRating={avgRating} rider="Rider" data={singleUser} title="Rider Info" />

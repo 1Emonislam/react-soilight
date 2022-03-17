@@ -7,7 +7,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
-function SearchListRider({ title, setPage, data, limit, count, rider, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handleNewRequest }) {
+function SearchListRider({ title, setPage, data, limit, count, rider, handleSingleUser, setSearchText, searchTitle, handleApproveRequest, handlePendingRequest }) {
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -34,7 +34,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
     <div className='search-container-box'>
       <h4 className='search-title' style={{ paddingLeft: '30px' }}>{title}</h4>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px 0' }}>
-        {handleNewRequest && <>
+        {handlePendingRequest && <>
           <Box sx={{ width: '100%', justifyContent: 'center' }}>
             <Tabs
               value={value}
@@ -46,7 +46,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
                 }
               }}
             >
-              <Tab className="btn-search" style={{ marginLeft: '10px', minHeight: '42px!important', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="New Request" onClick={(e) => handleNewRequest(e, 'latest')}>
+              <Tab className="btn-search" style={{ marginLeft: '10px', minHeight: '42px!important', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="Pending Request" onClick={(e) => handlePendingRequest()}>
               </Tab>
               {handleApproveRequest && <Tab value="two" label="Approved Request" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px',  minHeight: '42px!important' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
               </Tab>}
