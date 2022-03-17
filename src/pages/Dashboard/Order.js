@@ -14,6 +14,7 @@ function Order() {
     const [success, setSuccess] = useState("");
     const [open, setOpen] = useState(false)
     const [page, setPage] = useState(1);
+    const [status, setStatus] = useState("")
     const limit = 50;
     const navigate = useNavigate();
     const userLogin = useSelector(state => state.userLogin);
@@ -25,6 +26,7 @@ function Order() {
         }
     }, [navigate, user?.message])
     const handlePendingRequest = async () => {
+        setStatus('pending')
         let search = searchText || '';
         try {
             await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=${page}&limit=${limit}`, {
@@ -50,6 +52,7 @@ function Order() {
 
     }
     const handleOrderDeliveredRequest = async () => {
+        setStatus('delivered')
         let search = searchText || '';
         try {
             await fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=delivered&&page=${page}&limit=${limit}`, {
@@ -75,6 +78,7 @@ function Order() {
     }
     const handleCancelRequest = () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
+        setStatus('cancelled')
         let search = searchText || '';
         fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=cancelled&&page=${page}&limit=${limit}`, {
             method: 'GET',
@@ -95,7 +99,7 @@ function Order() {
 
     useEffect(() => {
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=pending&&page=${page}&limit=${limit}`, {
+        fetch(`https://soilight.herokuapp.com/products/orders/searching?search=${search}&&status=${status || 'pending'}&&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -110,7 +114,7 @@ function Order() {
                     setCount(data?.count)
                 }
             })
-    }, [page, searchText, user?.token]);
+    }, [page, searchText, status, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
         fetch(`https://soilight.herokuapp.com/products/orders/singleOrder/${id}`, {
@@ -134,7 +138,7 @@ function Order() {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${user?.token}`
             },
-            body:JSON.stringify({status:'delivered'})
+            body: JSON.stringify({ status: 'delivered' })
         })
             .then(res => res.json())
             .then(data => {
@@ -164,7 +168,7 @@ function Order() {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${user?.token}`
             },
-            body:JSON.stringify({status:'cancelled'})
+            body: JSON.stringify({ status: 'cancelled' })
         })
             .then(res => res.json())
             .then(data => {
@@ -198,7 +202,7 @@ function Order() {
                     <SearchListOrder handleCancelRequest={handleCancelRequest} handleSingleClick={handleSingleClick} count={count} data={orderList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} order="Order:" searchTitle="Order" handlePendingRequest={handlePendingRequest} handleOrderDeliveredRequest={handleOrderDeliveredRequest}></SearchListOrder>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
-                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderDelivered={orderDelivered} orderCancelled={orderCancelled}orderPending={orderList} order="Order" data={singleUser} title="Order Info" />
+                    <SearchProfileView isOpen={isOpen} setIsOpen={setIsOpen} error={error} success={success} orderDelivered={orderDelivered} orderCancelled={orderCancelled} orderPending={orderList} order="Order" data={singleUser} title="Order Info" />
                 </Grid>
             </Grid>
         </div>

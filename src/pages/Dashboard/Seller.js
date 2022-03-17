@@ -19,6 +19,7 @@ function Seller() {
     const [totalRate, setTotalRate] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
+    const [status, setStatus] = useState("")
     const [open, setOpen] = useState("");
     // const[latest,setLatest] = useState("")
     useEffect(() => {
@@ -30,7 +31,7 @@ function Seller() {
         let search = searchText || '';
         // setLatest()
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists/new?search=${search}&&page=${page}&&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status/latest?search=${search}&role=seller&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -53,10 +54,11 @@ function Seller() {
         }
 
     }
-    const handleApproveRequest = async (e) => {
+    const handleApproveRequest = async () => {
+        setStatus('approved')
         let search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists/approved?search=${search}&&page=${page}&&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}&role=seller&status=approved&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -82,7 +84,8 @@ function Seller() {
 
     useEffect(() => {
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/dashboard/users/seller/lists?search=${search}&&page=${page}&&limit=${limit}`, {
+
+        fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}&role=seller&status=${status || 'pending'}&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -97,7 +100,7 @@ function Seller() {
                     setCount(data?.count)
                 }
             })
-    }, [page, searchText, user?.token]);
+    }, [page, searchText, status, user?.token]);
     const handleSingleUser = (id) => {
         // console.log(id)
         // console.log(index)

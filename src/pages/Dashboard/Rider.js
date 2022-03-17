@@ -14,6 +14,7 @@ function Rider() {
     const [totalRate, setTotalRate] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [status, setStatus] = useState("")
     const [open, setOpen] = useState(false)
     const [page, setPage] = useState(1);
     const limit = 50;
@@ -26,8 +27,9 @@ function Rider() {
         }
     }, [navigate, user?.message])
     const handleNewRequest = async (e) => {
+        const search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/rider/lists/new`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status/latest?search=${search}&role=rider&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -50,8 +52,10 @@ function Rider() {
 
     }
     const handleApproveRequest = async (e) => {
+        setStatus('approved')
+        const search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/rider/lists/approved`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status/latest?search=${search}&role=rider&status=approved&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -72,12 +76,10 @@ function Rider() {
         catch {
         }
     }
-    
+
     useEffect(() => {
-        // console.log(page)
-        // https://soilight.herokuapp.com/dashboard/users/rider/lists?search=${search}page=${page}&&limit=${limit}
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/dashboard/users/rider/lists?search=${search}&&page=${page}&&limit=${limit}`, {
+        fetch(`https://soilight.herokuapp.com/dashboard/users/role/status/latest?search=${search}&role=rider&status=${status || 'pending'}&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -92,7 +94,7 @@ function Rider() {
                     setCount(data?.count)
                 }
             })
-    }, [page, searchText, user?.token]);
+    }, [page, searchText, status, user?.token]);
     const handleSingleUser = (id) => {
         fetch(`https://soilight.herokuapp.com/users/${id}`, {
             method: 'GET',
@@ -172,7 +174,7 @@ function Rider() {
             <DashboardHeader title="Rider" />
             <Grid container spacing={0}>
                 <Grid item xs={12} md={4} lg={4}>
-                    <SearchListRider handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} title=""setPage={setPage}limit={limit} rider="Rider:" searchTitle="Rider" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListRider>
+                    <SearchListRider handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} rider="Rider:" searchTitle="Rider" handleNewRequest={handleNewRequest} handleApproveRequest={handleApproveRequest}></SearchListRider>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
                     <SearchProfileView totalRate={totalRate} error={error} success={success} handleApproved={handleApproved} handleRejected={handleRejected} avgRating={avgRating} rider="Rider" data={singleUser} title="Rider Info" />

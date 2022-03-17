@@ -24,7 +24,7 @@ function Buyer() {
     const limit = 50;
     useEffect(() => {
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/dashboard/users/buyer/lists?search=${search}&&page=${page}&&limit=${limit}`, {
+        fetch(`https://soilight.herokuapp.com/dashboard/users/role?search=${search}&role=buyer&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
