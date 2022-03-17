@@ -7,7 +7,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
-function SearchListOrder({ title, setPage, data, limit, count, order, handleCancelRequest, handleSingleClick, setSearchText, searchTitle, handleApproveRequest, handlePendingRequest }) {
+function SearchListOrder({ title, setPage, data, limit, count, order, handleCancelRequest, handleSingleClick, setSearchText, searchTitle, handleOrderDeliveredRequest, handlePendingRequest }) {
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -48,11 +48,11 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleCanc
                 }
               }}
             >
-              <Tab className="btn-search" id="btn-search" style={{ marginLeft: '10px', minHeight: '40px!important', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="pending" onClick={(e) => handlePendingRequest(e)}>
+              <Tab className="btn-search" id="btn-search" style={{ marginLeft: '10px', minHeight: '40px!important', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px' }} value="one" label="pending" onClick={(e) => handlePendingRequest()}>
               </Tab>
-              {handleApproveRequest && <Tab value="two" label="Complete" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', minHeight: '42px!important' }} className="btn-search" onClick={() => handleApproveRequest('approved')}>
+              {handleOrderDeliveredRequest && <Tab value="two" label="delivered" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', minHeight: '42px!important' }} className="btn-search" onClick={() => handleOrderDeliveredRequest()}>
               </Tab>}
-              {handleApproveRequest && <Tab value="three" label="Cancel" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', minHeight: '42px!important' }} className="btn-search" onClick={() => handleCancelRequest('cancel')}>
+              {handleCancelRequest && <Tab value="three" label="Cancel" style={{ marginLeft: '10px', textTransform: "capitalize", padding: '0 20px', borderRadius: '40px', minHeight: '42px!important' }} className="btn-search" onClick={() => handleCancelRequest()}>
               </Tab>}
             </Tabs>
           </Box>

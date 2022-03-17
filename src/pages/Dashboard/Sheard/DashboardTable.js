@@ -38,10 +38,10 @@ function DashboardTableToday({ date = 0, dateTitle = 0, today=0}) {
                         <span > {today?.todaySellerCount}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
-                        <span> Complete Order</span>
+                        <span> Delivered Order</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
-                        <span> {today?.todayOrderComplete}</span>
+                        <span> {today?.todayOrderDelivered}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span>Pending Order</span>

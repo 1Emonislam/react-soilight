@@ -38,10 +38,10 @@ function DashboardTableLastWeek({ date = 0, dateTitle = 0, lastWeek = 0 }) {
                         <span > { lastWeek?.lastWeekSellerCount}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
-                        <span> Complete Order</span>
+                        <span> Delivered Order</span>
                     </Grid>
                     <Grid item xs={4} sx={{ textAlign: 'right' }} className="list">
-                        <span> {lastWeek?.lastWeekOrderComplete}</span>
+                        <span> {lastWeek?.lastWeekOrderDelivered}</span>
                     </Grid>
                     <Grid item xs={8} className="list">
                         <span> Pending Order</span>
