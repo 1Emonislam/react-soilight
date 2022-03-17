@@ -29,7 +29,7 @@ function Rider() {
     const handlePendingRequest = async (e) => {
         const search = searchText || '';
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}status=pending&role=rider&page=${page}&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}&role=rider&status=pending&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

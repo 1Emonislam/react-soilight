@@ -31,7 +31,7 @@ function Seller() {
         let search = searchText || '';
         // setLatest()
         try {
-            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}status=pending&role=seller&page=${page}&limit=${limit}`, {
+            await fetch(`https://soilight.herokuapp.com/dashboard/users/role/status?search=${search}&role=seller&status=pending&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
