@@ -179,7 +179,7 @@ function WithdrawTransaction() {
                 if (data?.error) {
                     setIsOpen(false)
                     setSuccess("")
-                    setError(data?.error)
+                       setError(data?.error || data?.status)
                     setOpen(true)
                 }
                 if (data?.data) {

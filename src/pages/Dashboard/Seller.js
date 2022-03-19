@@ -115,7 +115,7 @@ function Seller() {
             .then(data => {
                 // console.log(data)
                 if (data?.error) {
-                    setError(data?.error)
+                       setError(data?.error || data?.status)
                 }
                 if (data?.data) {
                     setError("")
@@ -138,7 +138,7 @@ function Seller() {
             .then(data => {
                 if (data?.error) {
                     setSuccess("")
-                    setError(data?.error)
+                       setError(data?.error || data?.status)
                     setOpen(true)
                 }
                 if (data?.data) {
@@ -164,7 +164,7 @@ function Seller() {
                 if (data?.error) {
                     setOpen(true)
                     setSuccess("")
-                    setError(data?.error)
+                       setError(data?.error || data?.status)
                 }
                 if (data?.data) {
                     setOpen(true)
