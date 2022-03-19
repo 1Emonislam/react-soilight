@@ -338,7 +338,7 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                             {seller && data?.sellerShop?.closeDate && <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Shop Open Date</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}> {new Date(data?.sellerShop?.openDate)?.toDateString()} || N/A</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}> {new Date(data?.sellerShop?.openDate)?.toDateString() || "N/A"}</p>
                                 </div>
                             </Grid>}
                             {seller && data?.sellerShop?.closeDate && <Grid item xs={12} md={6}>
