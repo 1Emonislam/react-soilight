@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 import React from 'react';
 import './SearchProfileView.css';
 
-function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withdrawApproved, orderCancelled, orderDelivered, productApproved, productCancelled, isOpen, product, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, withdraw, avgRating = 0, title }) {
+function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withdrawApproved, riderCancelled, riderApproved, orderCancelled, orderDelivered, productApproved, productCancelled, isOpen, product, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, withdraw, avgRating = 0, title }) {
     //console.log(order)
     return (
         <div style={{ height: '100vh' }}>
@@ -80,9 +80,14 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                                     </p>
                                 </div>
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Product Cancelled </Button> : <Button variant="contained" onClick={() => productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Product Approved </Button>}
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" onClick={() => productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Product Approved </Button>
+                                </div>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Product Cancelled </Button>
                                 </div>
                             </Grid>
                         </>
@@ -171,9 +176,14 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                                     <span style={{ color: 'black', fontWeight: '500' }}>Amount: ${data?.amount}</span>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" disabled={isOpen} onClick={() => withdrawCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Withdraw Cancelled </Button> : <Button variant="contained" disabled={isOpen} onClick={() => withdrawApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Withdaraw Approved </Button>}
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" disabled={isOpen} onClick={() => withdrawApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 30px', borderRadius: '8px' }}>Withdaraw Approved </Button>
+                                </div>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" disabled={isOpen} onClick={() => withdrawCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 30px', borderRadius: '8px' }}>Withdraw Cancelled </Button>
                                 </div>
                             </Grid>
                         </>
@@ -255,9 +265,14 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                             </Grid>
                             <Grid item xs={12} md={6}>
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginLeft: '85px', marginBottom: '80px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => productCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Cancelled </Button> : <Button variant="contained" onClick={() => productApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>}
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" onClick={() => riderApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>
+                                </div>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" onClick={() => riderCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Cancelled </Button>
                                 </div>
                             </Grid>
                         </>
@@ -374,11 +389,17 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                             </Grid>}
                             {seller && <Grid item xs={12} md={6} style={{}}>
                             </Grid>}
-                            <Grid item xs={12} md={6} style={{ marginBottom: '50px', marginTop: '20px', marginLeft: '85px' }}>
-                                <div className="item-view" style={{ padding: '0px 10px', borderLeft: '0px' }}>
-                                    {data?.status === 'approved' ? <Button variant="contained" onClick={() => handleRejected(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Rejected </Button> : <Button variant="contained" onClick={() => handleApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>}
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" onClick={() => handleApproved(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}>Approved </Button>
                                 </div>
                             </Grid>
+                            <Grid item xs={4}>
+                                <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                    <Button variant="contained" onClick={() => handleRejected(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Rejected </Button>
+                                </div>
+                            </Grid>
+
                         </>
                         }
                         {order && <>
@@ -510,19 +531,24 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                                     </Grid>
                                 </Grid>))
                                 }
-                                <Grid container spacing={0}>
-                                    <Grid item xs={11} style={{ textAlign: 'right', paddingRight: "40px", paddingTop: '10px' }}>
+                                <Grid container spacing={0} justifyContent="center">
+                                    <Grid item xs={10} style={{ textAlign: 'right', paddingRight: "40px", paddingTop: '10px' }}>
                                         <span style={{ color: 'black', fontWeight: '500' }}> Total: ${data?.products?.reduce((perv, curr) => (perv + Number(curr?.price)), 0)}</span>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                            <Button variant="contained" disabled={isOpen} onClick={() => orderDelivered(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 45px', borderRadius: '8px' }}> Order Delivered </Button>
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <div className="item-view" style={{ borderLeft: '0px', padding: '0px 10px', marginTop: '30px', marginBottom: '80px' }}>
+                                            <Button disabled={isOpen} variant="contained" onClick={() => orderCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button>
+                                        </div>
                                     </Grid>
                                 </Grid>
                             </>
-                            {<Grid item xs={12} md={6} style={{}}>
-                            </Grid>}
+
                             <Grid item xs={12} md={6} style={{ marginBottom: '50px', marginTop: '20px', marginLeft: '85px' }}>
-                                <div className="item-view" style={{ padding: '0px 10px', borderLeft: '0px' }}>
-                                    {data?.status === 'delivered' ? <Button disabled={isOpen} variant="contained" onClick={() => orderCancelled(data?._id)} style={{ textTransform: 'capitalize', background: 'red', padding: '10px 50px', borderRadius: '8px' }}>Order Cancel</Button> : <Button variant="contained" disabled={isOpen} onClick={() => orderDelivered(data?._id)} style={{ textTransform: 'capitalize', background: '#05AC54', padding: '10px 50px', borderRadius: '8px' }}> Order Delivered </Button>}
-                                </div>
-                                {/* {console.log(isOpen)} */}
                                 {success && <Alert severity="success" timeout={5000} md={6}>{success}</Alert>}
                                 {error && <Alert severity="error" timeout={5000} md={6}>{error}</Alert>}
                             </Grid>

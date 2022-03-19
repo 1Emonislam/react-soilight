@@ -137,7 +137,7 @@ function Rider() {
 
             })
     }
-    const handleRejected = (id) => {
+    const riderCancelled = (id) => {
         fetch(`https://soilight.herokuapp.com/users/rejected/${id}`, {
             method: 'PUT',
             headers: {
@@ -177,7 +177,7 @@ function Rider() {
                     <SearchListRider handleSingleUser={handleSingleUser} count={count} data={sellerList} setSearchText={setSearchText} title="" setPage={setPage} limit={limit} rider="Rider:" searchTitle="Rider" handlePendingRequest={handlePendingRequest} handleApproveRequest={handleApproveRequest}></SearchListRider>
                 </Grid>
                 <Grid item xs={12} md={8} lg={8}>
-                    <SearchProfileView totalRate={totalRate} error={error} success={success} handleApproved={handleApproved} handleRejected={handleRejected} avgRating={avgRating} rider="Rider" data={singleUser} title="Rider Info" />
+                    <SearchProfileView totalRate={totalRate} error={error} success={success} riderApproved={handleApproved} riderCancelled={riderCancelled} avgRating={avgRating} rider="Rider" data={singleUser} title="Rider Info" />
                 </Grid>
             </Grid>
         </div>
