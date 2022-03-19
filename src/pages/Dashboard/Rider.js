@@ -124,7 +124,7 @@ function Rider() {
                 if (data?.error) {
                     setOpen(true)
                     setSuccess("")
-                   setError(data?.error?.status || data?.error)
+                    setError(data?.error?.status || data?.error?.buyer  || data?.error?.seller || data?.error?.rider || data?.error)
                 }
                 if (data?.data) {
                     setOpen(true)
@@ -149,7 +149,7 @@ function Rider() {
             .then(data => {
                 if (data?.error) {
                     setSuccess("")
-                      setError(data?.error?.status || data?.error)
+                    setError(data?.error?.status || data?.error?.buyer  || data?.error?.seller || data?.error?.rider || data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {

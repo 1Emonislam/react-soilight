@@ -161,10 +161,11 @@ function Seller() {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data?.error) {
                     setOpen(true)
                     setSuccess("")
-                      setError(data?.error?.status || data?.error)
+                      setError(data?.error?.status || data?.error?.buyer  || data?.error?.seller || data?.error?.rider || data?.error)
                 }
                 if (data?.data) {
                     setOpen(true)
