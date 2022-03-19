@@ -146,7 +146,7 @@ function Order() {
                     setIsOpen(false)
                     setOpen(true)
                     setSuccess("")
-                        setError(data?.status || data?.error)
+                      setError(data?.error?.status || data?.error)
                 }
                 if (data?.data) {
                     // console.log(data)
@@ -175,7 +175,7 @@ function Order() {
                 if (data?.error) {
                     setIsOpen(false)
                     setSuccess("")
-                        setError(data?.status || data?.error)
+                      setError(data?.error?.status || data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {
