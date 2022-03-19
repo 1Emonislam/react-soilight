@@ -124,7 +124,7 @@ function Rider() {
                 if (data?.error) {
                     setOpen(true)
                     setSuccess("")
-                    setError(data?.error || data?.status)
+                     setError(data?.status || data?.error)
                 }
                 if (data?.data) {
                     setOpen(true)
@@ -149,7 +149,7 @@ function Rider() {
             .then(data => {
                 if (data?.error) {
                     setSuccess("")
-                       setError(data?.error || data?.status)
+                        setError(data?.status || data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {

@@ -179,7 +179,7 @@ function Product() {
                 if (data?.error) {
                     setIsOpen(false)
                     setSuccess("")
-                       setError(data?.error || data?.status)
+                        setError(data?.status || data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {
