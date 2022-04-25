@@ -2,6 +2,7 @@ import { Grid, Pagination } from '@mui/material'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
+import moment from 'moment'
 import React, { useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
@@ -94,7 +95,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleCanc
                     }
                   </span>
                 </Grid>
-                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{new Date(user?.createdAt)?.getHours()}  hours ago </small>
+                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{moment(user?.createdAt).fromNow()}</small>
               </Grid>
             </Grid>
           </Grid>

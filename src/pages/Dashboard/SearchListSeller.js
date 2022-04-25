@@ -2,6 +2,7 @@ import { Grid, Pagination } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import moment from 'moment';
 import React, { useState } from 'react';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
@@ -79,7 +80,7 @@ function SearchListSeller({ title, data, setPage, limit, count, seller, handleSi
                 <h5><span>Seller: </span>
                   <b style={{ fontSize: '14px', marginRight: '3px' }}> {user?.name}</b></h5>
                 <h5>Seller Shop: <span style={{ color: '#646262' }}> {user?.sellerShop?.name || 'N/A'}</span></h5>
-                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{new Date(user?.createdAt)?.getHours()}  hours ago </small>
+                <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{moment(user?.createdAt).fromNow()} </small>
               </>
             </Grid>
           </Grid>
