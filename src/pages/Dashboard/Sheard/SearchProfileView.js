@@ -4,7 +4,7 @@ import React from 'react';
 import './SearchProfileView.css';
 
 function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withdrawApproved, riderCancelled, riderApproved, orderCancelled, orderDelivered, productApproved, productCancelled, isOpen, product, handleRejected, error, order, success, totalRate = 0, buyer, seller, rider, withdraw, avgRating = 0, title }) {
-    //console.log(order)
+    console.log(product)
     return (
         <div style={{ height: '100vh' }}>
             {data && <div className="profile-view-section" style={{ marginTop: '70px', }}>
@@ -43,29 +43,35 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                             <Grid item xs={12} md={6}>
                                 <div className="item-view">
                                     <p style={{ margin: "0px", color: '#444444' }}>Category</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.category || 'N/A'}
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.category?.category || 'N/A'}
                                     </p>
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <div className="item-view">
                                     <p style={{ margin: "0px", color: '#444444' }}>Sub Category</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.subCategory || 'N/A'} </p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.subCategory?.subCategory || 'N/A'} </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Inside Sub Category</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.insideSubCategory?.insideSubCategory || 'N/A'}</p>
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Pack Type</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.pack_type || 'N/A'}</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.packType?.packType || 'N/A'}</p>
                                 </div>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Serving Size</p>
-                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.serving_size || 'N/A'}
-                                    </p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.servingSize?.servingSize || 'N/A'}</p>
                                 </div>
                             </Grid>
+                          
                             <Grid item xs={12} md={6}>
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Product Status</p>
@@ -77,6 +83,13 @@ function SearchProfileView({ data = {}, handleApproved, withdrawCancelled, withd
                                 <div className="item-view" style={{ padding: '0px 10px' }}>
                                     <p style={{ margin: "0px", color: '#444444' }}>Seller Shop</p>
                                     <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.sellerShop?.name}
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <div className="item-view" style={{ padding: '0px 10px' }}>
+                                    <p style={{ margin: "0px", color: '#444444' }}>Address</p>
+                                    <p style={{ margin: "0px", color: "#2B2C43" }}>{data?.user?.sellerShop?.address || 'N/A'}
                                     </p>
                                 </div>
                             </Grid>

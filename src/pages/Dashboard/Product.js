@@ -128,7 +128,8 @@ function Product() {
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data)
+                console.log(data)
+                setError(data?.error?.token)
                 setSingleProduct(data?.data)
             })
     }
@@ -179,7 +180,7 @@ function Product() {
                 if (data?.error) {
                     setIsOpen(false)
                     setSuccess("")
-                      setError(data?.error?.status || data?.error)
+                    setError(data?.error?.status || data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {
