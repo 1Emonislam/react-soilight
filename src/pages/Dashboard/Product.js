@@ -129,7 +129,7 @@ function Product() {
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
-                setError(data?.error?.token)
+                setError(data?.error?.token || data?.error)
                 setSingleProduct(data?.data)
             })
     }
