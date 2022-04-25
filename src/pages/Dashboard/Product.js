@@ -128,7 +128,7 @@ function Product() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setError(data?.error?.token)
                 setSingleProduct(data?.data)
             })
