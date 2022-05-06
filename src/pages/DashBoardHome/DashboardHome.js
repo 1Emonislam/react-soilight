@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { AiFillDashboard } from 'react-icons/ai'
 import { BiStoreAlt } from 'react-icons/bi'
-import { FaCaravan, FaUserAstronaut,FaHistory } from 'react-icons/fa'
+import { FaCaravan, FaUserAstronaut, FaHistory } from 'react-icons/fa'
 import { MdPointOfSale } from 'react-icons/md'
 import { GrProductHunt } from 'react-icons/gr'
 import { useSelector } from 'react-redux'
@@ -16,7 +16,8 @@ function DashboardHome() {
         if (!user?.message) {
             navigate('/login')
         }
-    }, [navigate, user?.message])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.message])
     return (
         <>
             <div className="dashboard-section">
@@ -34,13 +35,14 @@ function DashboardHome() {
                                     </Typography>
                                 </div>
                                 <NavLink to="/dashboard/dashboard" className={(state) => state?.isActive ? 'selected' : ''}><AiFillDashboard /><span>Dashboard</span></NavLink>
-                                <NavLink to="/dashboard/product" className={(state) => state?.isActive ? 'selected' : ''}><GrProductHunt/><span>Product</span></NavLink>
+                                <NavLink to="/dashboard/product" className={(state) => state?.isActive ? 'selected' : ''}><GrProductHunt /><span>Product</span></NavLink>
                                 <NavLink to="/dashboard/order" className={(state) => state?.isActive ? 'selected' : ''}><MdPointOfSale /><span>Order</span></NavLink>
                                 <NavLink to="/dashboard/buyer" className={(state) => state?.isActive ? 'selected' : ''}><FaUserAstronaut /><span>Buyer</span></NavLink>
                                 <NavLink to="/dashboard/seller" className={(state) => state?.isActive ? 'selected' : ''}><BiStoreAlt /> <span>Seller</span></NavLink>
                                 <NavLink to="/dashboard/rider" className={(state) => state?.isActive ? 'selected' : ''}><FaCaravan /> <span>Rider</span></NavLink>
                                 <NavLink to="/dashboard/withdraw/transaction" className={(state) => state?.isActive ? 'selected' : ''}><FaHistory /><span>History</span></NavLink>
                                 <NavLink to="/dashboard/profile" className={(state) => state?.isActive ? 'selected' : ''}><FaUserAstronaut /><span>Profile</span> </NavLink>
+                                <NavLink to="/dashboard/categories" className={(state) => state?.isActive ? 'selected' : ''}><FaUserAstronaut /><span>Categories</span> </NavLink>
                             </div>
                         </>
                     </Grid>

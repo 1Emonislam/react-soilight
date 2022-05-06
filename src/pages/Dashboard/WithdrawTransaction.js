@@ -179,7 +179,7 @@ function WithdrawTransaction() {
                 if (data?.error) {
                     setIsOpen(false)
                     setSuccess("")
-                      setError(data?.error?.status || data?.error)
+                    setError(data?.error?.status || data?.error)
                     setOpen(true)
                 }
                 if (data?.data) {
@@ -193,9 +193,11 @@ function WithdrawTransaction() {
     }
     useEffect(
         () => {
-            let timer1 = setTimeout(() => setOpen(true), 5 * 1000)
+            setTimeout(() => {
+                setOpen(true)
+            }, 5000)
             return () => {
-                clearTimeout(timer1);
+                clearTimeout();
             };
         }, [open]);
     return (

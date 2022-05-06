@@ -6,6 +6,7 @@ import ChangePassword from "./pages/Authentication/ChangePassword";
 import EditProfile from "./pages/Authentication/EditProfile";
 import Login from "./pages/Authentication/Login";
 import Buyer from "./pages/Dashboard/Buyer";
+import Categories from "./pages/Dashboard/Categories";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Order from "./pages/Dashboard/Order";
 import Product from "./pages/Dashboard/Product";
@@ -37,11 +38,12 @@ function App() {
             <Route path="dashboard" element={<AdminProtect><DashBoard /> </AdminProtect>} />
             <Route path="order" element={<Order />} />
             <Route path="product" element={<Product />} />
-            <Route path="withdraw/transaction" element={<WithdrawTransaction/>} />
+            <Route path="withdraw/transaction" element={<WithdrawTransaction />} />
             <Route path="buyer" element={<Buyer />} />
             <Route path="seller" element={<Seller />} />
             <Route path="rider" element={<Rider />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="categories" element={<Categories />} />
             <Route path="edit-profile" element={<EditProfile />} />
             <Route path="change-password" element={<ChangePassword />} />
           </Route>
