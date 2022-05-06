@@ -17,19 +17,19 @@ function Categories() {
             <DashboardHeader title="Categories" />
             <Grid container spacing={1}>
                 <Grid container spacing={1} alignItems="center" justifyContent={'space-between'}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={2.2}>
                         <Category title="Category" setSearchText={setSearchText} limit={limit} page={page} setPage={setPage} searchTitle="Category" count={count} />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={2.2}>
                         <SubCategory title="Sub Category" setSearchText={setSearchText} limit={limit} page={page} setPage={setPage} searchTitle="Sub Category" count={count} />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                        <InsideSubCategory title="Inside Sub Category" setSearchText={setSearchText} limit={limit} page={page} setPage={setPage} searchTitle="Inside Sub Category" count={count} />
+                    <Grid item xs={12} md={2.2}>
+                        <InsideSubCategory title="Inside Sub " setSearchText={setSearchText} limit={limit} page={page} setPage={setPage} searchTitle="Inside Sub Category" count={count} />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={2.2}>
                         <PackType title="Pack Type" setSearchText={setSearchText} limit={limit} page={page} setPage={setPage} searchTitle="Pack Type" count={count} />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={2.2}>
                         <ServingSize title="Serving Size" setSearchText={setSearchText} limit={limit} page={page} setPage={setPage} searchTitle="Serving Size" count={count} />
                     </Grid>
                 </Grid>

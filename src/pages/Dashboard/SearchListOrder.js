@@ -80,7 +80,7 @@ function SearchListOrder({ title, setPage, data, limit, count, order, handleCanc
                 <Grid item xs={11}>
                   <>
                     <h5><span>Buyer:</span>
-                      <b style={{ fontSize: '14px', marginRight: '3px' }}>{user?.user?.name}</b></h5>
+                      <b style={{ fontSize: '11px', marginRight: '3px' }}>{user?.user?.name}</b></h5>
                     <h5><span style={{ color: '#646262' }}> {
                       <>
                         {user?.user?.email}

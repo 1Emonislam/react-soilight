@@ -78,7 +78,7 @@ function SearchListSeller({ title, data, setPage, limit, count, seller, handleSi
 
                 </Box>
                 <h5><span>Seller: </span>
-                  <b style={{ fontSize: '14px', marginRight: '3px' }}> {user?.name}</b></h5>
+                  <b style={{ fontSize: '11px', marginRight: '3px' }}> {user?.name}</b></h5>
                 <h5>Seller Shop: <span style={{ color: '#646262' }}> {user?.sellerShop?.name || 'N/A'}</span></h5>
                 <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{moment(user?.createdAt).fromNow()} </small>
               </>

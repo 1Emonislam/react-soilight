@@ -74,7 +74,7 @@ function SearchListRider({ title, setPage, data, limit, count, rider, handleSing
             <Grid item xs={8}>
               <>
                 <h5><span>Rider:</span>
-                  <b style={{ fontSize: '14px', marginRight: '3px' }}>{user?.name}</b></h5>
+                  <b style={{ fontSize: '11px', marginRight: '3px' }}>{user?.name}</b></h5>
                 <h5>Rider Number: <span style={{ color: '#646262' }}> {user?.phone || 'N/A'}</span></h5>
                 <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{moment(user?.createdAt).fromNow()} </small>
               </>

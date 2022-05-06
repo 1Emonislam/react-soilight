@@ -76,7 +76,7 @@ function SearchListWithdrawTrans({ title, setPage, data, limit, count, handleSin
                             <>
                                 {/* {console.log(withdraw)} */}
                                 <h5><span> </span>
-                                    <b style={{ fontSize: '14px', marginRight: '3px' }}>{withdraw?.user?.name}</b></h5>
+                                    <b style={{ fontSize: '11px', marginRight: '3px' }}>{withdraw?.user?.name}</b></h5>
                                 <h5 style={{ fontSize: '10px' }}>Bank: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.bank_pay?.bank_acc_num || 'N/A'}</span></h5>
                                 {/* {console.log(withdraw)} */}
                                 <h5 style={{ fontSize: '12px' }}>Trans: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.transaction_id || 'N/A'}</span></h5>

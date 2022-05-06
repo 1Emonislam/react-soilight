@@ -2,10 +2,10 @@ import { Grid, Pagination } from '@mui/material'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
+import moment from 'moment'
 import React, { useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
-import moment from 'moment'
 import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
 function SearchListProduct({ title, setPage, data, limit, count, handleSingleClick, handlePendingRequest, handleApproveRequest, setSearchText, searchTitle, handleCancelledRequest }) {
@@ -77,7 +77,7 @@ function SearchListProduct({ title, setPage, data, limit, count, handleSingleCli
                         <Grid item xs={8}>
                             <>
                                 <h5><span> </span>
-                                    <b style={{ fontSize: '14px', marginRight: '3px' }}>{product?.name}</b></h5>
+                                    <b style={{ fontSize: '11px', marginRight: '3px' }}>{product?.name}</b></h5>
                                 <h5>shop: <span style={{ color: '#646262' }}> {product?.user?.sellerShop?.name || 'N/A'}</span></h5>
                                 <small style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}><AiOutlineClockCircle style={{ marginRight: '4px' }} />{moment(product?.createdAt).fromNow()}</small>
                             </>
