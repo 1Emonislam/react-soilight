@@ -45,36 +45,16 @@ function CategoriesSearch({ title, setPage, data, limit, count, handleSingleClic
                 <div style={{ paddingLeft: '30px' }}>
                     <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
                 </div>
-                {!data ? <Loading /> : dataState?.objects?.map((withdraw, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(withdraw?._id, toggleActive(index))} key={withdraw?._id}>
+                {!data ? <Loading /> : dataState?.objects?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category?._id, toggleActive(index))} key={category?._id}>
                     <Grid container spacing={0} alignItems="center" textAlign="left">
                         <Grid item xs={3}>
                             <>
-                                <img className="img-box-list-item" style={{ borderRadius: '50px', width: "43px", height: '43px', border: '2px solid #F5AB24' }} src={withdraw?.user?.pic} alt={withdraw?.user?.name} />
-                            </>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <>
-                                {/* {console.log(withdraw)} */}
-                                <h5><span> </span>
-                                    <b style={{ fontSize: '11px', marginRight: '3px' }}>{withdraw?.user?.name}</b></h5>
-                                <h5 style={{ fontSize: '10px' }}>Bank: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.bank_pay?.bank_acc_num || 'N/A'}</span></h5>
-                                {/* {console.log(withdraw)} */}
-                                <h5 style={{ fontSize: '12px' }}>Trans: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.transaction_id || 'N/A'}</span></h5>
-                                {/* {console.log(withdraw)} */}
-                                <h5 style={{ fontSize: '12px' }}>shop: <span style={{ color: '#646262', width: '40px' }}> {withdraw?.user?.sellerShop?.name || 'N/A'}</span></h5>
-                                {/* {console.log(withdraw)} */}
+                                <img className="img-box-list-item" style={{ borderRadius: '50px', width: "43px", height: '43px', border: '2px solid #F5AB24' }} src={category?.img} alt={category?.category} />
                             </>
                         </Grid>
                         <Grid item xs={3} textAlign="right">
                             <div>
-                                <small style={{ display: 'flex', fontSize: "10px", alignItems: 'center', marginBottom: '5px' }}>{new Date(withdraw?.createdAt)?.toLocaleTimeString()} {new Date(withdraw?.createdAt)?.toLocaleDateString()}</small>
-                            </div>
-                            <div>
-                                <span style={{ color: "#FF0000", fontSize: '16px', fontWeight: "bold", textAlign: "right", paddingRight: '3px' }}>
-                                    ${
-                                        withdraw?.amount
-                                    }
-                                </span>
+                                <small style={{ display: 'flex', fontSize: "10px", alignItems: 'center', marginBottom: '5px' }}>{new Date(category?.createdAt)?.toLocaleTimeString()} {new Date(category?.createdAt)?.toLocaleDateString()}</small>
                             </div>
                         </Grid>
                     </Grid>
