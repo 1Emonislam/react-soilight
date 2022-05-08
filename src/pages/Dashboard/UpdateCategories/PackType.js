@@ -2,7 +2,8 @@ import { Grid, Pagination } from "@mui/material";
 import React, { useState } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { BsSearch, BsThreeDots } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SELECTED_PACKTYPE } from "../../../management/reducers/AllCetegoryReducer";
 import AllCategoriesCreate from "../CreateCategories/AllCategories";
 import Loading from "../Sheard/Loading";
 import PackTypeDetails from "./PackTypeDetails";
@@ -34,13 +35,17 @@ function PackType({ title, setPackTypeSearch, limit, setPackTypePage, searchTitl
         }
     }
 
-    const [packTypeInfo, setPackTypeInfo] = useState('')
     const [packTypeOpen, setPackTypeOpen] = React.useState(false);
     const handlePackTypeDetailsOpen = () => setPackTypeOpen(true);
     const handlePackTypeDetailsClose = () => setPackTypeOpen(false);
+    const dispatch = useDispatch()
     const handleSingleClick = (packType) => {
-        //console.log(insideSubCategory)
-        setPackTypeInfo(packType)
+        dispatch({
+            type: SELECTED_PACKTYPE,
+            payload: {
+                data: packType,
+            }
+        })
     }
     return (
         <div>
@@ -64,7 +69,7 @@ function PackType({ title, setPackTypeSearch, limit, setPackTypePage, searchTitl
                             <Grid item xs={1}>
                                 <BsThreeDots onClick={handlePackTypeDetailsOpen} />
                                 {/* {console.log(insideSubCategoryInfo)} */}
-                                <PackTypeDetails packTypeInfo={packTypeInfo} handlePackTypeDetailsClose={handlePackTypeDetailsClose} handlePackTypeDetailsOpen={handlePackTypeDetailsOpen} packTypeOpen={packTypeOpen} />
+                                <PackTypeDetails handlePackTypeDetailsClose={handlePackTypeDetailsClose} handlePackTypeDetailsOpen={handlePackTypeDetailsOpen} packTypeOpen={packTypeOpen} />
                             </Grid>
                         </Grid>
                     </button>))}

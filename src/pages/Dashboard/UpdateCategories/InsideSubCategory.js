@@ -2,7 +2,8 @@ import { Grid, Pagination } from "@mui/material";
 import React, { useState } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { BsSearch, BsThreeDots } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SELECTED_INSIDE_SUB_SUB_CATEGORY } from "../../../management/reducers/AllCetegoryReducer";
 import AllCategoriesCreate from "../CreateCategories/AllCategories";
 import Loading from "../Sheard/Loading";
 import InsideSubCategoryDetails from "./InsideSubCategoryDetails";
@@ -34,13 +35,17 @@ function InsideSubCategory({ title, insideSubCategorySearch, setInsideSubCategor
         }
     }
 
-    const [insideSubCategoryInfo, setInsideSubCategoryInfo] = useState('')
     const [insideSubCategoryDetailsOpen, setInsideSubCategoryDetailsOpen] = React.useState(false);
     const handleInsideSubCategoryDetailsOpen = () => setInsideSubCategoryDetailsOpen(true);
     const handleInsideSubCategoryDetailsClose = () => setInsideSubCategoryDetailsOpen(false);
+    const dispatch = useDispatch()
     const handleSingleClick = (insideSubCategory) => {
-        // console.log(insideSubCategory)
-        setInsideSubCategoryInfo(insideSubCategory)
+        dispatch({
+            type:SELECTED_INSIDE_SUB_SUB_CATEGORY,
+            payload: {
+                data: insideSubCategory,
+            }
+        })
     }
     return (
         <div>
@@ -67,7 +72,7 @@ function InsideSubCategory({ title, insideSubCategorySearch, setInsideSubCategor
                             <Grid item xs={1}>
                                 <BsThreeDots onClick={handleInsideSubCategoryDetailsOpen} />
                                 {/* {console.log(insideSubCategoryInfo)} */}
-                                <InsideSubCategoryDetails insideSubCategoryInfo={insideSubCategoryInfo} handleInsideSubCategoryDetailsClose={handleInsideSubCategoryDetailsClose} handleInsideSubCategoryDetailsOpen={handleInsideSubCategoryDetailsOpen} insideSubCategoryDetailsOpen={insideSubCategoryDetailsOpen} />
+                                <InsideSubCategoryDetails handleInsideSubCategoryDetailsClose={handleInsideSubCategoryDetailsClose} handleInsideSubCategoryDetailsOpen={handleInsideSubCategoryDetailsOpen} insideSubCategoryDetailsOpen={insideSubCategoryDetailsOpen} />
                             </Grid>
                         </Grid>
                     </button>))}

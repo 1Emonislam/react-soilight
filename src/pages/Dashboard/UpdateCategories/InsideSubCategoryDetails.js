@@ -19,19 +19,20 @@ const style = {
     p: 4,
 };
 
-export default function InsideSubCategoryDetails({ handleInsideSubCategoryDetailsClose, insideSubCategoryInfo, handleInsideSubCategoryDetailsOpen, insideSubCategoryDetailsOpen }) {
+export default function InsideSubCategoryDetails({ handleInsideSubCategoryDetailsClose, handleInsideSubCategoryDetailsOpen, insideSubCategoryDetailsOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
+    const{selectedInsideSubCategory} = category;
     const updateInsideSubCategory = data => {
-        if (!insideSubCategoryInfo?._id) return
+        if (!selectedInsideSubCategory?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
             payload: {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/sub/category/${insideSubCategoryInfo?._id}`, {
+        fetch(`https://soilight.herokuapp.com/inside/sub/category/${selectedInsideSubCategory?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -106,8 +107,8 @@ export default function InsideSubCategoryDetails({ handleInsideSubCategoryDetail
                             >
                                 Inside Sub Category Name
                             </Typography>
-                            {/* {console.log(insideSubCategoryInfo)} */}
-                            <TextField fullWidth placeholder={insideSubCategoryInfo?.insideSubCategory} size="small"    {...register("insideSubCategory", { min: 0 })} required />
+                            {/* {console.log(selectedInsideSubCategory)} */}
+                            <TextField fullWidth placeholder={selectedInsideSubCategory?.insideSubCategory} size="small"    {...register("insideSubCategory", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <CircularProgress />
                             : <>

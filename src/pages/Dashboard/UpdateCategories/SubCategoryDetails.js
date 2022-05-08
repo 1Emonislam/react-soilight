@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,14 +20,13 @@ const style = {
     p: 4,
 };
 
-export default function SubCategoryDetails({ handleSubCategoryDetailsClose, subCategoryInfo, handleSubCategoryDetailsOpen, subCategoryDetailsOpen }) {
+export default function SubCategoryDetails({ handleSubCategoryDetailsClose, handleSubCategoryDetailsOpen, subCategoryDetailsOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
+    const { selectedSubCategory } = category;
     const [selected, setSelected] = useState("")
     const [previewSource, setPreviewSource] = useState("")
-    // console.log(groupData.error)
-    // console.log(categoryInfo)
     const fileReader = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -40,7 +39,7 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, subC
         fileReader(file)
     }
     const updateSubCategory = data => {
-        if (!subCategoryInfo?._id) return
+        if (!selectedSubCategory?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
             payload: {
@@ -48,7 +47,7 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, subC
             }
         })
         if (previewSource) data.img = previewSource;
-        fetch(`https://soilight.herokuapp.com/sub/category/${subCategoryInfo?._id}`, {
+        fetch(`https://soilight.herokuapp.com/sub/category/${selectedSubCategory?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -128,10 +127,10 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, subC
                         >
                             Sub Category Name
                         </Typography>
-                        <TextField fullWidth placeholder={subCategoryInfo?.subCategory} size="small"    {...register("subCategory", { min: 0 })} required />
-
+                        <TextField fullWidth placeholder={selectedSubCategory?.subCategory} size="small"    {...register("subCategory", { min: 0 })} required />
+                            {/* {console.log(selectedSubCategory)} */}
                         <Box style={{ display: "flex", justifyContent: 'space-around', padding: '10px 0px' }}>
-                            <img style={{ width: '100px', height: '100px', position: 'absolute', zIndex: '-1', borderRadius: '100%' }} src={previewSource || subCategoryInfo?.img} alt="chosen" />
+                            <img style={{ width: '100px', height: '100px', position: 'absolute', zIndex: '-1', borderRadius: '100%' }} src={previewSource || selectedSubCategory?.img} alt="chosen" />
                             <label style={{ opacity: 0, background: 'transparent', cursor: 'pointer', padding: '40px', border: 'none' }}>
                                 <input sx={{ color: 'white', opacity: 0, height: '100px', padding: '30px 30px!important' }} onChange={(e) => setSelected(e)} type="file" />
                             </label>
@@ -148,7 +147,7 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, subC
                             >
                                 Age
                             </Typography>
-                            <TextField fullWidth placeholder={subCategoryInfo?.age} size="small"    {...register("age", { min: 0 })} required />
+                            <TextField fullWidth placeholder={selectedSubCategory?.age} size="small"    {...register("age", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <Loading />
                             : <>

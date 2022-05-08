@@ -2,7 +2,8 @@ import { Grid, Pagination } from "@mui/material";
 import React, { useState } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { BsSearch, BsThreeDots } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SELECTED_CATEGORY } from "../../../management/reducers/AllCetegoryReducer";
 import AllCategoriesCreate from "../CreateCategories/AllCategories";
 import Loading from "../Sheard/Loading";
 import CategoryDetails from "./CategoryDetails";
@@ -13,6 +14,7 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
     const { category } = useSelector(state => state)
     const handleCategoriesOpen = () => setCategoiresOpen(true);
     const handleCategoriesClose = () => setCategoiresOpen(false);
+    const dispatch = useDispatch()
     const [dataState, setDataState] = useState({
         activeObject: null,
         objects: [...category?.category]
@@ -31,12 +33,17 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
             return 'user-list inactive'
         }
     }
-    const [categoryInfo, setCategoryInfo] = useState('')
+    
     const [categoryDetailsOpen, setCategoryDetailsOpen] = React.useState(false);
     const handleCategoryDetailsOpen = () => setCategoryDetailsOpen(true);
     const handleCategoryDetailsClose = () => setCategoryDetailsOpen(false);
-    const handleSingleClick = (category) => {
-        setCategoryInfo(category)
+    const handleSingleClick = (category, id) => {
+         dispatch({
+                type: SELECTED_CATEGORY,
+                payload: {
+                    data:category,
+                }
+            })
     }
     return (
         <div>
@@ -51,7 +58,10 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
                     <div className="searchInput-icon">
                         <BsSearch />
                     </div>
-                    {!category?.category ? <Loading /> : category?.category?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category, toggleActive(index))} key={category?._id}>
+                    <div style={{ paddingLeft: '30px' }}>
+                        <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{countCategory && <> Total: {countCategory} </>}</p>
+                    </div>
+                    {!category?.category ? <Loading /> : category?.category?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category, category?._id, toggleActive(index))} key={category?._id}>
                         <Grid container spacing={0} alignItems="center" textAlign="left">
                             <Grid item xs={3}>
                                 <>
@@ -66,7 +76,7 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
                             </Grid>
                             <Grid item xs={1}>
                                 <BsThreeDots onClick={handleCategoryDetailsOpen} />
-                                <CategoryDetails categoryInfo={categoryInfo} handleCategoryDetailsClose={handleCategoryDetailsClose} handleCategoryDetailsOpen={handleCategoryDetailsOpen} categoryDetailsOpen={categoryDetailsOpen} />
+                                <CategoryDetails handleCategoryDetailsClose={handleCategoryDetailsClose} handleCategoryDetailsOpen={handleCategoryDetailsOpen} categoryDetailsOpen={categoryDetailsOpen} />
                             </Grid>
                         </Grid>
 

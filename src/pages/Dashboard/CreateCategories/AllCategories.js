@@ -24,7 +24,7 @@ const style = {
 };
 
 export default function AllCategoriesCreate({ categoriesOpen, handleCategoriesClose, handleCategoriesOpen }) {
-    // create category
+    //create category
     const [createCategoryOpen, setCreateCategoryOpen] = React.useState(false);
     const handleCategoryOpen = () => setCreateCategoryOpen(true)
     const handleCategoryClose = () => setCreateCategoryOpen(false)

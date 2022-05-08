@@ -19,19 +19,20 @@ const style = {
     p: 4,
 };
 
-export default function PackTypeDetails({ handlePackTypeDetailsClose, packTypeInfo, handlePackTypeDetailsOpen, packTypeOpen }) {
+export default function PackTypeDetails({ handlePackTypeDetailsClose, handlePackTypeDetailsOpen, packTypeOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
+    const {selectedPackType} = category;
     const updatePackType = data => {
-        if (!packTypeInfo?._id) return
+        if (!selectedPackType?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
             payload: {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/pack/type/${packTypeInfo?._id}`, {
+        fetch(`https://soilight.herokuapp.com/inside/pack/type/${selectedPackType?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -107,7 +108,7 @@ export default function PackTypeDetails({ handlePackTypeDetailsClose, packTypeIn
                                 Pack Type
                             </Typography>
                             {/* {console.log(insideSubCategoryInfo)} */}
-                            <TextField fullWidth placeholder={packTypeInfo?.packType} size="small"    {...register("packType", { min: 0 })} required />
+                            <TextField fullWidth placeholder={selectedPackType?.packType} size="small"    {...register("packType", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <CircularProgress />
                             : <>

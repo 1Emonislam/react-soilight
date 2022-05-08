@@ -20,19 +20,20 @@ const style = {
     p: 4,
 };
 
-export default function ServingSizeDetails({ servingSizeInfo, handleServingSizeClose, handleServingSizeOpen, servingSizeOpen }) {
+export default function ServingSizeDetails({handleServingSizeClose, handleServingSizeOpen, servingSizeOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
+    const {selectedServingSize} = category;
     const updatePackType = data => {
-        if (!servingSizeInfo?._id) return
+        if (!selectedServingSize?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
             payload: {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/serving/size/${servingSizeInfo?._id}`, {
+        fetch(`https://soilight.herokuapp.com/inside/serving/size/${selectedServingSize?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -108,7 +109,7 @@ export default function ServingSizeDetails({ servingSizeInfo, handleServingSizeC
                                Serving Size
                             </Typography>
                             {/* {console.log(insideSubCategoryInfo)} */}
-                            <TextField fullWidth placeholder={servingSizeInfo?.servingSize} size="small"    {...register("servingSize", { min: 0 })} required />
+                            <TextField fullWidth placeholder={selectedServingSize?.servingSize} size="small"    {...register("servingSize", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <Loading />
                             : <>
