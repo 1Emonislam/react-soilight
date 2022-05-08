@@ -6,7 +6,7 @@ import AllCategoriesCreate from './CreateCategories/AllCategories'
 import Loading from './Sheard/Loading'
 import './Sheard/SearchList.css'
 
-function CategoriesSearch({ title, setPage, data, limit, count, handleSingleClick, handlePendingRequest, handleApproveRequest, setSearchText, searchTitle, handleCancelledRequest }) {
+function CategoriesSearch({ title, setPage, data, limit, count, handleSingleClick, handlePendingRequest, handleApproveRequest, setSubCategorySearch, searchTitle, handleCancelledRequest }) {
 
     const [categoriesOpen, setCategoiresOpen] = React.useState(false);
     const handleCategoriesOpen = () => setCategoiresOpen(true);
@@ -38,7 +38,7 @@ function CategoriesSearch({ title, setPage, data, limit, count, handleSingleClic
                 <AllCategoriesCreate categoriesOpen={categoriesOpen}handleCategoriesOpen={handleCategoriesOpen}handleCategoriesClose={handleCategoriesClose}/>
             </div>
             <div className='searchInput-relative'>
-                <input className='searchInput' onChange={(e) => setSearchText(e.target.value)} type="text" sx={{ borderRadius: '20px', marginLeft: '30px' }} placeholder={`Search for ${searchTitle}`} />
+                <input className='searchInput' onChange={(e) => setSubCategorySearch(e.target.value)} type="text" sx={{ borderRadius: '20px', marginLeft: '30px' }} placeholder={`Search for ${searchTitle}`} />
                 <div className="searchInput-icon">
                     <BsSearch />
                 </div>

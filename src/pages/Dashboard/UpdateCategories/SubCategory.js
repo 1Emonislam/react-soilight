@@ -1,12 +1,13 @@
 import { Grid, Pagination } from "@mui/material";
 import React, { useState } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
+import { BsSearch, BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import AllCategoriesCreate from "../CreateCategories/AllCategories";
 import Loading from "../Sheard/Loading";
+import SubCategoryDetails from "./SubCategoryDetails";
 
-function SubCategory({ title, setSearchText, limit, setPage, searchTitle, count }) {
+function SubCategory({ title, setSubCategorySearch, limit, setPageSubCategory,subCategoryCount, searchTitle }) {
     const { category } = useSelector(state => state)
     const [categoriesOpen, setCategoiresOpen] = React.useState(false);
     const handleCategoriesOpen = () => setCategoiresOpen(true);
@@ -14,12 +15,12 @@ function SubCategory({ title, setSearchText, limit, setPage, searchTitle, count 
 
     const [dataState, setDataState] = useState({
         activeObject: null,
-        objects: [...category?.category]
+        objects: [category?.subCategory]
     })
     React.useEffect(() => {
-        setDataState({ activeObject: dataState?.activeObject, objects: [...category?.category] })
+        setDataState({ activeObject: dataState?.activeObject, objects: [...category?.subCategory] })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [category?.category])
+    }, [category?.subCategory])
     function toggleActive(index) {
         setDataState({ ...dataState, activeObject: dataState.objects[index] })
     }
@@ -31,8 +32,12 @@ function SubCategory({ title, setSearchText, limit, setPage, searchTitle, count 
         }
     }
 
-    const handleSingleClick = () => {
-
+    const [subCategoryInfo, setSubCategoryInfo] = useState('')
+    const [subCategoryDetailsOpen, setSubCategoryDetailsOpen] = React.useState(false);
+    const handleSubCategoryDetailsOpen = () => setSubCategoryDetailsOpen(true);
+    const handleSubCategoryDetailsClose = () => setSubCategoryDetailsOpen(false);
+    const handleSingleClick = (subCategory) => {
+        setSubCategoryInfo(subCategory)
     }
     return (
         <div>
@@ -43,33 +48,34 @@ function SubCategory({ title, setSearchText, limit, setPage, searchTitle, count 
                 <AllCategoriesCreate categoriesOpen={categoriesOpen} handleCategoriesOpen={handleCategoriesOpen} handleCategoriesClose={handleCategoriesClose} />
             </div>
             <div className='searchInput-relative'>
-                <input className='searchInput' onChange={(e) => setSearchText(e.target.value)} type="text" sx={{ borderRadius: '20px', marginLeft: '30px' }} placeholder={`Search for ${searchTitle}`} />
+                <input className='searchInput' onChange={(e) => setSubCategorySearch(e.target.value)} type="text" sx={{ borderRadius: '20px', marginLeft: '30px' }} placeholder={`Search for ${searchTitle}`} />
                 <div className="searchInput-icon">
                     <BsSearch />
                 </div>
-                <div style={{ paddingLeft: '30px' }}>
-                    <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
-                </div>
-                {!category?.category ? <Loading /> : dataState?.objects?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category?._id, toggleActive(index))} key={category?._id}>
+                {!category?.subCategory ? <Loading /> : category?.subCategory?.map((data, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(data, toggleActive(index))} key={data?._id}>
                     <Grid container spacing={0} alignItems="center" textAlign="left">
-                        <Grid item xs={4}>
+                        <Grid item xs={3}>
                             <>
-                                <img className="img-box-list-item" style={{ borderRadius: '50px', width: "43px", height: '43px', border: '2px solid #F5AB24' }} src={category?.user?.pic} alt={category?.user?.name} />
+                                <img className="img-box-list-item" style={{ borderRadius: '50px', width: "43px", height: '43px', border: '2px solid #F5AB24' }} src={data?.img} alt={data?.subCategory} />
                             </>
                         </Grid>
-                        <Grid item xs={6}>
-                            <strong style={{ fontSize: '11px', marginRight: '3px' }}>{category?.category}</strong>
-                            <div>
-                                 <small style={{ display: 'flex', fontSize: "10px", alignItems: 'center', marginBottom: '5px' }}>age: {category?.age}</small>
-                            </div>
+                        <Grid item xs={7}>
+                                <strong style={{ fontSize: '11px', marginRight: '3px' }}>{data?.subCategory}</strong>
+                                <div>
+                                    <small style={{ display: 'flex', fontSize: "10px", alignItems: 'center', marginBottom: '5px' }}>age: {data?.age}</small>
+                                </div>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <BsThreeDots onClick={handleSubCategoryDetailsOpen} />
+                                <SubCategoryDetails subCategoryInfo={subCategoryInfo} handleSubCategoryDetailsClose={handleSubCategoryDetailsClose}subCategoryDetailsOpen={subCategoryDetailsOpen} />
+                            </Grid>
                         </Grid>
-                    </Grid>
                 </button>))}
                 <Pagination
-                    count={Math.ceil(count / limit)}
+                    count={Math.ceil(subCategoryCount / limit)}
                     color="secondary"
                     variant="outlined"
-                    onChange={(e, value) => setPage(value)}
+                    onChange={(e, value) => setPageSubCategory(value)}
                 />
             </div>
         </div >

@@ -103,6 +103,7 @@ export default function CreateServingSize({ createServingSizeOpen, handleServing
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 reset()
                 dispatch({
                     type: PROGRESS_CATEGORIES,
@@ -203,7 +204,7 @@ export default function CreateServingSize({ createServingSizeOpen, handleServing
                             >
                                 Serving Size
                             </Typography>
-                            <TextField fullWidth placeholder='Pack Type' size="small"    {...register("servingSize", { min: 0 })} required />
+                            <TextField fullWidth placeholder='Serving Size' size="small"    {...register("servingSize", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <CircularProgress /> : <Button type="submit" style={{ textTransform: 'capitalize', marginTop: '30px' }} variant="contained">
                             Create Serving Size

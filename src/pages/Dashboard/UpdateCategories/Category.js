@@ -8,7 +8,7 @@ import Loading from "../Sheard/Loading";
 import CategoryDetails from "./CategoryDetails";
 
 
-function Category({ title, setCategorySearch, limit, setPage, searchTitle, count }) {
+function Category({ title, setCategorySearch, limit, setPageCategory, searchTitle, countCategory }) {
     const [categoriesOpen, setCategoiresOpen] = React.useState(false);
     const { category } = useSelector(state => state)
     const handleCategoriesOpen = () => setCategoiresOpen(true);
@@ -17,7 +17,6 @@ function Category({ title, setCategorySearch, limit, setPage, searchTitle, count
         activeObject: null,
         objects: [...category?.category]
     })
-    const [categoryInfo,setCategoryInfo] = useState('')
     React.useEffect(() => {
         setDataState({ activeObject: dataState?.activeObject, objects: [...category?.category] })
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,10 +31,10 @@ function Category({ title, setCategorySearch, limit, setPage, searchTitle, count
             return 'user-list inactive'
         }
     }
-
+    const [categoryInfo, setCategoryInfo] = useState('')
     const [categoryDetailsOpen, setCategoryDetailsOpen] = React.useState(false);
-    const hanldeCategoryDetailsOpen = () => setCategoryDetailsOpen(true);
-    const hanldeCategoryDetailsClose  = () => setCategoryDetailsOpen(false);
+    const handleCategoryDetailsOpen = () => setCategoryDetailsOpen(true);
+    const handleCategoryDetailsClose = () => setCategoryDetailsOpen(false);
     const handleSingleClick = (category) => {
         setCategoryInfo(category)
     }
@@ -52,10 +51,7 @@ function Category({ title, setCategorySearch, limit, setPage, searchTitle, count
                     <div className="searchInput-icon">
                         <BsSearch />
                     </div>
-                    <div style={{ paddingLeft: '30px' }}>
-                        <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
-                    </div>
-                    {!category?.category ? <Loading /> : dataState?.objects?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category, toggleActive(index))} key={category?._id}>
+                    {!category?.category ? <Loading /> : category?.category?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category, toggleActive(index))} key={category?._id}>
                         <Grid container spacing={0} alignItems="center" textAlign="left">
                             <Grid item xs={3}>
                                 <>
@@ -69,17 +65,17 @@ function Category({ title, setCategorySearch, limit, setPage, searchTitle, count
                                 </div>
                             </Grid>
                             <Grid item xs={1}>
-                                <BsThreeDots onClick={hanldeCategoryDetailsOpen}/>
-                                <CategoryDetails categoryInfo={categoryInfo} hanldeCategoryDetailsClose={hanldeCategoryDetailsClose} hanldeCategoryDetailsOpen={hanldeCategoryDetailsOpen}categoryDetailsOpen={categoryDetailsOpen}/>
+                                <BsThreeDots onClick={handleCategoryDetailsOpen} />
+                                <CategoryDetails categoryInfo={categoryInfo} handleCategoryDetailsClose={handleCategoryDetailsClose} handleCategoryDetailsOpen={handleCategoryDetailsOpen} categoryDetailsOpen={categoryDetailsOpen} />
                             </Grid>
                         </Grid>
 
                     </button>))}
                     <Pagination
-                        count={Math.ceil(count / limit)}
+                        count={Math.ceil(countCategory / limit)}
                         color="secondary"
                         variant="outlined"
-                        onChange={(e, value) => setPage(value)}
+                        onChange={(e, value) => setPageCategory(value)}
                     />
                 </div>
             </div >

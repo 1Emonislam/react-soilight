@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CATEGORY_STORE, PROGRESS_CATEGORIES } from '../../management/reducers/AllCetegoryReducer'
+import { CATEGORY_STORE, INSIDE_SUB_CATEGORY_STORE, PACK_TYPE, PROGRESS_CATEGORIES, SERVING_SIZE, SUB_CATEGORY_STORE } from '../../management/reducers/AllCetegoryReducer'
 import DashboardHeader from './Sheard/DashboardHeader'
 import Category from './UpdateCategories/Category'
 import InsideSubCategory from './UpdateCategories/InsideSubCategory'
@@ -10,10 +10,22 @@ import ServingSize from './UpdateCategories/ServingSize'
 import SubCategory from './UpdateCategories/SubCategory'
 function Categories() {
     const [categorySearch, setCategorySearch] = useState('');
+    const [subCategorySearch, setSubCategorySearch] = useState('');
+    const [insideSubCategorySearch, setInsideSubCategorySearch] = useState('');
+    const [servingSizeSearch, setServingSizeSearch] = useState('');
+    const [packTypeSearch, setPackTypeSearch] = useState('');
     const { userLogin } = useSelector(state => state)
-    const [page, setPage] = useState(1)
+    const [countCategory, setCountCategory] = useState('')
+    const [countInsideSubCategory, setCountInsideSubCategory] = useState('')
+    const [subCategoryCount, setSubCategoryCount] = useState('')
+    const [packTypeCount, setPackTypeCount] = useState('')
+    const [servingSizeCount, setServingSizeCount] = useState('')
+    const [pageCategory, setPageCategory] = useState(1)
+    const [pageSubCategory, setPageSubCategory] = useState(1)
+    const [pageInsideSubCategory, setPageInsideSubCategory] = useState(1)
+    const [packTypePage, setPackTypePage] = useState(1)
+    const [servingSizePage, setServingSizePage] = useState(1)
     const limit = 10;
-    const count = 10;
     const dispatch = useDispatch()
     useEffect(() => {
         if (!userLogin?.user?.token) return
@@ -23,7 +35,7 @@ function Categories() {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/category?search=${categorySearch || ''}page=${page}&limit=${limit}`, {
+        fetch(`https://soilight.herokuapp.com/category?search=${categorySearch || ''}&page=${pageCategory}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -32,7 +44,8 @@ function Categories() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                setCountCategory(data.count)
+                // console.log(data)
                 dispatch({
                     type: PROGRESS_CATEGORIES,
                     payload: {
@@ -47,25 +60,160 @@ function Categories() {
                     }
                 })
             })
-    }, [dispatch, userLogin?.user?.token, categorySearch, page])
+    }, [dispatch, userLogin?.user?.token, categorySearch, pageCategory])
+    // console.log(subCategorySearch)
+    useEffect(() => {
+        if (!userLogin?.user?.token) return
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/sub/category?search=${subCategorySearch || ''}&page=${pageSubCategory}&limit=${limit}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setSubCategoryCount(data.count)
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                // console.log(data)
+                dispatch({
+                    type: SUB_CATEGORY_STORE,
+                    payload: {
+                        subCategory: data.data
+                    }
+                })
+            })
+    }, [dispatch, userLogin?.user?.token, subCategorySearch, pageSubCategory])
+    useEffect(() => {
+        if (!userLogin?.user?.token) return
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/inside/sub/category?search=${insideSubCategorySearch || ''}&page=${pageInsideSubCategory}&limit=${limit}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setPackTypeCount(data.count)
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                // console.log(data)
+                dispatch({
+                    type: INSIDE_SUB_CATEGORY_STORE,
+                    payload: {
+                        insideSubCategory: data.data
+                    }
+                })
+            })
+    }, [dispatch, userLogin?.user?.token, insideSubCategorySearch, pageInsideSubCategory])
+    useEffect(() => {
+        if (!userLogin?.user?.token) return
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/inside/pack/type?search=${packTypeSearch || ''}&page=${packTypePage}&limit=${limit}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setPackTypeCount(data.count)
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                // console.log(data)
+                dispatch({
+                    type: PACK_TYPE,
+                    payload: {
+                        packType: data.data
+                    }
+                })
+            })
+    }, [dispatch, userLogin?.user?.token, packTypeSearch, packTypePage])
+    useEffect(() => {
+        if (!userLogin?.user?.token) return
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/inside/serving/size?search=${servingSizeSearch || ''}&page=${servingSizePage}&limit=${limit}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setPackTypeCount(data.count)
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                // console.log(data)
+                dispatch({
+                    type: SERVING_SIZE,
+                    payload: {
+                        servingSize: data.data
+                    }
+                })
+            })
+    }, [dispatch, userLogin?.user?.token, servingSizePage, servingSizeSearch])
     return (
         <div className='categories-box'>
             <DashboardHeader title="Categories" />
-            <Grid container spacing={1} alignItems="center">
-                <Grid item xs={12} md={4}>
-                    <Category title="Category" setCategorySearch={setCategorySearch} limit={limit} page={page} setPage={setPage} searchTitle="Category" count={count} />
+            <Grid container spacing={1} alignItems="stretch">
+                <Grid item xs={12} md={3.1} className="box-category">
+                    <Category title="Category" setCategorySearch={setCategorySearch} limit={limit} pageCategory={pageCategory} setPageCategory={setPageCategory} searchTitle="Category" countCategory={countCategory} />
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <SubCategory title="Sub Category" setSearchText={'setSearchText'} limit={limit} page={page} setPage={setPage} searchTitle="Sub Category" count={count} />
+                <Grid item xs={12} md={3.1}>
+                    <SubCategory title="Sub Category" setSubCategorySearch={setSubCategorySearch} limit={limit} pageSubCategory={pageSubCategory} setPageSubCategory={setPageSubCategory} searchTitle="Sub Category" subCategoryCount={subCategoryCount} />
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <InsideSubCategory title="Inside Sub " setSearchText={'setSearchText'} limit={limit} page={page} setPage={setPage} searchTitle="Inside Sub Category" count={count} />
+                <Grid item xs={12} md={2.5}>
+                    <InsideSubCategory title="Inside Sub " insideSubCategorySearch={insideSubCategorySearch} setInsideSubCategorySearch={setInsideSubCategorySearch} limit={limit} pageInsideSubCategory={pageInsideSubCategory} setPageInsideSubCategory={setPageInsideSubCategory} searchTitle="Inside Sub Category" countInsideSubCategory={countInsideSubCategory} setCountInsideSubCategory={setCountInsideSubCategory} />
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <PackType title="Pack Type" setSearchText={'setSearchText'} limit={limit} page={page} setPage={setPage} searchTitle="Pack Type" count={count} />
+
+                <Grid item xs={12} md={1.4}>
+                    <PackType title="Pack Type" setPackTypeSearch={setPackTypeSearch} limit={limit} packTypePage={packTypePage} setPackTypePage={setPackTypePage} searchTitle="Pack Type" packTypeCount={packTypeCount} />
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <ServingSize title="Serving Size" setSearchText={'setSearchText'} limit={limit} page={page} setPage={setPage} searchTitle="Serving Size" count={count} />
+
+                <Grid item xs={12} md={1.8}>
+                    <ServingSize title="Serving Size" setServingSizeSearch={setServingSizeSearch} limit={limit} servingSizeSearch={servingSizeSearch} servingSizePage={servingSizePage} setServingSizePage={setServingSizePage} servingSizeCount={servingSizeCount} setServingSizeCount={setServingSizeCount} searchTitle="Serving Size"/>
                 </Grid>
             </Grid>
         </div>

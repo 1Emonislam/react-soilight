@@ -13,7 +13,7 @@ export const SUB_CATEGORY_STORE = 'SUB_CATEGORY_STORE'
 export const INSIDE_SUB_CATEGORY_STORE = 'INSIDE_SUB_CATEGORY_STORE'
 export const PACK_TYPE = 'PACK_TYPE'
 export const SERVING_SIZE = 'SERVING_SIZE'
-export const PROGRESS_CATEGORIES = 'SERVING_SIZE'
+export const PROGRESS_CATEGORIES = 'PROGRESS_CATEGORIES'
 export const categoriesReducer = (state = intiState, action) => {
     const { payload, type } = action;
     if (type === CATEGORY_STORE) {
@@ -49,7 +49,7 @@ export const categoriesReducer = (state = intiState, action) => {
     if (type === PROGRESS_CATEGORIES) {
         return {
             ...state,
-            servingSize: payload.loading,
+            loading: payload.loading,
         }
     }
     return state

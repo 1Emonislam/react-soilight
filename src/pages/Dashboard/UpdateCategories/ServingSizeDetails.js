@@ -1,6 +1,6 @@
-import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,35 +20,19 @@ const style = {
     p: 4,
 };
 
-export default function CategoryDetails({ handleCategoryDetailsClose, categoryInfo, handleCategoryDetailsOpen, categoryDetailsOpen }) {
+export default function ServingSizeDetails({ servingSizeInfo, handleServingSizeClose, handleServingSizeOpen, servingSizeOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
-    const [selected, setSelected] = useState("")
-    const [previewSource, setPreviewSource] = useState("")
-    // console.log(groupData.error)
-    // console.log(categoryInfo)
-    const fileReader = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setPreviewSource(reader?.result)
-        }
-    }
-    if (selected) {
-        const file = selected.target?.files[0];
-        fileReader(file)
-    }
-    const updateCategory = data => {
-        if (!categoryInfo?._id) return
+    const updatePackType = data => {
+        if (!servingSizeInfo?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
             payload: {
                 loading: true
             }
         })
-        if (previewSource) data.img = previewSource;
-        fetch(`https://soilight.herokuapp.com/category/${categoryInfo?._id}`, {
+        fetch(`https://soilight.herokuapp.com/inside/serving/size/${servingSizeInfo?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -98,19 +82,19 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
         <div>
             <Modal
                 style={{ overflowY: 'scroll' }}
-                open={categoryDetailsOpen}
-                onClose={handleCategoryDetailsClose}
+                open={servingSizeOpen}
+                onClose={handleServingSizeClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontSize: '20px' }} onClick={handleCategoryDetailsClose}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontSize: '20px' }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Update Category
+                            Update Serving Size
                         </Typography>
-                        <MdCancel />
+                        <MdCancel onClick={handleServingSizeClose} />
                     </div>
-                    <form onSubmit={handleSubmit(updateCategory)}>
+                    <form onSubmit={handleSubmit(updatePackType)}>
                         <Box >
                             <Typography
                                 sx={{
@@ -121,36 +105,15 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
                                 }}
                                 style={{ fontFamily: `"Poppins", sans-serif` }}
                             >
-                                Category Name
+                               Serving Size
                             </Typography>
-                            <TextField fullWidth placeholder={categoryInfo?.category} size="small"    {...register("category", { min: 0 })} required />
-                        </Box>
-                        <Box style={{ display: "flex", justifyContent: 'space-around', padding: '10px 0px' }}>
-                            <img style={{ width: '100px', height: '100px', position: 'absolute', zIndex: '-1', borderRadius: '100%' }} src={previewSource || categoryInfo?.img} alt="chosen" />
-                            <label style={{ opacity: 0, background: 'transparent', cursor: 'pointer', padding: '40px', border: 'none' }}>
-                                <input sx={{ color: 'white', opacity: 0, height: '100px', padding: '30px 30px!important' }} onChange={(e) => setSelected(e)} type="file" />
-                            </label>
-                        </Box>
-                        <Box >
-                            <Typography
-                                sx={{
-                                    fontWeight: "bold",
-                                    mb: 1,
-                                    fontSize: 14,
-                                    color: "#464646",
-                                }}
-                                style={{ fontFamily: `"Poppins", sans-serif` }}
-                            >
-                                Age
-                            </Typography>
-
-                            <TextField fullWidth placeholder={categoryInfo?.age} size="small"    {...register("age", { min: 0 })} required />
-
+                            {/* {console.log(insideSubCategoryInfo)} */}
+                            <TextField fullWidth placeholder={servingSizeInfo?.servingSize} size="small"    {...register("servingSize", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <Loading />
                             : <>
                                 <Button type="submit" style={{ textTransform: 'capitalize', marginTop: '30px' }} variant="contained">
-                                    Update  Category
+                                    Update Serving Size
                                 </Button>
                             </>}
                     </form>

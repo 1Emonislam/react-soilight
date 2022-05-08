@@ -1,25 +1,28 @@
 import { Grid, Pagination } from "@mui/material";
 import React, { useState } from 'react';
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
+import { BsSearch, BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import AllCategoriesCreate from "../CreateCategories/AllCategories";
 import Loading from "../Sheard/Loading";
+import InsideSubCategoryDetails from "./InsideSubCategoryDetails";
 
-function InsideSubCategory({ title, setSearchText, limit, setPage, searchTitle, count }) {
+function InsideSubCategory({ title, insideSubCategorySearch, setInsideSubCategorySearch, limit, setPageInsideSubCategory, searchTitle, countInsideSubCategory }) {
     const { category } = useSelector(state => state)
     const [categoriesOpen, setCategoiresOpen] = React.useState(false);
     const handleCategoriesOpen = () => setCategoiresOpen(true);
     const handleCategoriesClose = () => setCategoiresOpen(false);
-
+    // console.log(category?.insideSubCategory)
     const [dataState, setDataState] = useState({
         activeObject: null,
-        objects: [...category?.category]
+        objects: [category?.insideSubCategory]
     })
     React.useEffect(() => {
-        setDataState({ activeObject: dataState?.activeObject, objects: [...category?.category] })
+        if (category?.insideSubCategory?.length) {
+            setDataState({ activeObject: dataState?.activeObject, objects: [...category?.insideSubCategory] })
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [category?.category])
+    }, [category?.insideSubCategory])
     function toggleActive(index) {
         setDataState({ ...dataState, activeObject: dataState.objects[index] })
     }
@@ -31,8 +34,13 @@ function InsideSubCategory({ title, setSearchText, limit, setPage, searchTitle, 
         }
     }
 
-    const handleSingleClick = () => {
-
+    const [insideSubCategoryInfo, setInsideSubCategoryInfo] = useState('')
+    const [insideSubCategoryDetailsOpen, setInsideSubCategoryDetailsOpen] = React.useState(false);
+    const handleInsideSubCategoryDetailsOpen = () => setInsideSubCategoryDetailsOpen(true);
+    const handleInsideSubCategoryDetailsClose = () => setInsideSubCategoryDetailsOpen(false);
+    const handleSingleClick = (insideSubCategory) => {
+        // console.log(insideSubCategory)
+        setInsideSubCategoryInfo(insideSubCategory)
     }
     return (
         <div>
@@ -43,33 +51,31 @@ function InsideSubCategory({ title, setSearchText, limit, setPage, searchTitle, 
                     <AllCategoriesCreate categoriesOpen={categoriesOpen} handleCategoriesOpen={handleCategoriesOpen} handleCategoriesClose={handleCategoriesClose} />
                 </div>
                 <div className='searchInput-relative'>
-                    <input className='searchInput' onChange={(e) => setSearchText(e.target.value)} type="text" sx={{ borderRadius: '20px', marginLeft: '30px' }} placeholder={`Search for ${searchTitle}`} />
+                    <input className='searchInput' onChange={(e) => setInsideSubCategorySearch(e.target.value)} type="text" sx={{ borderRadius: '20px', marginLeft: '30px' }} placeholder={`Search for ${searchTitle}`} />
                     <div className="searchInput-icon">
                         <BsSearch />
                     </div>
                     <div style={{ paddingLeft: '30px' }}>
-                        <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{count && <> Total: {count} </>}</p>
+                        <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{countInsideSubCategory && <> Total: {countInsideSubCategory} </>}</p>
                     </div>
-                    {!category?.category ? <Loading /> : dataState?.objects?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category?._id, toggleActive(index))} key={category?._id}>
+                    {!category?.insideSubCategory ? <Loading /> : category?.insideSubCategory?.map((data, index) => (<button key={index} className={toggleActiveStyle(index)} onClick={() => handleSingleClick(data, toggleActive(index))}>
+                        {/* {console.log(data)} */}
                         <Grid container spacing={0} alignItems="center" textAlign="left">
-                            <Grid item xs={4}>
-                                <>
-                                    <img className="img-box-list-item" style={{ borderRadius: '50px', width: "43px", height: '43px', border: '2px solid #F5AB24' }} src={category?.user?.pic} alt={category?.user?.name} />
-                                </>
+                            <Grid item xs={11}>
+                                <strong style={{ fontSize: '11px', marginRight: '3px' }}>{data?.insideSubCategory}</strong>
                             </Grid>
-                            <Grid item xs={6}>
-                                <strong style={{ fontSize: '11px', marginRight: '3px' }}>{category?.category}</strong>
-                                <div>
-                                     <small style={{ display: 'flex', fontSize: "10px", alignItems: 'center', marginBottom: '5px' }}>age: {category?.age}</small>
-                                </div>
+                            <Grid item xs={1}>
+                                <BsThreeDots onClick={handleInsideSubCategoryDetailsOpen} />
+                                {/* {console.log(insideSubCategoryInfo)} */}
+                                <InsideSubCategoryDetails insideSubCategoryInfo={insideSubCategoryInfo} handleInsideSubCategoryDetailsClose={handleInsideSubCategoryDetailsClose} handleInsideSubCategoryDetailsOpen={handleInsideSubCategoryDetailsOpen} insideSubCategoryDetailsOpen={insideSubCategoryDetailsOpen} />
                             </Grid>
                         </Grid>
                     </button>))}
                     <Pagination
-                        count={Math.ceil(count / limit)}
+                        count={Math.ceil(countInsideSubCategory / limit)}
                         color="secondary"
                         variant="outlined"
-                        onChange={(e, value) => setPage(value)}
+                        onChange={(e, value) => setPageInsideSubCategory(value)}
                     />
                 </div>
             </div >

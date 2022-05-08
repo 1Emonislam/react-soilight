@@ -122,6 +122,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                         progress: undefined,
                     });
                 }
+                window.location.reload()
                 if (data.error) {
                     Object.values(data.error).forEach(err => {
                         toast(err, {
@@ -171,7 +172,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                                 ))
                             }
                         </select>
-                         <>
+                        <>
                             <Typography sx={{
                                 fontWeight: "bold",
                                 mb: 1,

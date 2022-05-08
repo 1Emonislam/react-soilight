@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import { PROGRESS_CATEGORIES } from '../../../management/reducers/AllCetegoryReducer';
+import { PROGRESS_CATEGORIES, SUB_CATEGORY_STORE } from '../../../management/reducers/AllCetegoryReducer';
 import Loading from '../Sheard/Loading';
 const style = {
     position: 'absolute',
@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-export default function CategoryDetails({ handleCategoryDetailsClose, categoryInfo, handleCategoryDetailsOpen, categoryDetailsOpen }) {
+export default function SubCategoryDetails({ handleSubCategoryDetailsClose, subCategoryInfo, handleSubCategoryDetailsOpen, subCategoryDetailsOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
@@ -39,8 +39,8 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
         const file = selected.target?.files[0];
         fileReader(file)
     }
-    const updateCategory = data => {
-        if (!categoryInfo?._id) return
+    const updateSubCategory = data => {
+        if (!subCategoryInfo?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
             payload: {
@@ -48,7 +48,7 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
             }
         })
         if (previewSource) data.img = previewSource;
-        fetch(`https://soilight.herokuapp.com/category/${categoryInfo?._id}`, {
+        fetch(`https://soilight.herokuapp.com/sub/category/${subCategoryInfo?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -63,6 +63,12 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
                     type: PROGRESS_CATEGORIES,
                     payload: {
                         loading: false
+                    }
+                })
+                dispatch({
+                    type: SUB_CATEGORY_STORE,
+                    payload: {
+                        loading: data.data
                     }
                 })
                 if (data.message) {
@@ -98,35 +104,34 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
         <div>
             <Modal
                 style={{ overflowY: 'scroll' }}
-                open={categoryDetailsOpen}
-                onClose={handleCategoryDetailsClose}
+                open={subCategoryDetailsOpen}
+                onClose={handleSubCategoryDetailsClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontSize: '20px' }} onClick={handleCategoryDetailsClose}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', fontSize: '20px' }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Update Category
+                            Update Sub Category
                         </Typography>
-                        <MdCancel />
+                        <MdCancel onClick={handleSubCategoryDetailsClose} />
                     </div>
-                    <form onSubmit={handleSubmit(updateCategory)}>
-                        <Box >
-                            <Typography
-                                sx={{
-                                    fontWeight: "bold",
-                                    mb: 1,
-                                    fontSize: 14,
-                                    color: "#464646",
-                                }}
-                                style={{ fontFamily: `"Poppins", sans-serif` }}
-                            >
-                                Category Name
-                            </Typography>
-                            <TextField fullWidth placeholder={categoryInfo?.category} size="small"    {...register("category", { min: 0 })} required />
-                        </Box>
+                    <form onSubmit={handleSubmit(updateSubCategory)}>
+                        <Typography
+                            sx={{
+                                fontWeight: "bold",
+                                mb: 1,
+                                fontSize: 14,
+                                color: "#464646",
+                            }}
+                            style={{ fontFamily: `"Poppins", sans-serif` }}
+                        >
+                            Sub Category Name
+                        </Typography>
+                        <TextField fullWidth placeholder={subCategoryInfo?.subCategory} size="small"    {...register("subCategory", { min: 0 })} required />
+
                         <Box style={{ display: "flex", justifyContent: 'space-around', padding: '10px 0px' }}>
-                            <img style={{ width: '100px', height: '100px', position: 'absolute', zIndex: '-1', borderRadius: '100%' }} src={previewSource || categoryInfo?.img} alt="chosen" />
+                            <img style={{ width: '100px', height: '100px', position: 'absolute', zIndex: '-1', borderRadius: '100%' }} src={previewSource || subCategoryInfo?.img} alt="chosen" />
                             <label style={{ opacity: 0, background: 'transparent', cursor: 'pointer', padding: '40px', border: 'none' }}>
                                 <input sx={{ color: 'white', opacity: 0, height: '100px', padding: '30px 30px!important' }} onChange={(e) => setSelected(e)} type="file" />
                             </label>
@@ -143,14 +148,12 @@ export default function CategoryDetails({ handleCategoryDetailsClose, categoryIn
                             >
                                 Age
                             </Typography>
-
-                            <TextField fullWidth placeholder={categoryInfo?.age} size="small"    {...register("age", { min: 0 })} required />
-
+                            <TextField fullWidth placeholder={subCategoryInfo?.age} size="small"    {...register("age", { min: 0 })} required />
                         </Box>
                         {category?.loading ? <Loading />
                             : <>
                                 <Button type="submit" style={{ textTransform: 'capitalize', marginTop: '30px' }} variant="contained">
-                                    Update  Category
+                                    Update Sub  Category
                                 </Button>
                             </>}
                     </form>
