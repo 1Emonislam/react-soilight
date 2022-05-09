@@ -33,17 +33,21 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
             return 'user-list inactive'
         }
     }
-    
+
     const [categoryDetailsOpen, setCategoryDetailsOpen] = React.useState(false);
     const handleCategoryDetailsOpen = () => setCategoryDetailsOpen(true);
     const handleCategoryDetailsClose = () => setCategoryDetailsOpen(false);
-    const handleSingleClick = (category, id) => {
-         dispatch({
+    const handleSingleClick = (category, index) => {
+        if (category) {
+            dispatch({
                 type: SELECTED_CATEGORY,
                 payload: {
-                    data:category,
+                    data: category,
                 }
             })
+            toggleActive(index)
+        }
+        setCategoryDetailsOpen(true)
     }
     return (
         <div>
@@ -61,7 +65,7 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
                     <div style={{ paddingLeft: '30px' }}>
                         <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{countCategory && <> Total: {countCategory} </>}</p>
                     </div>
-                    {!category?.category ? <Loading /> : category?.category?.map((category, index) => (<button className={toggleActiveStyle(index)} onClick={() => handleSingleClick(category, category?._id, toggleActive(index))} key={category?._id}>
+                    {!category?.category ? <Loading /> : category?.category?.map((category, index) => (<button className={toggleActiveStyle(index)} key={category?._id}>
                         <Grid container spacing={0} alignItems="center" textAlign="left">
                             <Grid item xs={3}>
                                 <>
@@ -75,8 +79,8 @@ function Category({ title, setCategorySearch, limit, setPageCategory, searchTitl
                                 </div>
                             </Grid>
                             <Grid item xs={1}>
-                                <BsThreeDots onClick={handleCategoryDetailsOpen} />
-                                <CategoryDetails handleCategoryDetailsClose={handleCategoryDetailsClose} handleCategoryDetailsOpen={handleCategoryDetailsOpen} categoryDetailsOpen={categoryDetailsOpen} />
+                                <BsThreeDots onClick={() => handleSingleClick(category,index)} />
+                                <CategoryDetails handleSingleClick={handleSingleClick} handleCategoryDetailsClose={handleCategoryDetailsClose} handleCategoryDetailsOpen={handleCategoryDetailsOpen} categoryDetailsOpen={categoryDetailsOpen} />
                             </Grid>
                         </Grid>
 

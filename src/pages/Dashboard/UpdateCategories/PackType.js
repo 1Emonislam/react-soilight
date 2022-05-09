@@ -39,13 +39,17 @@ function PackType({ title, setPackTypeSearch, limit, setPackTypePage, searchTitl
     const handlePackTypeDetailsOpen = () => setPackTypeOpen(true);
     const handlePackTypeDetailsClose = () => setPackTypeOpen(false);
     const dispatch = useDispatch()
-    const handleSingleClick = (packType) => {
-        dispatch({
-            type: SELECTED_PACKTYPE,
-            payload: {
-                data: packType,
-            }
-        })
+    const handleSingleClick = (packType,index) => {
+        if (packType) {
+            dispatch({
+                type: SELECTED_PACKTYPE,
+                payload: {
+                    data: packType,
+                }
+            })
+            toggleActive(index)
+        }
+        setPackTypeOpen(true)
     }
     return (
         <div>
@@ -60,14 +64,14 @@ function PackType({ title, setPackTypeSearch, limit, setPackTypePage, searchTitl
                     <div className="searchInput-icon">
                         <BsSearch />
                     </div>
-                    {!category?.packType ? <Loading /> : category?.packType?.map((data, index) => (<button key={index} className={toggleActiveStyle(index)} onClick={() => handleSingleClick(data, toggleActive(index))}>
+                    {!category?.packType ? <Loading /> : category?.packType?.map((data, index) => (<button key={index} className={toggleActiveStyle(index)}>
                         {/* {console.log(data)} */}
                         <Grid container spacing={0} alignItems="center" textAlign="left">
                             <Grid item xs={11}>
                                 <strong style={{ fontSize: '11px', marginRight: '3px' }}>{data?.packType}</strong>
                             </Grid>
                             <Grid item xs={1}>
-                                <BsThreeDots onClick={handlePackTypeDetailsOpen} />
+                                <BsThreeDots onClick={() => handleSingleClick(data,index)} />
                                 {/* {console.log(insideSubCategoryInfo)} */}
                                 <PackTypeDetails handlePackTypeDetailsClose={handlePackTypeDetailsClose} handlePackTypeDetailsOpen={handlePackTypeDetailsOpen} packTypeOpen={packTypeOpen} />
                             </Grid>

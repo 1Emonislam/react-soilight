@@ -71,7 +71,7 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, hand
                     }
                 })
                 if (data.message) {
-                    window.location.reload()
+                   
                     toast(data.message, {
                         position: "top-right",
                         autoClose: 5000,
@@ -82,6 +82,66 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, hand
                         draggable: true,
                         progress: undefined,
                     });
+                    window.location.reload()
+                }
+                if (data.error) {
+                    Object.values(data.error).forEach(err => {
+                        toast(err, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: 'light',
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    })
+                }
+            })
+    };
+    const deleteSubCategory = () => {
+        if (!selectedSubCategory?._id) return
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/sub/category/${selectedSubCategory?._id}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                reset()
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                dispatch({
+                    type: SUB_CATEGORY_STORE,
+                    payload: {
+                        loading: data.data
+                    }
+                })
+                if (data.message) {
+                    toast(data.message, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        theme: 'light',
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    window.location.reload()
                 }
                 if (data.error) {
                     Object.values(data.error).forEach(err => {
@@ -153,6 +213,10 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, hand
                             : <>
                                 <Button type="submit" style={{ textTransform: 'capitalize', marginTop: '30px' }} variant="contained">
                                     Update Sub  Category
+                                </Button>
+                                
+                                <Button onClick={deleteSubCategory} style={{ textTransform: 'capitalize', marginTop: '30px', marginLeft: '20px', background: 'red' }} variant="contained">
+                                    Delete
                                 </Button>
                             </>}
                     </form>

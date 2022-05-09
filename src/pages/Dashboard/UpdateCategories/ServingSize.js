@@ -5,7 +5,6 @@ import { BsSearch, BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { SELECTED_SERVING_SIZE } from "../../../management/reducers/AllCetegoryReducer";
 import AllCategoriesCreate from "../CreateCategories/AllCategories";
-import Loading from "../Sheard/Loading";
 import ServingSizeDetails from "./ServingSizeDetails";
 
 function ServingSize({ title, limit, setServingSizePage, searchTitle, setServingSizeSearch, servingSizePage, servingSizeCount }) {
@@ -39,13 +38,17 @@ function ServingSize({ title, limit, setServingSizePage, searchTitle, setServing
     const handleServingSizeOpen = () => setServingSizeOpen(true);
     const handleServingSizeClose = () => setServingSizeOpen(false);
     const dispatch = useDispatch()
-    const handleSingleClick = (servingSize) => {
-        dispatch({
-            type: SELECTED_SERVING_SIZE,
-            payload: {
-                data: servingSize,
-            }
-        })
+    const handleSingleClick = (servingSize, index) => {
+        if (servingSize) {
+            dispatch({
+                type: SELECTED_SERVING_SIZE,
+                payload: {
+                    data: servingSize,
+                }
+            })
+            toggleActive(index)
+        }
+        setServingSizeOpen(true)
     }
     return (
         <div>
@@ -63,16 +66,16 @@ function ServingSize({ title, limit, setServingSizePage, searchTitle, setServing
                     <div style={{ paddingLeft: '30px' }}>
                         <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{servingSizeCount && <> Total: {servingSizeCount} </>}</p>
                     </div>
-                    {category?.loading ? <Loading /> : category?.servingSize?.map((data, index) => (<button key={index} className={toggleActiveStyle(index)} onClick={() => handleSingleClick(data, toggleActive(index))}>
+                    {category?.servingSize?.length !== 0 && category?.servingSize?.map((data, index) => (<button key={index} className={toggleActiveStyle(index)}>
                         {/* {console.log(data)} */}
                         <Grid container spacing={0} alignItems="center" textAlign="left">
                             <Grid item xs={11}>
                                 <strong style={{ fontSize: '11px', marginRight: '3px' }}>{data?.servingSize}</strong>
                             </Grid>
                             <Grid item xs={1}>
-                                <BsThreeDots onClick={handleServingSizeOpen} />
+                                <BsThreeDots onClick={() => handleSingleClick(data, index)} />
                                 {/* {console.log(insideSubCategoryInfo)} */}
-                                <ServingSizeDetails handleServingSizeClose={handleServingSizeClose} handleServingSizeOpen={handleServingSizeOpen} servingSizeOpen={servingSizeOpen} />
+                                <ServingSizeDetails handleServingSizeClose={handleServingSizeClose} handleServingSizeOpen={handleServingSizeOpen} setServingSizeOpen={setServingSizeOpen} servingSizeOpen={servingSizeOpen} />
                             </Grid>
                         </Grid>
                     </button>))}

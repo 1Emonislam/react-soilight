@@ -39,13 +39,17 @@ function InsideSubCategory({ title, insideSubCategorySearch, setInsideSubCategor
     const handleInsideSubCategoryDetailsOpen = () => setInsideSubCategoryDetailsOpen(true);
     const handleInsideSubCategoryDetailsClose = () => setInsideSubCategoryDetailsOpen(false);
     const dispatch = useDispatch()
-    const handleSingleClick = (insideSubCategory) => {
-        dispatch({
-            type:SELECTED_INSIDE_SUB_SUB_CATEGORY,
-            payload: {
-                data: insideSubCategory,
-            }
-        })
+    const handleSingleClick = (insideSubCategory,index) => {
+        if (insideSubCategory) {
+            dispatch({
+                type: SELECTED_INSIDE_SUB_SUB_CATEGORY,
+                payload: {
+                    data: insideSubCategory,
+                }
+            })
+            toggleActive(index)
+        }
+        setInsideSubCategoryDetailsOpen(true)
     }
     return (
         <div>
@@ -63,14 +67,14 @@ function InsideSubCategory({ title, insideSubCategorySearch, setInsideSubCategor
                     <div style={{ paddingLeft: '30px' }}>
                         <p style={{ fontSize: '16px', color: '#AAAAAA' }}>{countInsideSubCategory && <> Total: {countInsideSubCategory} </>}</p>
                     </div>
-                    {!category?.insideSubCategory ? <Loading /> : category?.insideSubCategory?.map((data, index) => (<button key={index} className={toggleActiveStyle(index)} onClick={() => handleSingleClick(data, toggleActive(index))}>
+                    {!category?.insideSubCategory ? <Loading /> : category?.insideSubCategory?.map((data, index) => (<button key={index} className={toggleActiveStyle(index) }>
                         {/* {console.log(data)} */}
                         <Grid container spacing={0} alignItems="center" textAlign="left">
                             <Grid item xs={11}>
                                 <strong style={{ fontSize: '11px', marginRight: '3px' }}>{data?.insideSubCategory}</strong>
                             </Grid>
                             <Grid item xs={1}>
-                                <BsThreeDots onClick={handleInsideSubCategoryDetailsOpen} />
+                                <BsThreeDots onClick={() => handleSingleClick(data,index)} />
                                 {/* {console.log(insideSubCategoryInfo)} */}
                                 <InsideSubCategoryDetails handleInsideSubCategoryDetailsClose={handleInsideSubCategoryDetailsClose} handleInsideSubCategoryDetailsOpen={handleInsideSubCategoryDetailsOpen} insideSubCategoryDetailsOpen={insideSubCategoryDetailsOpen} />
                             </Grid>

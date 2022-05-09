@@ -20,12 +20,12 @@ const style = {
     p: 4,
 };
 
-export default function ServingSizeDetails({handleServingSizeClose, handleServingSizeOpen, servingSizeOpen }) {
+export default function ServingSizeDetails({handleServingSizeClose,setServingSizeOpen, handleServingSizeOpen, servingSizeOpen }) {
     const { register, reset, handleSubmit } = useForm();
     const dispatch = useDispatch()
     const { userLogin, category } = useSelector(state => state)
     const {selectedServingSize} = category;
-    const updatePackType = data => {
+    const servingSizeUpdate = data => {
         if (!selectedServingSize?._id) return
         dispatch({
             type: PROGRESS_CATEGORIES,
@@ -51,7 +51,6 @@ export default function ServingSizeDetails({handleServingSizeClose, handleServin
                     }
                 })
                 if (data.message) {
-                    window.location.reload()
                     toast(data.message, {
                         position: "top-right",
                         autoClose: 5000,
@@ -62,6 +61,60 @@ export default function ServingSizeDetails({handleServingSizeClose, handleServin
                         draggable: true,
                         progress: undefined,
                     });
+                    window.location.reload()
+                }
+                if (data.error) {
+                    Object.values(data.error).forEach(err => {
+                        toast(err, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            theme: 'light',
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    })
+                }
+            })
+    };
+    const servingSizeDelete = () => {
+        if (!selectedServingSize?._id) return
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/inside/serving/size/${selectedServingSize?._id}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                reset()
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                if (data.message) {
+                    toast(data.message, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        theme: 'light',
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    window.location.reload()
                 }
                 if (data.error) {
                     Object.values(data.error).forEach(err => {
@@ -93,9 +146,9 @@ export default function ServingSizeDetails({handleServingSizeClose, handleServin
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Update Serving Size
                         </Typography>
-                        <MdCancel onClick={handleServingSizeClose} />
+                        <MdCancel onClick={() => setServingSizeOpen(false)}/>
                     </div>
-                    <form onSubmit={handleSubmit(updatePackType)}>
+                    <form onSubmit={handleSubmit(servingSizeUpdate)}>
                         <Box >
                             <Typography
                                 sx={{
@@ -115,6 +168,10 @@ export default function ServingSizeDetails({handleServingSizeClose, handleServin
                             : <>
                                 <Button type="submit" style={{ textTransform: 'capitalize', marginTop: '30px' }} variant="contained">
                                     Update Serving Size
+                                </Button>
+                                
+                                <Button onClick={servingSizeDelete} style={{ textTransform: 'capitalize', marginTop: '30px', marginLeft: '20px', background: 'red' }} variant="contained">
+                                    Delete
                                 </Button>
                             </>}
                     </form>
