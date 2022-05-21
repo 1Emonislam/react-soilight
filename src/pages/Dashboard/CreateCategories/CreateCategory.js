@@ -33,7 +33,7 @@ export default function CreateCategory({ createCategoryOpen, handleCategoryOpen,
             setPreviewSource(reader?.result)
         }
     }
-    if (selected) {
+   if (selected.target?.files?.length) {
         const file = selected.target?.files[0];
         fileReader(file)
     }

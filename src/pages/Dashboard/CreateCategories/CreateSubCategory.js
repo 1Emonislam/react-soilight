@@ -23,6 +23,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
     const dispatch = useDispatch()
     const { register, reset, handleSubmit } = useForm();
     const { userLogin, category } = useSelector(state => state)
+    const [categorySearch, setCategorySearch] = useState('');
     const [selected, setSelected] = useState("")
     const [previewSource, setPreviewSource] = useState("")
     // console.log(groupData.error)
@@ -33,7 +34,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
             setPreviewSource(reader?.result)
         }
     }
-    if (selected) {
+    if (selected.target?.files?.length) {
         const file = selected.target?.files[0];
         fileReader(file)
     }
@@ -44,7 +45,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
                 loading: true
             }
         })
-        fetch('https://soilight.herokuapp.com/category', {
+        fetch(`https://soilight.herokuapp.com/category?page=1&limit=500&search=${categorySearch || ''}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -67,7 +68,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
                     }
                 })
             })
-    }, [dispatch, userLogin?.user?.token])
+    }, [categorySearch, dispatch, userLogin?.user?.token])
     const createSubCategory = data => {
         dispatch({
             type: PROGRESS_CATEGORIES,
@@ -76,7 +77,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
             }
         })
         if (previewSource) data.img = previewSource;
-        fetch('https://soilight.herokuapp.com/sub/category/', {
+        fetch('https://soilight.herokuapp.com/sub/category', {
             method: 'POST',
             headers: {
                 "Content-type": "application/json",
@@ -149,6 +150,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
                             style={{ fontFamily: `"Poppins", sans-serif` }}>
                             Choose a Category:
                         </Typography>
+                        <TextField fullWidth size="small" type="text" onChange={(e) => setCategorySearch(e.target.value)} placeholder="Search Category..." />
                         <select id="category" style={{ padding: '4px 10px', width: "100%", fontSize: '14px', color: 'gray', fontWeight: "bold", marginBottom: '10px' }} {...register("category", { min: 0 })} required >
                             {
                                 category?.category.map((category, index) => (
@@ -156,6 +158,7 @@ export default function CreateSubCategory({ createSubCategoryOpen, handleSubCate
                                 ))
                             }
                         </select>
+
                         <Box >
                             <Typography
                                 sx={{

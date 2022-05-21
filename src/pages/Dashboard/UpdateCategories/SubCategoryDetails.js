@@ -34,7 +34,7 @@ export default function SubCategoryDetails({ handleSubCategoryDetailsClose, hand
             setPreviewSource(reader?.result)
         }
     }
-    if (selected) {
+   if (selected.target?.files?.length) {
         const file = selected.target?.files[0];
         fileReader(file)
     }

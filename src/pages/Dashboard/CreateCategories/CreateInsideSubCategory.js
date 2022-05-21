@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,6 +22,8 @@ const style = {
 export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, handleInsideSubCategoryOpen, handleInsideSubCategoryClose, setInsideSubCategoryOpen }) {
     const dispatch = useDispatch()
     const { register, reset, handleSubmit } = useForm();
+    const [categorySearch, setCategorySearch] = useState('');
+    const [categorySubSearch, setSubCategorySearch] = useState('');
     const { userLogin, category } = useSelector(state => state)
     useEffect(() => {
         dispatch({
@@ -30,7 +32,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                 loading: true
             }
         })
-        fetch('https://soilight.herokuapp.com/category', {
+        fetch(`https://soilight.herokuapp.com/category?page=1&limit=500&search=${categorySearch || ''}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -53,7 +55,38 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                     }
                 })
             })
-    }, [dispatch, userLogin?.user?.token])
+    }, [categorySearch, dispatch, userLogin?.user?.token])
+    useEffect(() => {
+        dispatch({
+            type: PROGRESS_CATEGORIES,
+            payload: {
+                loading: true
+            }
+        })
+        fetch(`https://soilight.herokuapp.com/sub/category?page=1&limit=500&search=${categorySubSearch || ''}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json",
+                'Authorization': `Bearer ${userLogin?.user?.token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                dispatch({
+                    type: PROGRESS_CATEGORIES,
+                    payload: {
+                        loading: false
+                    }
+                })
+                //console.log(data)
+                dispatch({
+                    type: SUB_CATEGORY_STORE,
+                    payload: {
+                        subCategory: data.data
+                    }
+                })
+            })
+    }, [categorySubSearch, dispatch, userLogin?.user?.token])
     const handleClickSubCategory = (e) => {
         // console.log(e.target.value)
         dispatch({
@@ -165,6 +198,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                             style={{ fontFamily: `"Poppins", sans-serif` }}>
                             Choose a Category:
                         </Typography>
+                        <TextField fullWidth size="small" type="text" onChange={(e) => setCategorySearch(e.target.value)} placeholder="Search Category..." />
                         <select id="category" style={{ padding: '4px 10px', width: "100%", fontSize: '14px', color: 'gray', fontWeight: "bold", marginBottom: '10px' }} {...register("category", { min: 0 })} required onClick={(e) => handleClickSubCategory(e)}>
                             {
                                 category?.category?.map((category, index) => (
@@ -182,6 +216,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                                 style={{ fontFamily: `"Poppins", sans-serif` }}>
                                 Choose a Sub Category:
                             </Typography>
+                            <TextField fullWidth size="small" type="text" onChange={(e) => setSubCategorySearch(e.target.value)} placeholder="Search Sub Category..." />
                             <select id="subCategory" style={{ padding: '4px 10px', width: "100%", fontSize: '14px', color: 'gray', fontWeight: "bold", marginBottom: '10px' }} {...register("subCategory", { min: 0 })} required >
                                 {
                                     category?.subCategory?.map((subCategory, index) => (
