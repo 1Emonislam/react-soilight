@@ -22,7 +22,7 @@ const style = {
 export default function CreateServingSize({ createServingSizeOpen, handleServingSizeOpen, handleServingSizeClose, setCreateServingSizeOpen }) {
     const dispatch = useDispatch()
     const [categorySearch, setCategorySearch] = useState('');
-    const [categorySubSearch, setSubCategorySearch] = useState('');
+    const [subCategorySearch, setSubCategorySearch] = useState('');
     const { register, reset, handleSubmit } = useForm();
     const { userLogin, category } = useSelector(state => state)
     useEffect(() => {
@@ -63,7 +63,7 @@ export default function CreateServingSize({ createServingSizeOpen, handleServing
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/sub/category?page=1&limit=500&search=${categorySubSearch || ''}`, {
+        fetch(`https://soilight.herokuapp.com/sub/category?page=1&limit=500&search=${subCategorySearch || ''}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -86,7 +86,7 @@ export default function CreateServingSize({ createServingSizeOpen, handleServing
                     }
                 })
             })
-    }, [categorySubSearch, dispatch, userLogin?.user?.token])
+    }, [subCategorySearch, dispatch, userLogin?.user?.token])
 
     const handleClickSubCategory = (e) => {
         // console.log(e.target.value)

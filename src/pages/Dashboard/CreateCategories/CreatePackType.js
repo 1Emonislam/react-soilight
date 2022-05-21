@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ export default function CreatePackType({ createPackTypeOpen, handlePackTypeOpen,
     const dispatch = useDispatch()
     const { register, reset, handleSubmit } = useForm();
     const [categorySearch, setCategorySearch] = useState('');
-    const [categorySubSearch, setSubCategorySearch] = useState('');
+    const [subCategorySearch, setSubCategorySearch] = useState('');
     const { userLogin, category } = useSelector(state => state)
     useEffect(() => {
         dispatch({
@@ -63,7 +63,7 @@ export default function CreatePackType({ createPackTypeOpen, handlePackTypeOpen,
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/sub/category?page=1&limit=500&search=${categorySubSearch || ''}`, {
+        fetch(`https://soilight.herokuapp.com/sub/category?page=1&limit=500&search=${subCategorySearch || ''}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -86,7 +86,7 @@ export default function CreatePackType({ createPackTypeOpen, handlePackTypeOpen,
                     }
                 })
             })
-    }, [categorySubSearch, dispatch, userLogin?.user?.token])
+    }, [subCategorySearch, dispatch, userLogin?.user?.token])
     const handleClickSubCategory = (e) => {
         // console.log(e.target.value)
         dispatch({
