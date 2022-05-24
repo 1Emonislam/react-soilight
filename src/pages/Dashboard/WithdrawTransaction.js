@@ -29,7 +29,7 @@ function WithdrawTransaction() {
         let search = searchText || '';
         setStatus('pending')
         try {
-            await fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=pending&page=${page}&limit=${limit}`, {
+            await fetch(`http://18.142.184.204:7000/balance/withdraw/status/history?search=${search}&status=pending&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -55,7 +55,7 @@ function WithdrawTransaction() {
         let search = searchText || '';
         setStatus('approved')
         try {
-            await fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=approved&page=${page}&limit=${limit}`, {
+            await fetch(`http://18.142.184.204:7000/balance/withdraw/status/history?search=${search}&status=approved&page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -80,7 +80,7 @@ function WithdrawTransaction() {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         setStatus('cancelled')
         let search = searchText || '';
-        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=cancelled&page=${page}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/balance/withdraw/status/history?search=${search}&status=cancelled&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -101,7 +101,7 @@ function WithdrawTransaction() {
     useEffect(() => {
         let search = searchText || '';
         let statusText = status || '';
-        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/history?search=${search}&status=${statusText || 'pending'}&page=${page}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/balance/withdraw/status/history?search=${search}&status=${statusText || 'pending'}&page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -119,7 +119,7 @@ function WithdrawTransaction() {
     }, [page, searchText, status, user?.token]);
     const handleSingleClick = (id) => {
         // console.log(id)
-        fetch(`https://soilight.herokuapp.com/balance/withdraw/${id}`, {
+        fetch(`http://18.142.184.204:7000/balance/withdraw/${id}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -135,7 +135,7 @@ function WithdrawTransaction() {
     const withdrawApproved = (id) => {
         setIsOpen(true)
         // console.log(id)
-        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/${id}`, {
+        fetch(`http://18.142.184.204:7000/balance/withdraw/status/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -166,7 +166,7 @@ function WithdrawTransaction() {
 
     const withdrawCancelled = (id) => {
         setIsOpen(true)
-        fetch(`https://soilight.herokuapp.com/balance/withdraw/status/${id}`, {
+        fetch(`http://18.142.184.204:7000/balance/withdraw/status/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

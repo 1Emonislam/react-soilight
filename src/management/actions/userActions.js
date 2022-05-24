@@ -9,7 +9,7 @@ export const login = (subData, reset, navigate) => async (dispatch) => {
                 "Content-type": "application/json"
             }
         }
-        const { data } = await axios.post('https://soilight.herokuapp.com/users/login', subData, config);
+        const { data } = await axios.post('http://18.142.184.204:7000/users/login', subData, config);
         window.localStorage.setItem('user', JSON.stringify(data))
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
         if (data?.message) {
@@ -39,7 +39,7 @@ export const registerUser = (subData, picUrl, reset) => async (dispatch) => {
                 "Content-type": "application/json"
             }
         }
-        const { data } = await axios.post('https://soilight.herokuapp.com/users/users/buyer', subData, config)
+        const { data } = await axios.post('http://18.142.184.204:7000/users/users/buyer', subData, config)
         dispatch({ type: USER_REGISTER_SUCCESS, payload: data })
         if (data) {
             reset()

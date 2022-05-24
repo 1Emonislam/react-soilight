@@ -29,7 +29,7 @@ function Login() {
     return (
         <>
             <div className="auth-container">
-                <div className="logo-head"><img sx={{ display: 'block', margin: '0 auto' }} src={logo} alt="soilight logo" />
+                <div className="logo-head"><img sx={{ display: 'block', margin: '0 auto' }} src={logo} alt="soillight logo" />
 
                 </div>
                 <Typography variant="h5" sx={{ textAlign: 'center', fontWeight: '400' }} gutterBottom component="div">

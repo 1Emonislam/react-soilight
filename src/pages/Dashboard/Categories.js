@@ -35,7 +35,7 @@ function Categories() {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/category?search=${categorySearch || ''}&page=${pageCategory}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/category?search=${categorySearch || ''}&page=${pageCategory}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -70,7 +70,7 @@ function Categories() {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/sub/category?search=${subCategorySearch || ''}&page=${pageSubCategory}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/sub/category?search=${subCategorySearch || ''}&page=${pageSubCategory}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -103,7 +103,7 @@ function Categories() {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/sub/category?search=${insideSubCategorySearch || ''}&page=${pageInsideSubCategory}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/inside/sub/category?search=${insideSubCategorySearch || ''}&page=${pageInsideSubCategory}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -136,7 +136,7 @@ function Categories() {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/pack/type?search=${packTypeSearch || ''}&page=${packTypePage}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/inside/pack/type?search=${packTypeSearch || ''}&page=${packTypePage}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -169,7 +169,7 @@ function Categories() {
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/serving/size?search=${servingSizeSearch || ''}&page=${servingSizePage}&limit=${limit}`, {
+        fetch(`http://18.142.184.204:7000/inside/serving/size?search=${servingSizeSearch || ''}&page=${servingSizePage}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",

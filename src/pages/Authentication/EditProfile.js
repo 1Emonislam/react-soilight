@@ -34,8 +34,8 @@ function EditProfile() {
   };
   // console.log(url && url)
   const onSubmit = data => {
-    //https://soilight.herokuapp.com
-    fetch(`https://soilight.herokuapp.com/users`, {
+    //http://18.142.184.204:7000
+    fetch(`http://18.142.184.204:7000/users`, {
       method: 'PUT',
       headers: {
         "access-control-allow-origin": "*",
@@ -74,7 +74,7 @@ function EditProfile() {
   }, [open]);
   useEffect(() => {
     if (url) {
-      fetch(`https://soilight.herokuapp.com/users`, {
+      fetch(`http://18.142.184.204:7000/users`, {
         method: 'PUT',
         headers: {
           "access-control-allow-origin": "*",

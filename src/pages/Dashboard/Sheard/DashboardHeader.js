@@ -11,7 +11,7 @@ function DashboardHeader({ title }) {
             <Grid container spacing={0} alignItems="center">
                 <Grid item xs={2}>
                     <div className="logo">
-                        <img src={logo} style={{ width: '144px' }} alt="Soilight logo" />
+                        <img src={logo} style={{ width: '144px' }} alt="soillight logo" />
                     </div>
                 </Grid>
                 <Grid item xs={9}>

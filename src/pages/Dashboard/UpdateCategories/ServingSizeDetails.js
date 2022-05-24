@@ -33,7 +33,7 @@ export default function ServingSizeDetails({handleServingSizeClose,setServingSiz
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/serving/size/${selectedServingSize?._id}`, {
+        fetch(`http://18.142.184.204:7000/inside/serving/size/${selectedServingSize?._id}`, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
@@ -87,7 +87,7 @@ export default function ServingSizeDetails({handleServingSizeClose,setServingSiz
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/inside/serving/size/${selectedServingSize?._id}`, {
+        fetch(`http://18.142.184.204:7000/inside/serving/size/${selectedServingSize?._id}`, {
             method: 'DELETE',
             headers: {
                 "Content-type": "application/json",

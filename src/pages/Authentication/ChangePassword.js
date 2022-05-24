@@ -17,7 +17,7 @@ const ChangePassword = () => {
     const [open, setOpen] = useState(false);
     const { register, reset, handleSubmit } = useForm();
     const onSubmit = data => {
-        fetch(`https://soilight.herokuapp.com/users/change-password`, {
+        fetch(`http://18.142.184.204:7000/users/change-password`, {
             method: 'PUT',
             headers: {
                 "access-control-allow-origin": "*",

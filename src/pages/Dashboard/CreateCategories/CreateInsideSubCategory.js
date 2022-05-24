@@ -32,7 +32,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/category?page=1&limit=500&search=${categorySearch || ''}`, {
+        fetch(`http://18.142.184.204:7000/category?page=1&limit=500&search=${categorySearch || ''}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -63,7 +63,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/sub/category?page=1&limit=500&search=${subCategorySearch || ''}`, {
+        fetch(`http://18.142.184.204:7000/sub/category?page=1&limit=500&search=${subCategorySearch || ''}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -95,7 +95,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                 loading: true
             }
         })
-        fetch(`https://soilight.herokuapp.com/sub/category/${e.target?.value}`, {
+        fetch(`http://18.142.184.204:7000/sub/category/${e.target?.value}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
@@ -126,7 +126,7 @@ export default function CreateInsideSubCategory({ createInsideSubCategoryOpen, h
                 loading: true
             }
         })
-        fetch('https://soilight.herokuapp.com/inside/sub/category/', {
+        fetch('http://18.142.184.204:7000/inside/sub/category/', {
             method: 'POST',
             headers: {
                 "Content-type": "application/json",
